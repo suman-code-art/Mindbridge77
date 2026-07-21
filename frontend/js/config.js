@@ -75,8 +75,8 @@ export const API_ENDPOINTS = {
 
     // Stress questionnaire analysis
 
-    analyzeStress:
-        `${API_BASE_URL}/api/analyze-stress`
+    stressReflection:
+    `${API_BASE_URL}/api/stress-reflection`
 
 
 };

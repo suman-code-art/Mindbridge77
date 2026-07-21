@@ -1,17 +1,10 @@
 // ==========================================================
 // MINDBRIDGE - STRESS CHECK
 // File: frontend/js/stress.js
-// Camera-free questionnaire version
+// Questionnaire-only version
 // ==========================================================
 
-
-// ==========================================================
-// IMPORT API CONFIGURATION
-// ==========================================================
-
-import {
-    API_ENDPOINTS
-} from "./config.js";
+import { API_ENDPOINTS } from "./config.js";
 
 
 // ==========================================================
@@ -81,14 +74,12 @@ const restartCheckBtn =
 // ==========================================================
 
 let questions = [];
-
 let answers = [];
-
 let currentQuestionIndex = 0;
 
 
 // ==========================================================
-// SHOW / HIDE HELPERS
+// UI HELPERS
 // ==========================================================
 
 function showElement(element) {
@@ -108,10 +99,6 @@ function hideElement(element) {
 
 }
 
-
-// ==========================================================
-// STATUS MESSAGE
-// ==========================================================
 
 function showStatusMessage(message) {
 
@@ -154,14 +141,15 @@ if (startCheckBtn) {
 
 
 // ==========================================================
-// GENERATE STRESS QUESTIONS
+// GENERATE QUESTIONS USING GEMINI BACKEND
 // ==========================================================
 
 async function generateQuestions() {
 
     console.log(
-        "Starting stress questionnaire..."
+        "Starting Gemini stress questionnaire..."
     );
+
 
     hideStatusMessage();
 
@@ -179,7 +167,7 @@ async function generateQuestions() {
     try {
 
         console.log(
-            "Calling:",
+            "Calling question endpoint:",
             API_ENDPOINTS.generateStressQuestions
         );
 
@@ -190,22 +178,18 @@ async function generateQuestions() {
                 method: "POST",
 
                 headers: {
-                    "Content-Type":
-                        "application/json"
+                    "Content-Type": "application/json"
                 },
 
                 body: JSON.stringify({
-                    question_count: 7
+                    context: ""
                 })
             }
         );
 
 
-        // ----------------------------------------------
-        // READ RESPONSE
-        // ----------------------------------------------
-
         let data;
+
 
         try {
 
@@ -213,7 +197,7 @@ async function generateQuestions() {
 
         }
 
-        catch (jsonError) {
+        catch (error) {
 
             throw new Error(
                 "The server returned an invalid response."
@@ -223,98 +207,61 @@ async function generateQuestions() {
 
 
         console.log(
-            "Question API Response:",
+            "Question API response:",
             data
         );
 
 
-        // ----------------------------------------------
-        // HANDLE SERVER ERROR
-        // ----------------------------------------------
-
         if (!response.ok) {
 
             throw new Error(
-
                 data.error ||
-                data.message ||
                 "Unable to generate stress questions."
-
             );
 
         }
 
 
-        // ----------------------------------------------
-        // EXTRACT QUESTIONS
-        // ----------------------------------------------
-
-        if (Array.isArray(data.questions)) {
-
-            questions =
-                data.questions;
-
-        }
-
-        else if (
-            data.data &&
-            Array.isArray(data.data.questions)
+        if (
+            !data.success ||
+            !Array.isArray(data.questions)
         ) {
 
-            questions =
-                data.data.questions;
-
-        }
-
-        else if (Array.isArray(data.data)) {
-
-            questions =
-                data.data;
-
-        }
-
-        else {
-
             throw new Error(
-                "The server did not return any questions."
+                "The server did not return valid stress questions."
             );
 
         }
 
 
-        // ----------------------------------------------
-        // NORMALIZE QUESTION FORMAT
-        // ----------------------------------------------
+        // Backend returns:
+        //
+        // [
+        //   {
+        //      id: 1,
+        //      question: "..."
+        //   }
+        // ]
 
-        questions = questions
-            .map((question) => {
+        questions = data.questions
+            .map((item) => {
 
                 if (
-                    typeof question ===
-                    "string"
+                    typeof item === "string"
                 ) {
 
-                    return question.trim();
+                    return item.trim();
 
                 }
 
 
                 if (
-                    question &&
-                    typeof question ===
-                    "object"
+                    item &&
+                    typeof item === "object"
                 ) {
 
-                    return (
-
-                        question.question ||
-
-                        question.text ||
-
-                        question.prompt ||
-
-                        ""
-
+                    return String(
+                        item.question || ""
                     ).trim();
 
                 }
@@ -326,37 +273,31 @@ async function generateQuestions() {
             .filter(Boolean);
 
 
-        // ----------------------------------------------
-        // VERIFY QUESTIONS
-        // ----------------------------------------------
+        // Backend requires exactly 7 answers later.
 
-        if (questions.length === 0) {
+        if (questions.length !== 7) {
 
             throw new Error(
-                "No valid questions were returned by the server."
+                "The questionnaire must contain exactly 7 questions."
             );
 
         }
 
 
         console.log(
-            "Stress Questions:",
+            "Gemini questions loaded:",
             questions
         );
 
 
-        // ----------------------------------------------
-        // INITIALIZE QUESTIONNAIRE
-        // ----------------------------------------------
+        // Create 7 empty answer positions.
 
         answers =
-            new Array(
-                questions.length
-            ).fill(null);
+            new Array(questions.length)
+                .fill(null);
 
 
-        currentQuestionIndex =
-            0;
+        currentQuestionIndex = 0;
 
 
         hideElement(
@@ -376,7 +317,7 @@ async function generateQuestions() {
     catch (error) {
 
         console.error(
-            "Stress Question Generation Error:",
+            "Generate Questions Error:",
             error
         );
 
@@ -392,11 +333,8 @@ async function generateQuestions() {
 
 
         showStatusMessage(
-
             error.message ||
-
-            "Unable to prepare your Stress Check. Please try again."
-
+            "Unable to generate your questions. Please try again."
         );
 
     }
@@ -405,7 +343,7 @@ async function generateQuestions() {
 
 
 // ==========================================================
-// DISPLAY QUESTION
+// DISPLAY CURRENT QUESTION
 // ==========================================================
 
 function displayQuestion() {
@@ -427,41 +365,37 @@ function displayQuestion() {
         currentQuestionIndex + 1;
 
 
-    // ------------------------------------------------------
+    // ======================================================
     // QUESTION TEXT
-    // ------------------------------------------------------
+    // ======================================================
 
     if (questionText) {
 
         questionText.textContent =
-            questions[
-                currentQuestionIndex
-            ];
+            questions[currentQuestionIndex];
 
     }
 
 
-    // ------------------------------------------------------
-    // QUESTION PROGRESS
-    // ------------------------------------------------------
+    // ======================================================
+    // QUESTION NUMBER
+    // ======================================================
 
     if (questionProgress) {
 
         questionProgress.textContent =
-
             `Question ${questionNumber} of ${totalQuestions}`;
 
     }
 
 
-    // ------------------------------------------------------
+    // ======================================================
     // PROGRESS BAR
-    // ------------------------------------------------------
+    // ======================================================
 
     if (progressBar) {
 
-        const progressPercentage =
-
+        const percentage =
             (
                 questionNumber /
                 totalQuestions
@@ -469,28 +403,26 @@ function displayQuestion() {
 
 
         progressBar.style.width =
-
-            `${progressPercentage}%`;
+            `${percentage}%`;
 
     }
 
 
-    // ------------------------------------------------------
+    // ======================================================
     // PREVIOUS BUTTON
-    // ------------------------------------------------------
+    // ======================================================
 
     if (previousQuestionBtn) {
 
         previousQuestionBtn.disabled =
-
             currentQuestionIndex === 0;
 
     }
 
 
-    // ------------------------------------------------------
+    // ======================================================
     // RESTORE SELECTED ANSWER
-    // ------------------------------------------------------
+    // ======================================================
 
     scoreButtons.forEach(
         (button) => {
@@ -501,22 +433,17 @@ function displayQuestion() {
 
 
             const buttonScore =
-
                 Number(
                     button.dataset.score
                 );
 
 
-            const savedAnswer =
-
-                answers[
-                    currentQuestionIndex
-                ];
+            const currentAnswer =
+                answers[currentQuestionIndex];
 
 
             if (
-                savedAnswer ===
-                buttonScore
+                currentAnswer === buttonScore
             ) {
 
                 button.classList.add(
@@ -529,22 +456,14 @@ function displayQuestion() {
     );
 
 
-    // ------------------------------------------------------
+    // ======================================================
     // NEXT BUTTON
-    // ------------------------------------------------------
+    // ======================================================
 
     if (nextQuestionBtn) {
 
-        const currentAnswer =
-
-            answers[
-                currentQuestionIndex
-            ];
-
-
         nextQuestionBtn.disabled =
-
-            currentAnswer === null;
+            answers[currentQuestionIndex] === null;
 
 
         if (
@@ -581,24 +500,30 @@ scoreButtons.forEach(
             () => {
 
                 const selectedScore =
-
                     Number(
                         button.dataset.score
                     );
 
 
-                // ------------------------------------------
-                // SAVE ANSWER
-                // ------------------------------------------
+                // Only accept 1-5.
 
-                answers[
-                    currentQuestionIndex
-                ] = selectedScore;
+                if (
+                    selectedScore < 1 ||
+                    selectedScore > 5
+                ) {
+
+                    return;
+
+                }
 
 
-                // ------------------------------------------
-                // REMOVE OLD SELECTION
-                // ------------------------------------------
+                // Save answer.
+
+                answers[currentQuestionIndex] =
+                    selectedScore;
+
+
+                // Remove previous selection.
 
                 scoreButtons.forEach(
                     (item) => {
@@ -611,18 +536,14 @@ scoreButtons.forEach(
                 );
 
 
-                // ------------------------------------------
-                // HIGHLIGHT NEW SELECTION
-                // ------------------------------------------
+                // Highlight selected button.
 
                 button.classList.add(
                     "selected"
                 );
 
 
-                // ------------------------------------------
-                // ENABLE NEXT BUTTON
-                // ------------------------------------------
+                // Enable next button.
 
                 if (nextQuestionBtn) {
 
@@ -630,6 +551,9 @@ scoreButtons.forEach(
                         false;
 
                 }
+
+
+                hideStatusMessage();
 
             }
         );
@@ -674,16 +598,12 @@ if (nextQuestionBtn) {
         "click",
         () => {
 
-            // ----------------------------------------------
-            // REQUIRE ANSWER
-            // ----------------------------------------------
+            const currentAnswer =
+                answers[currentQuestionIndex];
+
 
             if (
-
-                answers[
-                    currentQuestionIndex
-                ] === null
-
+                currentAnswer === null
             ) {
 
                 showStatusMessage(
@@ -698,16 +618,11 @@ if (nextQuestionBtn) {
             hideStatusMessage();
 
 
-            // ----------------------------------------------
-            // GO TO NEXT QUESTION
-            // ----------------------------------------------
+            // More questions remaining.
 
             if (
-
                 currentQuestionIndex <
-
                 questions.length - 1
-
             ) {
 
                 currentQuestionIndex++;
@@ -719,11 +634,9 @@ if (nextQuestionBtn) {
             }
 
 
-            // ----------------------------------------------
-            // FINISHED ALL QUESTIONS
-            // ----------------------------------------------
+            // All 7 questions completed.
 
-            analyzeStress();
+            submitStressReflection();
 
         }
     );
@@ -732,14 +645,52 @@ if (nextQuestionBtn) {
 
 
 // ==========================================================
-// ANALYZE STRESS QUESTIONNAIRE
+// SUBMIT ANSWERS FOR GEMINI REFLECTION
 // ==========================================================
 
-async function analyzeStress() {
+async function submitStressReflection() {
 
     console.log(
-        "Submitting stress questionnaire..."
+        "Submitting questionnaire for Gemini reflection..."
     );
+
+
+    // Ensure exactly 7 questions.
+
+    if (
+        questions.length !== 7 ||
+        answers.length !== 7
+    ) {
+
+        showStatusMessage(
+            "The questionnaire is incomplete. Please restart the Stress Check."
+        );
+
+        return;
+
+    }
+
+
+    // Ensure every answer is valid.
+
+    const allAnswersValid =
+        answers.every(
+            (score) =>
+                Number.isInteger(score) &&
+                score >= 1 &&
+                score <= 5
+        );
+
+
+    if (!allAnswersValid) {
+
+        showStatusMessage(
+            "Please answer all 7 questions before continuing."
+        );
+
+        return;
+
+    }
 
 
     hideStatusMessage();
@@ -755,12 +706,25 @@ async function analyzeStress() {
 
     try {
 
-        // ----------------------------------------------
-        // CREATE QUESTION / ANSWER STRUCTURE
-        // ----------------------------------------------
+        // ==================================================
+        // FORMAT EXACTLY AS app.py EXPECTS
+        // ==================================================
+        //
+        // app.py expects:
+        //
+        // {
+        //   answers: [
+        //      {
+        //          question: "...",
+        //          score: 3
+        //      }
+        //   ]
+        // }
+        //
+        // Exactly 7 objects.
+        // ==================================================
 
-        const responses =
-
+        const formattedAnswers =
             questions.map(
                 (
                     question,
@@ -781,24 +745,32 @@ async function analyzeStress() {
             );
 
 
+        const requestBody = {
+
+            answers:
+                formattedAnswers
+
+        };
+
+
         console.log(
-            "Stress Responses:",
-            responses
+            "Stress Reflection Request:",
+            requestBody
         );
 
 
         console.log(
-            "Calling:",
-            API_ENDPOINTS.analyzeStress
+            "Calling reflection endpoint:",
+            API_ENDPOINTS.stressReflection
         );
 
 
-        // ----------------------------------------------
-        // SEND TO BACKEND
-        // ----------------------------------------------
+        // ==================================================
+        // CALL /api/stress-reflection
+        // ==================================================
 
         const response = await fetch(
-            API_ENDPOINTS.analyzeStress,
+            API_ENDPOINTS.stressReflection,
             {
                 method: "POST",
 
@@ -807,24 +779,16 @@ async function analyzeStress() {
                         "application/json"
                 },
 
-                body: JSON.stringify({
-
-                    answers:
-                        answers,
-
-                    responses:
-                        responses
-
-                })
+                body:
+                    JSON.stringify(
+                        requestBody
+                    )
             }
         );
 
 
-        // ----------------------------------------------
-        // READ RESPONSE
-        // ----------------------------------------------
-
         let data;
+
 
         try {
 
@@ -833,43 +797,40 @@ async function analyzeStress() {
 
         }
 
-        catch (jsonError) {
+        catch (error) {
 
             throw new Error(
-                "The server returned an invalid analysis response."
+                "The server returned an invalid reflection response."
             );
 
         }
 
 
         console.log(
-            "Stress Analysis Response:",
+            "Stress Reflection Response:",
             data
         );
 
 
-        // ----------------------------------------------
-        // HANDLE SERVER ERROR
-        // ----------------------------------------------
-
         if (!response.ok) {
 
             throw new Error(
-
                 data.error ||
-
-                data.message ||
-
-                "Unable to analyze your responses."
-
+                "Unable to generate your stress reflection."
             );
 
         }
 
 
-        // ----------------------------------------------
-        // SHOW RESULT
-        // ----------------------------------------------
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "The stress reflection could not be generated."
+            );
+
+        }
+
 
         displayResult(data);
 
@@ -878,7 +839,7 @@ async function analyzeStress() {
     catch (error) {
 
         console.error(
-            "Stress Analysis Error:",
+            "Stress Reflection Error:",
             error
         );
 
@@ -894,11 +855,8 @@ async function analyzeStress() {
 
 
         showStatusMessage(
-
             error.message ||
-
-            "Unable to prepare your reflection. Please try again."
-
+            "Unable to generate your reflection. Please try again."
         );
 
     }
@@ -907,7 +865,7 @@ async function analyzeStress() {
 
 
 // ==========================================================
-// DISPLAY RESULT
+// DISPLAY GEMINI REFLECTION RESULT
 // ==========================================================
 
 function displayResult(data) {
@@ -923,30 +881,11 @@ function displayResult(data) {
 
 
     // ======================================================
-    // CALCULATE FALLBACK SCORE
+    // QUESTIONNAIRE DATA
     // ======================================================
 
-    const calculatedScore =
-
-        answers.reduce(
-            (
-                total,
-                score
-            ) => {
-
-                return (
-
-                    total +
-
-                    Number(
-                        score || 0
-                    )
-
-                );
-
-            },
-            0
-        );
+    const questionnaire =
+        data.questionnaire || {};
 
 
     // ======================================================
@@ -955,32 +894,54 @@ function displayResult(data) {
 
     if (resultScore) {
 
-        resultScore.textContent =
+        const score =
+            questionnaire.score;
 
-            data.score ??
 
-            data.total_score ??
+        const maximumScore =
+            questionnaire.maximum_score;
 
-            data.stress_score ??
 
-            calculatedScore;
+        if (
+            score !== undefined &&
+            maximumScore !== undefined
+        ) {
+
+            resultScore.textContent =
+                `${score} / ${maximumScore}`;
+
+        }
+
+        else if (
+            score !== undefined
+        ) {
+
+            resultScore.textContent =
+                score;
+
+        }
+
+        else {
+
+            resultScore.textContent =
+                "--";
+
+        }
 
     }
 
 
     // ======================================================
-    // STRESS / REFLECTION LEVEL
+    // REFLECTION LEVEL
     // ======================================================
 
     if (resultLevel) {
 
         resultLevel.textContent =
 
-            data.level ??
+            questionnaire.reflection_level ||
 
-            data.stress_level ??
-
-            data.category ??
+            questionnaire.level ||
 
             "Reflection Complete";
 
@@ -988,28 +949,22 @@ function displayResult(data) {
 
 
     // ======================================================
-    // AI REFLECTION
+    // GEMINI PERSONALIZED REFLECTION
     // ======================================================
 
     if (resultReflection) {
 
         resultReflection.textContent =
 
-            data.reflection ??
+            data.reflection ||
 
-            data.message ??
-
-            data.analysis ??
-
-            data.summary ??
-
-            "Thank you for taking a moment to reflect on how you have been feeling.";
+            "Thank you for taking time to reflect on how you have been feeling recently.";
 
     }
 
 
     // ======================================================
-    // SUGGESTIONS
+    // GEMINI WELLNESS SUGGESTIONS
     // ======================================================
 
     if (suggestionsList) {
@@ -1019,23 +974,11 @@ function displayResult(data) {
 
 
         let suggestions =
+            data.suggestions || [];
 
-            data.suggestions ??
-
-            data.recommendations ??
-
-            data.wellness_suggestions ??
-
-            [];
-
-
-        // --------------------------------------------------
-        // CONVERT STRING TO ARRAY
-        // --------------------------------------------------
 
         if (
-            typeof suggestions ===
-            "string"
+            typeof suggestions === "string"
         ) {
 
             suggestions = [
@@ -1045,55 +988,39 @@ function displayResult(data) {
         }
 
 
-        // --------------------------------------------------
-        // DISPLAY BACKEND SUGGESTIONS
-        // --------------------------------------------------
-
         if (
-
-            Array.isArray(
-                suggestions
-            ) &&
-
+            Array.isArray(suggestions) &&
             suggestions.length > 0
-
         ) {
 
             suggestions.forEach(
                 (suggestion) => {
 
-                    const listItem =
+                    const text =
+                        String(
+                            suggestion || ""
+                        ).trim();
 
+
+                    if (!text) {
+
+                        return;
+
+                    }
+
+
+                    const item =
                         document.createElement(
                             "li"
                         );
 
 
-                    if (
-                        typeof suggestion ===
-                        "string"
-                    ) {
-
-                        listItem.textContent =
-                            suggestion;
-
-                    }
-
-                    else {
-
-                        listItem.textContent =
-
-                            suggestion.text ||
-
-                            suggestion.message ||
-
-                            "Take a moment to focus on your wellbeing.";
-
-                    }
+                    item.textContent =
+                        text;
 
 
                     suggestionsList.appendChild(
-                        listItem
+                        item
                     );
 
                 }
@@ -1103,39 +1030,34 @@ function displayResult(data) {
 
         else {
 
-            // ----------------------------------------------
-            // FALLBACK WELLNESS SUGGESTIONS
-            // ----------------------------------------------
-
-            const defaultSuggestions = [
+            const fallbackSuggestions = [
 
                 "Take a short break and give yourself time to reset.",
 
-                "Try slow breathing or a brief grounding exercise.",
+                "Break larger tasks into smaller, manageable steps.",
 
-                "Consider taking a short walk or stepping away from screens for a few minutes.",
+                "Try a brief breathing or grounding exercise.",
 
-                "If something is weighing on you, consider talking with someone you trust."
+                "Consider talking with someone you trust if you feel overwhelmed."
 
             ];
 
 
-            defaultSuggestions.forEach(
+            fallbackSuggestions.forEach(
                 (suggestion) => {
 
-                    const listItem =
-
+                    const item =
                         document.createElement(
                             "li"
                         );
 
 
-                    listItem.textContent =
+                    item.textContent =
                         suggestion;
 
 
                     suggestionsList.appendChild(
-                        listItem
+                        item
                     );
 
                 }
@@ -1154,9 +1076,9 @@ function displayResult(data) {
 
         resultDisclaimer.textContent =
 
-            data.disclaimer ??
+            data.disclaimer ||
 
-            "This result is intended for general wellness and self-reflection only. It is not a medical or mental-health diagnosis.";
+            "This Stress Check is intended for general wellness and self-reflection only. It is not a medical or mental-health diagnosis.";
 
     }
 
@@ -1192,9 +1114,7 @@ if (restartCheckBtn) {
         "click",
         () => {
 
-            // ----------------------------------------------
-            // RESET STATE
-            // ----------------------------------------------
+            // Reset state.
 
             questions = [];
 
@@ -1203,9 +1123,7 @@ if (restartCheckBtn) {
             currentQuestionIndex = 0;
 
 
-            // ----------------------------------------------
-            // RESET UI
-            // ----------------------------------------------
+            // Reset UI.
 
             hideElement(
                 resultSection
@@ -1232,9 +1150,7 @@ if (restartCheckBtn) {
             hideStatusMessage();
 
 
-            // ----------------------------------------------
-            // RESET SCORE BUTTONS
-            // ----------------------------------------------
+            // Clear selected score buttons.
 
             scoreButtons.forEach(
                 (button) => {
@@ -1247,9 +1163,7 @@ if (restartCheckBtn) {
             );
 
 
-            // ----------------------------------------------
-            // RESET PROGRESS
-            // ----------------------------------------------
+            // Reset progress bar.
 
             if (progressBar) {
 
@@ -1259,9 +1173,20 @@ if (restartCheckBtn) {
             }
 
 
-            // ----------------------------------------------
-            // SCROLL TO TOP
-            // ----------------------------------------------
+            // Reset button.
+
+            if (nextQuestionBtn) {
+
+                nextQuestionBtn.disabled =
+                    true;
+
+                nextQuestionBtn.textContent =
+                    "Next Question";
+
+            }
+
+
+            // Scroll to page top.
 
             window.scrollTo(
                 {
@@ -1280,7 +1205,7 @@ if (restartCheckBtn) {
 
 
 // ==========================================================
-// INITIALIZATION
+// INITIALIZATION / DEBUG
 // ==========================================================
 
 console.log(
@@ -1288,11 +1213,11 @@ console.log(
 );
 
 console.log(
-    "Generate Questions API:",
+    "Gemini Question API:",
     API_ENDPOINTS.generateStressQuestions
 );
 
 console.log(
-    "Analyze Stress API:",
-    API_ENDPOINTS.analyzeStress
+    "Gemini Reflection API:",
+    API_ENDPOINTS.stressReflection
 );

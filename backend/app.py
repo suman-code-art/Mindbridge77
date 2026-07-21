@@ -1500,7 +1500,7 @@ def analyze_expression():
                 img_path=frame,
                 actions=["emotion"],
                 detector_backend="opencv",
-                enforce_detection=True,
+                enforce_detection=False,
                 silent=True
             )
         except Exception as deepface_error:

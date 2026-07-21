@@ -25,7 +25,7 @@
 import {
     auth,
     db
-} from "../../firebase/firebase-config.js";
+} from "../firebase/firebase-config.js";
 
 
 
@@ -557,8 +557,7 @@ document.addEventListener(
                         // REDIRECT
                         // ==================================
 
-                        window.location.href =
-                            "./dashboard.html";
+                        window.location.replace("./login.html");
 
 
                     } catch (error) {
@@ -590,6 +589,32 @@ document.addEventListener(
                             ),
                             "error"
                         );
+
+
+                        // Existing account:
+                        // show the error, then redirect to Login.
+                        if (
+                            error.code ===
+                            "auth/email-already-in-use"
+                        ) {
+
+                            setButtonLoading(
+                                submitButton,
+                                false,
+                                "Create Account"
+                            );
+
+                            setTimeout(
+                                () => {
+                                    window.location.replace(
+                                        "./login.html"
+                                    );
+                                },
+                                1800
+                            );
+
+                            return;
+                        }
 
 
 
@@ -884,8 +909,7 @@ document.addEventListener(
                         // REDIRECT TO DASHBOARD
                         // ==================================
 
-                        window.location.href =
-                            "./dashboard.html";
+                        window.location.replace("./dashboard.html");
 
 
                     } catch (error) {

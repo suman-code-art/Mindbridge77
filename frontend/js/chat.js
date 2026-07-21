@@ -28,7 +28,7 @@
 
 import {
     auth
-} from "../../firebase/firebase-config.js";
+} from "../firebase/firebase-config.js";
 
 
 // ==========================================================

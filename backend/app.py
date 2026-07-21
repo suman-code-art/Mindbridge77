@@ -94,6 +94,8 @@ STREAM_MODEL_PATH = os.path.join(
 
 
 stream_model = None
+stream_model_features = []
+stream_model_classes = []
 
 
 try:
@@ -102,12 +104,47 @@ try:
         STREAM_MODEL_PATH
     ):
 
-        stream_model = joblib.load(
+        model_bundle = joblib.load(
             STREAM_MODEL_PATH
         )
 
+        if isinstance(model_bundle, dict):
+
+            stream_model = model_bundle.get("model")
+            stream_model_features = model_bundle.get("features", [])
+            stream_model_classes = model_bundle.get("classes", [])
+
+        else:
+
+            stream_model = model_bundle
+
+        if stream_model is None:
+            raise ValueError(
+                "stream_model.joblib was loaded, but the trained model could not be found."
+            )
+
+        if not hasattr(stream_model, "predict"):
+            raise TypeError(
+                "The loaded stream model does not support predict()."
+            )
+
         print(
             "Stream recommendation model loaded successfully."
+        )
+
+        print(
+            "Stream model type:",
+            type(stream_model)
+        )
+
+        print(
+            "Stream model features:",
+            stream_model_features
+        )
+
+        print(
+            "Stream model classes:",
+            stream_model_classes
         )
 
     else:
@@ -127,6 +164,12 @@ except Exception as error:
         "Stream model loading error:",
         str(error)
     )
+
+    traceback.print_exc()
+
+    stream_model = None
+    stream_model_features = []
+    stream_model_classes = []
 
 
 # ==========================================================

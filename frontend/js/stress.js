@@ -1,6 +1,7 @@
 // ==========================================================
 // MINDBRIDGE - STRESS CHECK
 // File: frontend/js/stress.js
+// Camera-free questionnaire version
 // ==========================================================
 
 
@@ -14,80 +15,62 @@ import {
 
 
 // ==========================================================
-// ELEMENTS
+// DOM ELEMENTS
 // ==========================================================
 
 const statusMessage =
     document.getElementById("statusMessage");
 
-
 const startSection =
     document.getElementById("startSection");
-
 
 const startCheckBtn =
     document.getElementById("startCheckBtn");
 
-
 const questionLoadingSection =
     document.getElementById("questionLoadingSection");
-
 
 const questionnaireSection =
     document.getElementById("questionnaireSection");
 
-
 const questionProgress =
     document.getElementById("questionProgress");
-
 
 const progressBar =
     document.getElementById("progressBar");
 
-
 const questionText =
     document.getElementById("questionText");
-
 
 const scoreButtons =
     document.querySelectorAll(".score-btn");
 
-
 const previousQuestionBtn =
     document.getElementById("previousQuestionBtn");
-
 
 const nextQuestionBtn =
     document.getElementById("nextQuestionBtn");
 
-
 const resultLoadingSection =
     document.getElementById("resultLoadingSection");
-
 
 const resultSection =
     document.getElementById("resultSection");
 
-
 const resultScore =
     document.getElementById("resultScore");
-
 
 const resultLevel =
     document.getElementById("resultLevel");
 
-
 const resultReflection =
     document.getElementById("resultReflection");
-
 
 const suggestionsList =
     document.getElementById("suggestionsList");
 
-
 const resultDisclaimer =
     document.getElementById("resultDisclaimer");
-
 
 const restartCheckBtn =
     document.getElementById("restartCheckBtn");
@@ -105,15 +88,13 @@ let currentQuestionIndex = 0;
 
 
 // ==========================================================
-// HELPER FUNCTIONS
+// SHOW / HIDE HELPERS
 // ==========================================================
 
 function showElement(element) {
 
     if (element) {
-
         element.classList.remove("hidden");
-
     }
 
 }
@@ -122,9 +103,7 @@ function showElement(element) {
 function hideElement(element) {
 
     if (element) {
-
         element.classList.add("hidden");
-
     }
 
 }
@@ -134,24 +113,15 @@ function hideElement(element) {
 // STATUS MESSAGE
 // ==========================================================
 
-function showStatusMessage(
-    message
-) {
+function showStatusMessage(message) {
 
     if (!statusMessage) {
-
         return;
-
     }
 
+    statusMessage.textContent = message;
 
-    statusMessage.textContent =
-        message;
-
-
-    showElement(
-        statusMessage
-    );
+    showElement(statusMessage);
 
 }
 
@@ -159,19 +129,12 @@ function showStatusMessage(
 function hideStatusMessage() {
 
     if (!statusMessage) {
-
         return;
-
     }
 
+    statusMessage.textContent = "";
 
-    statusMessage.textContent =
-        "";
-
-
-    hideElement(
-        statusMessage
-    );
+    hideElement(statusMessage);
 
 }
 
@@ -183,87 +146,91 @@ function hideStatusMessage() {
 if (startCheckBtn) {
 
     startCheckBtn.addEventListener(
-
         "click",
-
-        () => {
-
-            generateQuestions();
-
-        }
-
+        generateQuestions
     );
 
 }
 
 
 // ==========================================================
-// GENERATE QUESTIONS
+// GENERATE STRESS QUESTIONS
 // ==========================================================
 
 async function generateQuestions() {
 
+    console.log(
+        "Starting stress questionnaire..."
+    );
 
     hideStatusMessage();
 
+    hideElement(startSection);
 
-    hideElement(
-        startSection
-    );
+    hideElement(questionnaireSection);
 
+    hideElement(resultSection);
 
-    hideElement(
-        questionnaireSection
-    );
+    hideElement(resultLoadingSection);
 
-
-    hideElement(
-        resultSection
-    );
-
-
-    showElement(
-        questionLoadingSection
-    );
+    showElement(questionLoadingSection);
 
 
     try {
 
-
-        const response =
-            await fetch(
-
-                API_ENDPOINTS.generateStressQuestions,
-
-                {
-
-                    method:
-                        "POST",
+        console.log(
+            "Calling:",
+            API_ENDPOINTS.generateStressQuestions
+        );
 
 
-                    headers: {
+        const response = await fetch(
+            API_ENDPOINTS.generateStressQuestions,
+            {
+                method: "POST",
 
-                        "Content-Type":
-                            "application/json"
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
 
-                    },
+                body: JSON.stringify({
+                    question_count: 7
+                })
+            }
+        );
 
 
-                    body:
-                        JSON.stringify({
+        // ----------------------------------------------
+        // READ RESPONSE
+        // ----------------------------------------------
 
-                            question_count: 7
+        let data;
 
-                        })
+        try {
 
-                }
+            data = await response.json();
 
+        }
+
+        catch (jsonError) {
+
+            throw new Error(
+                "The server returned an invalid response."
             );
 
+        }
 
-        const data =
-            await response.json();
 
+        console.log(
+            "Question API Response:",
+            data
+        );
+
+
+        // ----------------------------------------------
+        // HANDLE SERVER ERROR
+        // ----------------------------------------------
 
         if (!response.ok) {
 
@@ -271,22 +238,18 @@ async function generateQuestions() {
 
                 data.error ||
                 data.message ||
-                "Could not generate stress questions."
+                "Unable to generate stress questions."
 
             );
 
         }
 
 
-        // ==================================================
-        // SUPPORT MULTIPLE BACKEND RESPONSE FORMATS
-        // ==================================================
+        // ----------------------------------------------
+        // EXTRACT QUESTIONS
+        // ----------------------------------------------
 
-        if (
-            Array.isArray(
-                data.questions
-            )
-        ) {
+        if (Array.isArray(data.questions)) {
 
             questions =
                 data.questions;
@@ -294,10 +257,16 @@ async function generateQuestions() {
         }
 
         else if (
-            Array.isArray(
-                data.data
-            )
+            data.data &&
+            Array.isArray(data.data.questions)
         ) {
+
+            questions =
+                data.data.questions;
+
+        }
+
+        else if (Array.isArray(data.data)) {
 
             questions =
                 data.data;
@@ -307,30 +276,34 @@ async function generateQuestions() {
         else {
 
             throw new Error(
-                "No questions were returned by the server."
+                "The server did not return any questions."
             );
 
         }
 
 
-        // ==================================================
-        // NORMALIZE QUESTIONS
-        // ==================================================
+        // ----------------------------------------------
+        // NORMALIZE QUESTION FORMAT
+        // ----------------------------------------------
 
-        questions =
-            questions.map(
+        questions = questions
+            .map((question) => {
 
-                (question) => {
+                if (
+                    typeof question ===
+                    "string"
+                ) {
 
-                    if (
-                        typeof question ===
-                        "string"
-                    ) {
+                    return question.trim();
 
-                        return question;
+                }
 
-                    }
 
+                if (
+                    question &&
+                    typeof question ===
+                    "object"
+                ) {
 
                     return (
 
@@ -340,29 +313,41 @@ async function generateQuestions() {
 
                         question.prompt ||
 
-                        "How have you been feeling recently?"
+                        ""
 
-                    );
+                    ).trim();
 
                 }
 
-            );
+
+                return "";
+
+            })
+            .filter(Boolean);
 
 
-        if (
-            questions.length === 0
-        ) {
+        // ----------------------------------------------
+        // VERIFY QUESTIONS
+        // ----------------------------------------------
+
+        if (questions.length === 0) {
 
             throw new Error(
-                "The server returned an empty questionnaire."
+                "No valid questions were returned by the server."
             );
 
         }
 
 
-        // ==================================================
-        // INITIALIZE ANSWERS
-        // ==================================================
+        console.log(
+            "Stress Questions:",
+            questions
+        );
+
+
+        // ----------------------------------------------
+        // INITIALIZE QUESTIONNAIRE
+        // ----------------------------------------------
 
         answers =
             new Array(
@@ -386,11 +371,9 @@ async function generateQuestions() {
 
         displayQuestion();
 
-
     }
 
     catch (error) {
-
 
         console.error(
             "Stress Question Generation Error:",
@@ -412,10 +395,9 @@ async function generateQuestions() {
 
             error.message ||
 
-            "Unable to prepare the stress check. Please try again."
+            "Unable to prepare your Stress Check. Please try again."
 
         );
-
 
     }
 
@@ -423,14 +405,13 @@ async function generateQuestions() {
 
 
 // ==========================================================
-// DISPLAY CURRENT QUESTION
+// DISPLAY QUESTION
 // ==========================================================
 
 function displayQuestion() {
 
-
     if (
-        !questions.length
+        questions.length === 0
     ) {
 
         return;
@@ -446,79 +427,96 @@ function displayQuestion() {
         currentQuestionIndex + 1;
 
 
-    // ======================================================
+    // ------------------------------------------------------
     // QUESTION TEXT
-    // ======================================================
+    // ------------------------------------------------------
 
-    questionText.textContent =
-        questions[
-            currentQuestionIndex
-        ];
+    if (questionText) {
 
+        questionText.textContent =
+            questions[
+                currentQuestionIndex
+            ];
 
-
-    // ======================================================
-    // PROGRESS TEXT
-    // ======================================================
-
-    questionProgress.textContent =
-
-        `Question ${questionNumber} of ${totalQuestions}`;
+    }
 
 
+    // ------------------------------------------------------
+    // QUESTION PROGRESS
+    // ------------------------------------------------------
 
-    // ======================================================
+    if (questionProgress) {
+
+        questionProgress.textContent =
+
+            `Question ${questionNumber} of ${totalQuestions}`;
+
+    }
+
+
+    // ------------------------------------------------------
     // PROGRESS BAR
-    // ======================================================
+    // ------------------------------------------------------
 
-    const progressPercentage =
+    if (progressBar) {
 
-        (
-            questionNumber /
-            totalQuestions
-        ) * 100;
+        const progressPercentage =
 
-
-    progressBar.style.width =
-
-        `${progressPercentage}%`;
+            (
+                questionNumber /
+                totalQuestions
+            ) * 100;
 
 
+        progressBar.style.width =
 
-    // ======================================================
+            `${progressPercentage}%`;
+
+    }
+
+
+    // ------------------------------------------------------
     // PREVIOUS BUTTON
-    // ======================================================
+    // ------------------------------------------------------
 
-    previousQuestionBtn.disabled =
+    if (previousQuestionBtn) {
 
-        currentQuestionIndex === 0;
+        previousQuestionBtn.disabled =
+
+            currentQuestionIndex === 0;
+
+    }
 
 
-
-    // ======================================================
-    // RESET SCORE BUTTONS
-    // ======================================================
+    // ------------------------------------------------------
+    // RESTORE SELECTED ANSWER
+    // ------------------------------------------------------
 
     scoreButtons.forEach(
-
         (button) => {
-
 
             button.classList.remove(
                 "selected"
             );
 
 
-            const score =
+            const buttonScore =
+
                 Number(
                     button.dataset.score
                 );
 
 
-            if (
+            const savedAnswer =
+
                 answers[
                     currentQuestionIndex
-                ] === score
+                ];
+
+
+            if (
+                savedAnswer ===
+                buttonScore
             ) {
 
                 button.classList.add(
@@ -527,44 +525,44 @@ function displayQuestion() {
 
             }
 
-
         }
-
     );
 
 
-
-    // ======================================================
+    // ------------------------------------------------------
     // NEXT BUTTON
-    // ======================================================
+    // ------------------------------------------------------
 
-    const currentAnswer =
+    if (nextQuestionBtn) {
 
-        answers[
-            currentQuestionIndex
-        ];
+        const currentAnswer =
 
-
-    nextQuestionBtn.disabled =
-
-        currentAnswer === null;
+            answers[
+                currentQuestionIndex
+            ];
 
 
+        nextQuestionBtn.disabled =
 
-    if (
-        currentQuestionIndex ===
-        totalQuestions - 1
-    ) {
+            currentAnswer === null;
 
-        nextQuestionBtn.textContent =
-            "View My Reflection";
 
-    }
+        if (
+            currentQuestionIndex ===
+            totalQuestions - 1
+        ) {
 
-    else {
+            nextQuestionBtn.textContent =
+                "View My Reflection";
 
-        nextQuestionBtn.textContent =
-            "Next Question";
+        }
+
+        else {
+
+            nextQuestionBtn.textContent =
+                "Next Question";
+
+        }
 
     }
 
@@ -576,16 +574,11 @@ function displayQuestion() {
 // ==========================================================
 
 scoreButtons.forEach(
-
     (button) => {
 
-
         button.addEventListener(
-
             "click",
-
             () => {
-
 
                 const selectedScore =
 
@@ -594,16 +587,20 @@ scoreButtons.forEach(
                     );
 
 
+                // ------------------------------------------
+                // SAVE ANSWER
+                // ------------------------------------------
+
                 answers[
                     currentQuestionIndex
                 ] = selectedScore;
 
 
-
-                // Remove previous selection
+                // ------------------------------------------
+                // REMOVE OLD SELECTION
+                // ------------------------------------------
 
                 scoreButtons.forEach(
-
                     (item) => {
 
                         item.classList.remove(
@@ -611,32 +608,33 @@ scoreButtons.forEach(
                         );
 
                     }
-
                 );
 
 
-
-                // Highlight current selection
+                // ------------------------------------------
+                // HIGHLIGHT NEW SELECTION
+                // ------------------------------------------
 
                 button.classList.add(
                     "selected"
                 );
 
 
+                // ------------------------------------------
+                // ENABLE NEXT BUTTON
+                // ------------------------------------------
 
-                // Enable next button
+                if (nextQuestionBtn) {
 
-                nextQuestionBtn.disabled =
-                    false;
+                    nextQuestionBtn.disabled =
+                        false;
 
+                }
 
             }
-
         );
 
-
     }
-
 );
 
 
@@ -647,11 +645,8 @@ scoreButtons.forEach(
 if (previousQuestionBtn) {
 
     previousQuestionBtn.addEventListener(
-
         "click",
-
         () => {
-
 
             if (
                 currentQuestionIndex > 0
@@ -659,14 +654,11 @@ if (previousQuestionBtn) {
 
                 currentQuestionIndex--;
 
-
                 displayQuestion();
 
             }
 
-
         }
-
     );
 
 }
@@ -679,11 +671,12 @@ if (previousQuestionBtn) {
 if (nextQuestionBtn) {
 
     nextQuestionBtn.addEventListener(
-
         "click",
-
         () => {
 
+            // ----------------------------------------------
+            // REQUIRE ANSWER
+            // ----------------------------------------------
 
             if (
 
@@ -693,14 +686,21 @@ if (nextQuestionBtn) {
 
             ) {
 
+                showStatusMessage(
+                    "Please select an answer before continuing."
+                );
+
                 return;
 
             }
 
 
-            // ==================================================
-            // MOVE TO NEXT QUESTION
-            // ==================================================
+            hideStatusMessage();
+
+
+            // ----------------------------------------------
+            // GO TO NEXT QUESTION
+            // ----------------------------------------------
 
             if (
 
@@ -710,46 +710,43 @@ if (nextQuestionBtn) {
 
             ) {
 
-
                 currentQuestionIndex++;
 
-
                 displayQuestion();
-
 
                 return;
 
             }
 
 
-
-            // ==================================================
-            // ALL QUESTIONS COMPLETED
-            // ==================================================
+            // ----------------------------------------------
+            // FINISHED ALL QUESTIONS
+            // ----------------------------------------------
 
             analyzeStress();
 
         }
-
     );
 
 }
 
 
 // ==========================================================
-// ANALYZE STRESS
+// ANALYZE STRESS QUESTIONNAIRE
 // ==========================================================
 
 async function analyzeStress() {
 
+    console.log(
+        "Submitting stress questionnaire..."
+    );
+
 
     hideStatusMessage();
-
 
     hideElement(
         questionnaireSection
     );
-
 
     showElement(
         resultLoadingSection
@@ -758,15 +755,13 @@ async function analyzeStress() {
 
     try {
 
+        // ----------------------------------------------
+        // CREATE QUESTION / ANSWER STRUCTURE
+        // ----------------------------------------------
 
-        // ==================================================
-        // CREATE QUESTION + ANSWER STRUCTURE
-        // ==================================================
-
-        const responseData =
+        const responses =
 
             questions.map(
-
                 (
                     question,
                     index
@@ -783,57 +778,79 @@ async function analyzeStress() {
                     };
 
                 }
-
             );
 
 
-
-        // ==================================================
-        // CALL BACKEND
-        // ==================================================
-
-        const response =
-
-            await fetch(
-
-                API_ENDPOINTS.analyzeStress,
-
-                {
-
-                    method:
-                        "POST",
+        console.log(
+            "Stress Responses:",
+            responses
+        );
 
 
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
+        console.log(
+            "Calling:",
+            API_ENDPOINTS.analyzeStress
+        );
 
 
-                    body:
-                        JSON.stringify({
+        // ----------------------------------------------
+        // SEND TO BACKEND
+        // ----------------------------------------------
 
-                            answers:
-                                answers,
+        const response = await fetch(
+            API_ENDPOINTS.analyzeStress,
+            {
+                method: "POST",
 
-                            responses:
-                                responseData
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
 
-                        })
+                body: JSON.stringify({
 
-                }
+                    answers:
+                        answers,
 
+                    responses:
+                        responses
+
+                })
+            }
+        );
+
+
+        // ----------------------------------------------
+        // READ RESPONSE
+        // ----------------------------------------------
+
+        let data;
+
+        try {
+
+            data =
+                await response.json();
+
+        }
+
+        catch (jsonError) {
+
+            throw new Error(
+                "The server returned an invalid analysis response."
             );
 
+        }
 
 
-        const data =
+        console.log(
+            "Stress Analysis Response:",
+            data
+        );
 
-            await response.json();
 
-
+        // ----------------------------------------------
+        // HANDLE SERVER ERROR
+        // ----------------------------------------------
 
         if (!response.ok) {
 
@@ -850,27 +867,19 @@ async function analyzeStress() {
         }
 
 
+        // ----------------------------------------------
+        // SHOW RESULT
+        // ----------------------------------------------
 
-        // ==================================================
-        // DISPLAY RESULT
-        // ==================================================
-
-        displayResult(
-            data
-        );
-
+        displayResult(data);
 
     }
 
     catch (error) {
 
-
         console.error(
-
             "Stress Analysis Error:",
-
             error
-
         );
 
 
@@ -892,7 +901,6 @@ async function analyzeStress() {
 
         );
 
-
     }
 
 }
@@ -902,10 +910,7 @@ async function analyzeStress() {
 // DISPLAY RESULT
 // ==========================================================
 
-function displayResult(
-    data
-) {
-
+function displayResult(data) {
 
     hideElement(
         resultLoadingSection
@@ -917,184 +922,228 @@ function displayResult(
     );
 
 
-
     // ======================================================
-    // SCORE
+    // CALCULATE FALLBACK SCORE
     // ======================================================
 
     const calculatedScore =
 
         answers.reduce(
-
             (
                 total,
                 score
-            ) =>
+            ) => {
 
-                total +
-                Number(
-                    score || 0
-                ),
+                return (
 
+                    total +
+
+                    Number(
+                        score || 0
+                    )
+
+                );
+
+            },
             0
-
         );
 
 
+    // ======================================================
+    // SCORE
+    // ======================================================
 
-    resultScore.textContent =
+    if (resultScore) {
 
-        data.score ??
+        resultScore.textContent =
 
-        data.total_score ??
+            data.score ??
 
-        data.stress_score ??
+            data.total_score ??
 
-        calculatedScore;
+            data.stress_score ??
 
+            calculatedScore;
+
+    }
 
 
     // ======================================================
-    // LEVEL
+    // STRESS / REFLECTION LEVEL
     // ======================================================
 
-    resultLevel.textContent =
+    if (resultLevel) {
 
-        data.level ??
+        resultLevel.textContent =
 
-        data.stress_level ??
+            data.level ??
 
-        data.category ??
+            data.stress_level ??
 
-        "Reflection Complete";
+            data.category ??
 
+            "Reflection Complete";
+
+    }
 
 
     // ======================================================
-    // REFLECTION
+    // AI REFLECTION
     // ======================================================
 
-    resultReflection.textContent =
+    if (resultReflection) {
 
-        data.reflection ??
+        resultReflection.textContent =
 
-        data.message ??
+            data.reflection ??
 
-        data.analysis ??
+            data.message ??
 
-        data.summary ??
+            data.analysis ??
 
-        "Thank you for taking a moment to check in with yourself.";
+            data.summary ??
 
+            "Thank you for taking a moment to reflect on how you have been feeling.";
+
+    }
 
 
     // ======================================================
     // SUGGESTIONS
     // ======================================================
 
-    suggestionsList.innerHTML =
-        "";
+    if (suggestionsList) {
+
+        suggestionsList.innerHTML =
+            "";
 
 
-    const suggestions =
+        let suggestions =
 
-        data.suggestions ??
+            data.suggestions ??
 
-        data.recommendations ??
+            data.recommendations ??
 
-        data.wellness_suggestions ??
+            data.wellness_suggestions ??
 
-        [];
-
-
-    if (
-        Array.isArray(
-            suggestions
-        ) &&
-        suggestions.length > 0
-    ) {
+            [];
 
 
-        suggestions.forEach(
+        // --------------------------------------------------
+        // CONVERT STRING TO ARRAY
+        // --------------------------------------------------
 
-            (suggestion) => {
+        if (
+            typeof suggestions ===
+            "string"
+        ) {
+
+            suggestions = [
+                suggestions
+            ];
+
+        }
 
 
-                const listItem =
+        // --------------------------------------------------
+        // DISPLAY BACKEND SUGGESTIONS
+        // --------------------------------------------------
 
-                    document.createElement(
-                        "li"
+        if (
+
+            Array.isArray(
+                suggestions
+            ) &&
+
+            suggestions.length > 0
+
+        ) {
+
+            suggestions.forEach(
+                (suggestion) => {
+
+                    const listItem =
+
+                        document.createElement(
+                            "li"
+                        );
+
+
+                    if (
+                        typeof suggestion ===
+                        "string"
+                    ) {
+
+                        listItem.textContent =
+                            suggestion;
+
+                    }
+
+                    else {
+
+                        listItem.textContent =
+
+                            suggestion.text ||
+
+                            suggestion.message ||
+
+                            "Take a moment to focus on your wellbeing.";
+
+                    }
+
+
+                    suggestionsList.appendChild(
+                        listItem
                     );
 
+                }
+            );
 
-                listItem.textContent =
+        }
 
-                    typeof suggestion ===
-                    "string"
+        else {
 
-                        ? suggestion
+            // ----------------------------------------------
+            // FALLBACK WELLNESS SUGGESTIONS
+            // ----------------------------------------------
 
-                        : suggestion.text ||
-                          suggestion.message ||
-                          JSON.stringify(
-                              suggestion
-                          );
+            const defaultSuggestions = [
 
+                "Take a short break and give yourself time to reset.",
 
-                suggestionsList.appendChild(
-                    listItem
-                );
+                "Try slow breathing or a brief grounding exercise.",
 
+                "Consider taking a short walk or stepping away from screens for a few minutes.",
 
-            }
+                "If something is weighing on you, consider talking with someone you trust."
 
-        );
-
-
-    }
-
-    else {
+            ];
 
 
-        const defaultSuggestions = [
+            defaultSuggestions.forEach(
+                (suggestion) => {
 
-            "Take a short break and give yourself time to reset.",
+                    const listItem =
 
-            "Try slow breathing or a brief grounding exercise.",
-
-            "Consider talking with someone you trust if something is weighing on you."
-
-        ];
-
-
-        defaultSuggestions.forEach(
-
-            (suggestion) => {
+                        document.createElement(
+                            "li"
+                        );
 
 
-                const listItem =
+                    listItem.textContent =
+                        suggestion;
 
-                    document.createElement(
-                        "li"
+
+                    suggestionsList.appendChild(
+                        listItem
                     );
 
+                }
+            );
 
-                listItem.textContent =
-                    suggestion;
-
-
-                suggestionsList.appendChild(
-                    listItem
-                );
-
-
-            }
-
-        );
-
+        }
 
     }
-
 
 
     // ======================================================
@@ -1107,25 +1156,28 @@ function displayResult(
 
             data.disclaimer ??
 
-            "This result is intended for general wellness and self-reflection only and is not a medical or mental-health diagnosis.";
+            "This result is intended for general wellness and self-reflection only. It is not a medical or mental-health diagnosis.";
 
     }
-
 
 
     // ======================================================
     // SCROLL TO RESULT
     // ======================================================
 
-    resultSection.scrollIntoView({
+    if (resultSection) {
 
-        behavior:
-            "smooth",
+        resultSection.scrollIntoView(
+            {
+                behavior:
+                    "smooth",
 
-        block:
-            "start"
+                block:
+                    "start"
+            }
+        );
 
-    });
+    }
 
 }
 
@@ -1137,50 +1189,40 @@ function displayResult(
 if (restartCheckBtn) {
 
     restartCheckBtn.addEventListener(
-
         "click",
-
         () => {
 
+            // ----------------------------------------------
+            // RESET STATE
+            // ----------------------------------------------
 
-            // Reset application state
+            questions = [];
 
-            questions =
-                [];
+            answers = [];
 
-
-            answers =
-                [];
-
-
-            currentQuestionIndex =
-                0;
+            currentQuestionIndex = 0;
 
 
-
-            // Hide result
+            // ----------------------------------------------
+            // RESET UI
+            // ----------------------------------------------
 
             hideElement(
                 resultSection
             );
 
-
             hideElement(
                 resultLoadingSection
             );
-
 
             hideElement(
                 questionnaireSection
             );
 
-
             hideElement(
                 questionLoadingSection
             );
 
-
-            // Show start screen
 
             showElement(
                 startSection
@@ -1190,11 +1232,11 @@ if (restartCheckBtn) {
             hideStatusMessage();
 
 
-
-            // Reset button selections
+            // ----------------------------------------------
+            // RESET SCORE BUTTONS
+            // ----------------------------------------------
 
             scoreButtons.forEach(
-
                 (button) => {
 
                     button.classList.remove(
@@ -1202,32 +1244,43 @@ if (restartCheckBtn) {
                     );
 
                 }
-
             );
 
 
-            // Scroll to top
+            // ----------------------------------------------
+            // RESET PROGRESS
+            // ----------------------------------------------
 
-            window.scrollTo({
+            if (progressBar) {
 
-                top:
-                    0,
+                progressBar.style.width =
+                    "0%";
 
-                behavior:
-                    "smooth"
+            }
 
-            });
 
+            // ----------------------------------------------
+            // SCROLL TO TOP
+            // ----------------------------------------------
+
+            window.scrollTo(
+                {
+                    top:
+                        0,
+
+                    behavior:
+                        "smooth"
+                }
+            );
 
         }
-
     );
 
 }
 
 
 // ==========================================================
-// DEBUG
+// INITIALIZATION
 // ==========================================================
 
 console.log(

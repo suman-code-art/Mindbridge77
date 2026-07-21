@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="MindBridge AI Support Chat"
+    >
+
+    <title>
+        AI Support Chat | MindBridge
+    </title>
+
+
+    <!-- Global Styles -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+
+    <!-- Chat Styles -->
+
+    <link
+        rel="stylesheet"
+        href="../css/chat.css"
+    >
+
+</head>
+
+
+<body class="chat-page">
+
+
+    <!-- =====================================================
+         AUTHENTICATION LOADING
+    ====================================================== -->
+
+    <div
+        id="authLoading"
+        class="auth-loading"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Loading MindBridge AI...
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CHAT APPLICATION
+    ====================================================== -->
+
+    <div
+        id="chatApp"
+        class="chat-app hidden"
+    >
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside
+            class="chat-sidebar"
+            id="chatSidebar"
+        >
+
+
+            <!-- Brand -->
+
+            <div class="sidebar-brand">
+
+                <a href="dashboard.html">
+
+                    <div class="brand-logo">
+                        M
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            MindBridge
+                        </strong>
+
+                        <small>
+                            Career & Mental Health Support
+                        </small>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Navigation -->
+
+            <nav class="sidebar-navigation">
+
+
+                <a
+                    href="dashboard.html"
+                    class="sidebar-link"
+                >
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="chat.html"
+                    class="sidebar-link active"
+                >
+                    <span>✦</span>
+                    AI Support Chat
+                </a>
+
+
+                <a
+                    href="checkin.html"
+                    class="sidebar-link"
+                >
+                    <span>♡</span>
+                    Emotional Check-In
+                </a>
+
+
+                <a
+                    href="immediate-help.html"
+                    class="sidebar-link"
+                >
+                    <span>◎</span>
+                    Immediate Help
+                </a>
+
+
+                <a
+                    href="wellness.html"
+                    class="sidebar-link"
+                >
+                    <span>◇</span>
+                    Wellness Activities
+                </a>
+
+
+                <a
+                    href="stress-check.html"
+                    class="sidebar-link"
+                >
+                    <span>◌</span>
+                    Stress Check
+                </a>
+
+
+                <div class="sidebar-divider"></div>
+
+
+                <p class="sidebar-section-label">
+                    CAREER GUIDANCE
+                </p>
+
+
+                <a
+                    href="career.html"
+                    class="sidebar-link"
+                >
+                    <span>↗</span>
+                    Career Guidance
+                </a>
+
+
+                <a
+                    href="career-chat.html"
+                    class="sidebar-link"
+                >
+                    <span>✧</span>
+                    AI Career Counselor
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- Sidebar Footer -->
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-user">
+
+                    <div
+                        class="sidebar-avatar"
+                        id="sidebarAvatar"
+                    >
+                        U
+                    </div>
+
+
+                    <div>
+
+                        <strong id="sidebarUserName">
+                            MindBridge User
+                        </strong>
+
+                        <small id="sidebarUserEmail">
+                            Loading...
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="logoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN CHAT
+        ================================================== -->
+
+        <main class="chat-main">
+
+
+            <!-- Header -->
+
+            <header class="chat-header">
+
+
+                <div class="chat-header-left">
+
+
+                    <button
+                        type="button"
+                        id="sidebarToggle"
+                        class="sidebar-toggle"
+                        aria-label="Toggle navigation"
+                    >
+                        ☰
+                    </button>
+
+
+                    <div class="ai-avatar">
+                        ✦
+                    </div>
+
+
+                    <div>
+
+                        <h1>
+                            MindBridge AI
+                        </h1>
+
+                        <div class="ai-status">
+
+                            <span class="status-dot"></span>
+
+                            AI Support Assistant
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <a
+                    href="immediate-help.html"
+                    class="immediate-help-link"
+                >
+                    Immediate Help
+                </a>
+
+
+            </header>
+
+
+
+            <!-- =================================================
+                 CHAT CONTENT
+            ================================================== -->
+
+            <section class="chat-content">
+
+
+                <!-- Safety Notice -->
+
+                <div class="chat-notice">
+
+                    <span>
+                        i
+                    </span>
+
+                    <p>
+                        MindBridge AI provides general emotional
+                        wellness support and is not a replacement
+                        for professional mental health care or
+                        emergency services.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Messages -->
+
+                <div
+                    id="chatMessages"
+                    class="chat-messages"
+                    aria-live="polite"
+                >
+
+
+                    <!-- Initial AI Message -->
+
+                    <div class="message-row ai-message-row">
+
+
+                        <div class="message-avatar ai-message-avatar">
+                            ✦
+                        </div>
+
+
+                        <div class="message-content">
+
+
+                            <div class="message-sender">
+                                MindBridge AI
+                            </div>
+
+
+                            <div class="message-bubble ai-bubble">
+
+                                <p>
+                                    Hi! I'm MindBridge AI.
+                                </p>
+
+                                <p>
+                                    I'm here to offer general
+                                    emotional wellness support and
+                                    help you think through what's
+                                    on your mind.
+                                </p>
+
+                                <p>
+                                    How are you feeling today?
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Typing Indicator -->
+
+                <div
+                    id="typingIndicator"
+                    class="typing-indicator hidden"
+                >
+
+                    <div class="typing-avatar">
+                        ✦
+                    </div>
+
+
+                    <div class="typing-bubble">
+
+                        <span></span>
+
+                        <span></span>
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Suggested Prompts -->
+
+                <div
+                    id="suggestedPrompts"
+                    class="suggested-prompts"
+                >
+
+                    <button
+                        type="button"
+                        class="suggested-prompt"
+                        data-message="I'm feeling stressed and overwhelmed today."
+                    >
+                        I'm feeling stressed
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="suggested-prompt"
+                        data-message="I have been having trouble focusing lately."
+                    >
+                        I can't focus
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="suggested-prompt"
+                        data-message="I feel anxious about something coming up."
+                    >
+                        I'm feeling anxious
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="suggested-prompt"
+                        data-message="Can you suggest a simple wellness activity I can do right now?"
+                    >
+                        Suggest an activity
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CHAT INPUT
+            ================================================== -->
+
+            <footer class="chat-input-area">
+
+
+                <form
+                    id="chatForm"
+                    class="chat-form"
+                >
+
+
+                    <textarea
+                        id="messageInput"
+                        rows="1"
+                        maxlength="5000"
+                        placeholder="Share what's on your mind..."
+                        aria-label="Message MindBridge AI"
+                        required
+                    ></textarea>
+
+
+
+                    <button
+                        type="submit"
+                        id="sendButton"
+                        class="send-button"
+                    >
+                        Send
+                    </button>
+
+
+                </form>
+
+
+                <p
+                    id="chatError"
+                    class="chat-error"
+                ></p>
+
+
+                <p class="chat-disclaimer">
+
+                    AI responses may not always be accurate.
+                    For emergencies, contact local emergency
+                    services or a trusted person nearby.
+
+                </p>
+
+
+            </footer>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="../js/chat.js"
+    ></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2425 @@
+/* ==========================================================
+   MINDBRIDGE - AI CAREER COUNSELOR
+   File: frontend/css/career-chat.css
+========================================================== */
+
+
+/* ==========================================================
+   VARIABLES
+========================================================== */
+
+:root {
+
+    --career-bg-main: #061725;
+
+    --career-bg-sidebar: #051522;
+
+    --career-bg-card: #0a2130;
+
+    --career-bg-card-light: #0e2938;
+
+    --career-bg-hover: #123444;
+
+
+    --career-border: #173748;
+
+    --career-border-light: #245164;
+
+
+    --career-accent: #4fd6cf;
+
+    --career-accent-light: #69c7e8;
+
+
+    --career-text-primary: #f4f8fb;
+
+    --career-text-secondary: #9db2c2;
+
+    --career-text-muted: #6f8798;
+
+
+    --career-danger: #ff7b7b;
+
+
+    --career-sidebar-width: 360px;
+
+}
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+html,
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    min-height: 100%;
+
+}
+
+
+body {
+
+    background:
+        var(--career-bg-main);
+
+    color:
+        var(--career-text-primary);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+}
+
+
+/* ==========================================================
+   UTILITY
+========================================================== */
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* ==========================================================
+   AUTH LOADING
+========================================================== */
+
+.auth-loading {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+
+    background:
+        var(--career-bg-main);
+
+
+    color:
+        var(--career-text-secondary);
+
+}
+
+
+.loader {
+
+    width: 42px;
+
+    height: 42px;
+
+
+    border-radius: 50%;
+
+
+    border:
+        4px solid
+        var(--career-border);
+
+
+    border-top-color:
+        var(--career-accent);
+
+
+    animation:
+        careerSpin
+        0.8s
+        linear
+        infinite;
+
+}
+
+
+@keyframes careerSpin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+   APP
+========================================================== */
+
+.app-layout {
+
+    min-height: 100vh;
+
+}
+
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    bottom: 0;
+
+
+    width:
+        var(--career-sidebar-width);
+
+
+    background:
+        var(--career-bg-sidebar);
+
+
+    border-right:
+        1px solid
+        var(--career-border);
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    overflow-y: auto;
+
+
+    z-index: 1000;
+
+}
+
+
+/* ==========================================================
+   BRAND
+========================================================== */
+
+.sidebar-brand {
+
+    min-height: 134px;
+
+
+    padding:
+        34px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+
+    border-bottom:
+        1px solid
+        var(--career-border);
+
+}
+
+
+.brand-logo {
+
+    width: 58px;
+
+    height: 58px;
+
+
+    flex-shrink: 0;
+
+
+    border-radius: 18px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--career-accent),
+
+            var(--career-accent-light)
+
+        );
+
+
+    color: #04131d;
+
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+}
+
+
+.sidebar-brand h2 {
+
+    margin:
+        0 0 7px;
+
+
+    font-size: 23px;
+
+}
+
+
+.sidebar-brand p {
+
+    margin: 0;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size: 14px;
+
+}
+
+
+/* ==========================================================
+   SIDEBAR NAVIGATION
+========================================================== */
+
+.sidebar-nav {
+
+    flex: 1;
+
+
+    padding:
+        26px 20px;
+
+}
+
+
+.nav-heading {
+
+    margin:
+        28px
+        16px
+        12px;
+
+
+    color:
+        var(--career-text-muted);
+
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+
+    letter-spacing: 2px;
+
+}
+
+
+.sidebar-link {
+
+    min-height: 58px;
+
+
+    padding:
+        0 18px;
+
+
+    margin-bottom: 6px;
+
+
+    border-radius: 14px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+
+    text-decoration: none;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size: 16px;
+
+
+    transition:
+
+        background
+        0.2s
+        ease,
+
+        color
+        0.2s
+        ease,
+
+        transform
+        0.2s
+        ease;
+
+}
+
+
+.sidebar-link:hover {
+
+    background:
+        var(--career-bg-card);
+
+
+    color:
+        var(--career-text-primary);
+
+
+    transform:
+        translateX(2px);
+
+}
+
+
+.sidebar-link.active {
+
+    background:
+        var(--career-bg-card-light);
+
+
+    color:
+        var(--career-text-primary);
+
+}
+
+
+.nav-icon {
+
+    width: 24px;
+
+
+    text-align: center;
+
+
+    color:
+        var(--career-accent);
+
+
+    font-size: 19px;
+
+}
+
+
+/* ==========================================================
+   USER
+========================================================== */
+
+.sidebar-user {
+
+    padding: 22px;
+
+
+    border-top:
+        1px solid
+        var(--career-border);
+
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.user-avatar {
+
+    width: 46px;
+
+    height: 46px;
+
+
+    flex-shrink: 0;
+
+
+    border-radius: 50%;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--career-accent),
+
+            var(--career-accent-light)
+
+        );
+
+
+    color: #04131d;
+
+
+    font-weight: 800;
+
+}
+
+
+.sidebar-user-info,
+.header-user-info {
+
+    min-width: 0;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.sidebar-user-info strong,
+.header-user-info strong {
+
+    color:
+        var(--career-text-primary);
+
+}
+
+
+.sidebar-user-info span,
+.header-user-info span {
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size: 13px;
+
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================
+   MAIN CONTENT
+========================================================== */
+
+.main-content {
+
+    min-height: 100vh;
+
+
+    margin-left:
+        var(--career-sidebar-width);
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.top-header {
+
+    min-height: 112px;
+
+
+    padding:
+        22px 42px;
+
+
+    border-bottom:
+        1px solid
+        var(--career-border);
+
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+
+    background:
+        rgba(
+            6,
+            23,
+            37,
+            0.97
+        );
+
+}
+
+
+.header-title {
+
+    flex: 1;
+
+}
+
+
+.header-label {
+
+    margin:
+        0 0 6px;
+
+
+    color:
+        var(--career-accent);
+
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+
+    letter-spacing: 2px;
+
+}
+
+
+.top-header h1 {
+
+    margin: 0;
+
+
+    font-size: 25px;
+
+}
+
+
+.header-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.header-user-info {
+
+    max-width: 220px;
+
+}
+
+
+.logout-btn,
+.secondary-btn {
+
+    padding:
+        11px 18px;
+
+
+    border:
+
+        1px solid
+
+        var(--career-border-light);
+
+
+    border-radius: 11px;
+
+
+    background:
+        transparent;
+
+
+    color:
+        var(--career-text-primary);
+
+
+    font: inherit;
+
+
+    cursor: pointer;
+
+
+    transition:
+
+        background
+        0.2s
+        ease,
+
+        border-color
+        0.2s
+        ease;
+
+}
+
+
+.logout-btn:hover,
+.secondary-btn:hover {
+
+    background:
+        var(--career-bg-card-light);
+
+
+    border-color:
+        var(--career-accent);
+
+}
+
+
+.sidebar-toggle {
+
+    display: none;
+
+
+    border: 0;
+
+
+    background:
+        transparent;
+
+
+    color:
+        var(--career-text-primary);
+
+
+    font-size: 26px;
+
+
+    cursor: pointer;
+
+}
+
+
+/* ==========================================================
+   CAREER PAGE
+========================================================== */
+
+.career-page {
+
+    width:
+
+        min(
+
+            1180px,
+
+            calc(
+                100% - 60px
+            )
+
+        );
+
+
+    margin:
+        0 auto;
+
+
+    padding:
+        55px
+        0
+        80px;
+
+}
+
+
+/* ==========================================================
+   INTRO
+========================================================== */
+
+.stage-intro {
+
+    max-width: 760px;
+
+
+    margin-bottom: 38px;
+
+}
+
+
+.section-badge {
+
+    display:
+        inline-block;
+
+
+    margin-bottom:
+        16px;
+
+
+    color:
+        var(--career-accent);
+
+
+    font-size:
+        12px;
+
+
+    font-weight:
+        800;
+
+
+    letter-spacing:
+        2px;
+
+}
+
+
+.stage-intro h2 {
+
+    margin:
+        0 0 16px;
+
+
+    font-size:
+
+        clamp(
+
+            2rem,
+
+            4vw,
+
+            3.5rem
+
+        );
+
+
+    line-height:
+        1.08;
+
+}
+
+
+.stage-intro p {
+
+    margin:
+        0;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size:
+        17px;
+
+
+    line-height:
+        1.7;
+
+}
+
+
+/* ==========================================================
+   STAGE GRID
+========================================================== */
+
+.stage-grid {
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(
+
+            3,
+
+            minmax(
+                0,
+                1fr
+            )
+
+        );
+
+
+    gap: 18px;
+
+}
+
+
+/* ==========================================================
+   STAGE CARD
+========================================================== */
+
+.stage-card {
+
+    min-height:
+        235px;
+
+
+    padding:
+        26px;
+
+
+    border:
+
+        1px solid
+
+        var(--career-border);
+
+
+    border-radius:
+        18px;
+
+
+    background:
+        var(--career-bg-card);
+
+
+    color:
+        var(--career-text-primary);
+
+
+    text-align:
+        left;
+
+
+    cursor:
+        pointer;
+
+
+    transition:
+
+        transform
+        0.2s
+        ease,
+
+        border-color
+        0.2s
+        ease,
+
+        background
+        0.2s
+        ease,
+
+        box-shadow
+        0.2s
+        ease;
+
+}
+
+
+.stage-card:hover {
+
+    transform:
+        translateY(-4px);
+
+
+    border-color:
+        var(--career-border-light);
+
+
+    background:
+        var(--career-bg-card-light);
+
+}
+
+
+.stage-card.selected {
+
+    border-color:
+        var(--career-accent);
+
+
+    background:
+        var(--career-bg-card-light);
+
+
+    box-shadow:
+
+        0 0 0 1px
+        rgba(
+            79,
+            214,
+            207,
+            0.2
+        ),
+
+        0 12px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+
+}
+
+
+.stage-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+
+    margin-bottom:
+        20px;
+
+
+    border-radius:
+        13px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    background:
+
+        rgba(
+
+            79,
+
+            214,
+
+            207,
+
+            0.1
+
+        );
+
+
+    font-size:
+        23px;
+
+}
+
+
+.stage-card strong {
+
+    display:
+        block;
+
+
+    margin-bottom:
+        6px;
+
+
+    font-size:
+        19px;
+
+}
+
+
+.stage-subtitle {
+
+    display:
+        block;
+
+
+    color:
+        var(--career-accent);
+
+
+    font-size:
+        13px;
+
+
+    font-weight:
+        700;
+
+}
+
+
+.stage-card p {
+
+    margin:
+        14px
+        0
+        0;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size:
+        14px;
+
+
+    line-height:
+        1.6;
+
+}
+
+
+/* ==========================================================
+   STAGE ACTION
+========================================================== */
+
+.stage-action {
+
+    margin-top:
+        32px;
+
+
+    display:
+        flex;
+
+
+    flex-direction:
+        column;
+
+
+    align-items:
+        flex-start;
+
+
+    gap:
+        12px;
+
+}
+
+
+.primary-btn {
+
+    min-height:
+        52px;
+
+
+    padding:
+        0 24px;
+
+
+    border:
+        0;
+
+
+    border-radius:
+        12px;
+
+
+    display:
+        inline-flex;
+
+
+    align-items:
+        center;
+
+
+    gap:
+        12px;
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--career-accent),
+
+            var(--career-accent-light)
+
+        );
+
+
+    color:
+        #04131d;
+
+
+    font-size:
+        15px;
+
+
+    font-weight:
+        800;
+
+
+    cursor:
+        pointer;
+
+
+    transition:
+
+        transform
+        0.2s
+        ease,
+
+        opacity
+        0.2s
+        ease;
+
+}
+
+
+.primary-btn:hover:not(:disabled) {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.primary-btn:disabled {
+
+    opacity:
+        0.4;
+
+
+    cursor:
+        not-allowed;
+
+}
+
+
+.stage-error,
+.chat-error {
+
+    color:
+        var(--career-danger);
+
+
+    font-size:
+        14px;
+
+}
+
+
+/* ==========================================================
+   CHAT SECTION
+========================================================== */
+
+.chat-section {
+
+    border:
+
+        1px solid
+
+        var(--career-border);
+
+
+    border-radius:
+        22px;
+
+
+    overflow:
+        hidden;
+
+
+    background:
+        var(--career-bg-card);
+
+}
+
+
+/* ==========================================================
+   CHAT HEADER
+========================================================== */
+
+.chat-panel-header {
+
+    min-height:
+        90px;
+
+
+    padding:
+        20px
+        24px;
+
+
+    border-bottom:
+
+        1px solid
+
+        var(--career-border);
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    justify-content:
+        space-between;
+
+
+    gap:
+        20px;
+
+}
+
+
+.ai-identity {
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    gap:
+        14px;
+
+}
+
+
+.ai-avatar {
+
+    width:
+        48px;
+
+
+    height:
+        48px;
+
+
+    flex-shrink:
+        0;
+
+
+    border-radius:
+        15px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    justify-content:
+        center;
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--career-accent),
+
+            var(--career-accent-light)
+
+        );
+
+
+    color:
+        #04131d;
+
+
+    font-size:
+        22px;
+
+}
+
+
+.ai-identity h2 {
+
+    margin:
+        0 0 5px;
+
+
+    font-size:
+        18px;
+
+}
+
+
+.ai-identity p {
+
+    margin:
+        0;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size:
+        13px;
+
+}
+
+
+.chat-actions {
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    gap:
+        12px;
+
+}
+
+
+.current-stage-badge {
+
+    padding:
+        9px
+        13px;
+
+
+    border:
+
+        1px solid
+
+        var(--career-border-light);
+
+
+    border-radius:
+        999px;
+
+
+    color:
+        var(--career-accent);
+
+
+    font-size:
+        12px;
+
+
+    font-weight:
+        700;
+
+}
+
+
+/* ==========================================================
+   ANALYSIS NOTICE
+========================================================== */
+
+.analysis-notice {
+
+    margin:
+        20px
+        24px
+        0;
+
+
+    padding:
+        14px
+        16px;
+
+
+    border:
+
+        1px solid
+
+        rgba(
+            79,
+            214,
+            207,
+            0.22
+        );
+
+
+    border-radius:
+        12px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        flex-start;
+
+
+    gap:
+        12px;
+
+
+    background:
+
+        rgba(
+            79,
+            214,
+            207,
+            0.06
+        );
+
+}
+
+
+.analysis-notice span {
+
+    color:
+        var(--career-accent);
+
+}
+
+
+.analysis-notice p {
+
+    margin:
+        0;
+
+
+    color:
+        var(--career-text-secondary);
+
+
+    font-size:
+        13px;
+
+
+    line-height:
+        1.6;
+
+}
+
+
+/* ==========================================================
+   CHAT MESSAGES
+========================================================== */
+
+.chat-messages {
+
+    height:
+        500px;
+
+
+    padding:
+        28px
+        24px;
+
+
+    overflow-y:
+        auto;
+
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+.message-row {
+
+    margin-bottom:
+        22px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        flex-start;
+
+
+    gap:
+        12px;
+
+}
+
+
+.message-row.user {
+
+    justify-content:
+        flex-end;
+
+}
+
+
+.message-avatar {
+
+    width:
+        36px;
+
+
+    height:
+        36px;
+
+
+    flex-shrink:
+        0;
+
+
+    border-radius:
+        50%;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    justify-content:
+        center;
+
+
+    font-size:
+        14px;
+
+
+    font-weight:
+        800;
+
+}
+
+
+.message-avatar.ai {
+
+    background:
+
+        rgba(
+            79,
+            214,
+            207,
+            0.13
+        );
+
+
+    color:
+        var(--career-accent);
+
+}
+
+
+.message-avatar.user {
+
+    background:
+        var(--career-accent);
+
+
+    color:
+        #04131d;
+
+}
+
+
+.message-bubble {
+
+    max-width:
+
+        min(
+            720px,
+            75%
+        );
+
+
+    padding:
+        15px
+        18px;
+
+
+    border-radius:
+        16px;
+
+
+    color:
+        var(--career-text-primary);
+
+
+    font-size:
+        15px;
+
+
+    line-height:
+        1.65;
+
+
+    white-space:
+        pre-wrap;
+
+
+    word-break:
+        break-word;
+
+}
+
+
+.message-row.ai
+.message-bubble {
+
+    border:
+
+        1px solid
+
+        var(--career-border);
+
+
+    border-top-left-radius:
+        5px;
+
+
+    background:
+        var(--career-bg-card-light);
+
+}
+
+
+.message-row.user
+.message-bubble {
+
+    border-top-right-radius:
+        5px;
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--career-accent),
+
+            var(--career-accent-light)
+
+        );
+
+
+    color:
+        #04131d;
+
+}
+
+
+/* ==========================================================
+   TYPING INDICATOR
+========================================================== */
+
+.typing-indicator {
+
+    padding:
+        0
+        24px
+        20px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    gap:
+        12px;
+
+}
+
+
+.typing-bubble {
+
+    height:
+        42px;
+
+
+    padding:
+        0 16px;
+
+
+    border:
+
+        1px solid
+
+        var(--career-border);
+
+
+    border-radius:
+        14px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    gap:
+        5px;
+
+
+    background:
+        var(--career-bg-card-light);
+
+}
+
+
+.typing-bubble span {
+
+    width:
+        6px;
+
+
+    height:
+        6px;
+
+
+    border-radius:
+        50%;
+
+
+    background:
+        var(--career-text-secondary);
+
+
+    animation:
+
+        careerTyping
+
+        1.2s
+
+        infinite
+
+        ease-in-out;
+
+}
+
+
+.typing-bubble span:nth-child(2) {
+
+    animation-delay:
+        0.15s;
+
+}
+
+
+.typing-bubble span:nth-child(3) {
+
+    animation-delay:
+        0.3s;
+
+}
+
+
+@keyframes careerTyping {
+
+    0%,
+    60%,
+    100% {
+
+        transform:
+            translateY(0);
+
+
+        opacity:
+            0.5;
+
+    }
+
+
+    30% {
+
+        transform:
+            translateY(-5px);
+
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* ==========================================================
+   CHAT ERROR
+========================================================== */
+
+.chat-error {
+
+    margin:
+        0
+        24px
+        15px;
+
+
+    padding:
+        12px
+        15px;
+
+
+    border:
+
+        1px solid
+
+        rgba(
+            255,
+            123,
+            123,
+            0.25
+        );
+
+
+    border-radius:
+        10px;
+
+
+    background:
+
+        rgba(
+            255,
+            123,
+            123,
+            0.06
+        );
+
+}
+
+
+/* ==========================================================
+   CHAT INPUT
+========================================================== */
+
+.chat-input-area {
+
+    margin:
+        0 24px;
+
+
+    padding:
+        12px;
+
+
+    border:
+
+        1px solid
+
+        var(--career-border-light);
+
+
+    border-radius:
+        16px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        flex-end;
+
+
+    gap:
+        12px;
+
+
+    background:
+        var(--career-bg-main);
+
+}
+
+
+.chat-input-area:focus-within {
+
+    border-color:
+        var(--career-accent);
+
+}
+
+
+.chat-input-area textarea {
+
+    flex:
+        1;
+
+
+    min-height:
+        48px;
+
+
+    max-height:
+        150px;
+
+
+    padding:
+        12px;
+
+
+    border:
+        0;
+
+
+    outline:
+        0;
+
+
+    resize:
+        none;
+
+
+    background:
+        transparent;
+
+
+    color:
+        var(--career-text-primary);
+
+
+    font:
+        inherit;
+
+
+    line-height:
+        1.5;
+
+}
+
+
+.chat-input-area textarea::placeholder {
+
+    color:
+        var(--career-text-muted);
+
+}
+
+
+.send-btn {
+
+    min-width:
+        100px;
+
+
+    height:
+        48px;
+
+
+    padding:
+        0 18px;
+
+
+    border:
+        0;
+
+
+    border-radius:
+        11px;
+
+
+    display:
+        flex;
+
+
+    align-items:
+        center;
+
+
+    justify-content:
+        center;
+
+
+    gap:
+        8px;
+
+
+    background:
+        var(--career-accent);
+
+
+    color:
+        #04131d;
+
+
+    font-weight:
+        800;
+
+
+    cursor:
+        pointer;
+
+}
+
+
+.send-btn:hover:not(:disabled) {
+
+    filter:
+        brightness(1.05);
+
+}
+
+
+.send-btn:disabled {
+
+    opacity:
+        0.45;
+
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* ==========================================================
+   DISCLAIMER
+========================================================== */
+
+.ai-disclaimer {
+
+    margin:
+        15px
+        24px
+        22px;
+
+
+    color:
+        var(--career-text-muted);
+
+
+    font-size:
+        11px;
+
+
+    line-height:
+        1.5;
+
+
+    text-align:
+        center;
+
+}
+
+
+/* ==========================================================
+   SIDEBAR OVERLAY
+========================================================== */
+
+.sidebar-overlay {
+
+    display:
+        none;
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (
+    max-width: 1100px
+) {
+
+    :root {
+
+        --career-sidebar-width:
+            290px;
+
+    }
+
+
+    .stage-grid {
+
+        grid-template-columns:
+
+            repeat(
+
+                2,
+
+                minmax(
+                    0,
+                    1fr
+                )
+
+            );
+
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (
+    max-width: 900px
+) {
+
+    .sidebar {
+
+        transform:
+            translateX(-100%);
+
+
+        transition:
+
+            transform
+
+            0.25s
+
+            ease;
+
+    }
+
+
+    .sidebar.mobile-open {
+
+        transform:
+            translateX(0);
+
+    }
+
+
+    .sidebar-overlay {
+
+        position:
+            fixed;
+
+
+        inset:
+            0;
+
+
+        z-index:
+            900;
+
+
+        background:
+
+            rgba(
+                0,
+                0,
+                0,
+                0.55
+            );
+
+    }
+
+
+    .sidebar-overlay.active {
+
+        display:
+            block;
+
+    }
+
+
+    .main-content {
+
+        margin-left:
+            0;
+
+    }
+
+
+    .sidebar-toggle {
+
+        display:
+            block;
+
+    }
+
+
+    .top-header {
+
+        padding:
+            18px
+            22px;
+
+    }
+
+
+    .header-user-info {
+
+        display:
+            none;
+
+    }
+
+
+    .career-page {
+
+        width:
+
+            min(
+
+                calc(
+                    100% - 36px
+                ),
+
+                900px
+
+            );
+
+
+        padding-top:
+            35px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (
+    max-width: 650px
+) {
+
+    .stage-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .stage-card {
+
+        min-height:
+            auto;
+
+    }
+
+
+    .chat-panel-header {
+
+        align-items:
+            flex-start;
+
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .chat-actions {
+
+        width:
+            100%;
+
+
+        justify-content:
+            space-between;
+
+    }
+
+
+    .chat-messages {
+
+        height:
+            440px;
+
+
+        padding:
+            22px
+            16px;
+
+    }
+
+
+    .message-bubble {
+
+        max-width:
+            85%;
+
+    }
+
+
+    .chat-input-area {
+
+        margin:
+            0
+            16px;
+
+    }
+
+
+    .analysis-notice {
+
+        margin:
+            16px
+            16px
+            0;
+
+    }
+
+
+    .typing-indicator {
+
+        padding:
+            0
+            16px
+            18px;
+
+    }
+
+
+    .ai-disclaimer {
+
+        margin:
+            14px
+            16px
+            20px;
+
+    }
+
+
+    .logout-btn {
+
+        display:
+            none;
+
+    }
+
+}

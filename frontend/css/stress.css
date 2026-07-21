@@ -1,0 +1,833 @@
+/* =========================================================
+   MINDBRIDGE - STRESS CHECK
+   ========================================================= */
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        #061f2d;
+
+    color:
+        #ffffff;
+
+    min-height:
+        100vh;
+}
+
+
+button {
+    font-family:
+        inherit;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+
+.stress-page {
+    width:
+        min(
+            1100px,
+            calc(100% - 40px)
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        60px 0 100px;
+}
+
+
+.page-header {
+    margin-bottom:
+        35px;
+}
+
+
+.eyebrow,
+.section-label {
+    color:
+        #79c6e5;
+
+    letter-spacing:
+        4px;
+
+    font-weight:
+        700;
+
+    font-size:
+        14px;
+}
+
+
+.page-header h1 {
+    margin:
+        12px 0;
+
+    font-size:
+        clamp(
+            36px,
+            6vw,
+            64px
+        );
+}
+
+
+.page-description {
+    max-width:
+        750px;
+
+    color:
+        #b8d2df;
+
+    font-size:
+        18px;
+
+    line-height:
+        1.7;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+
+.stress-card {
+    background:
+        #0b2a3a;
+
+    border:
+        1px solid #164b60;
+
+    border-radius:
+        28px;
+
+    padding:
+        38px;
+
+    margin-bottom:
+        30px;
+}
+
+
+.stress-card h2 {
+    font-size:
+        30px;
+
+    margin:
+        10px 0 18px;
+}
+
+
+.stress-card p {
+    color:
+        #b8d2df;
+
+    line-height:
+        1.7;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+
+.button-row {
+    display:
+        flex;
+
+    gap:
+        16px;
+
+    flex-wrap:
+        wrap;
+
+    margin-top:
+        28px;
+}
+
+
+.primary-btn,
+.secondary-btn {
+    border-radius:
+        14px;
+
+    padding:
+        15px 26px;
+
+    font-size:
+        17px;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+.primary-btn {
+    background:
+        #4edbd1;
+
+    color:
+        #052431;
+
+    border:
+        none;
+
+    font-weight:
+        700;
+}
+
+
+.primary-btn:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+.secondary-btn {
+    background:
+        transparent;
+
+    color:
+        #ffffff;
+
+    border:
+        1px solid #3b6577;
+}
+
+
+.secondary-btn:hover {
+    border-color:
+        #4edbd1;
+}
+
+
+button:disabled {
+    opacity:
+        0.4;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+}
+
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+
+.info-box,
+.disclaimer-box {
+    margin-top:
+        25px;
+
+    padding:
+        20px;
+
+    background:
+        #103747;
+
+    border-left:
+        4px solid #4edbd1;
+}
+
+
+.info-box strong {
+    font-size:
+        18px;
+}
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+
+.camera-container {
+    width:
+        100%;
+
+    max-width:
+        800px;
+
+    margin:
+        30px auto;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        22px;
+
+    background:
+        #02141d;
+}
+
+
+#cameraVideo {
+    width:
+        100%;
+
+    display:
+        block;
+
+    transform:
+        scaleX(-1);
+}
+
+
+.analysis-status {
+    padding:
+        18px;
+
+    border-radius:
+        12px;
+
+    background:
+        #103747;
+
+    color:
+        #b8d2df;
+}
+
+
+.camera-stats {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap:
+        15px;
+
+    margin-top:
+        20px;
+}
+
+
+.camera-stats div {
+    background:
+        #103747;
+
+    padding:
+        20px;
+
+    border-radius:
+        14px;
+}
+
+
+.camera-stats span {
+    display:
+        block;
+
+    color:
+        #8fb4c5;
+
+    margin-bottom:
+        8px;
+}
+
+
+.camera-stats strong {
+    font-size:
+        20px;
+
+    text-transform:
+        capitalize;
+}
+
+
+/* =========================================================
+   QUESTION PROGRESS
+   ========================================================= */
+
+
+.question-header {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    margin-top:
+        25px;
+
+    color:
+        #8fded9;
+
+    font-weight:
+        700;
+}
+
+
+.progress-track {
+    height:
+        8px;
+
+    background:
+        #123b4c;
+
+    border-radius:
+        100px;
+
+    margin:
+        15px 0 35px;
+
+    overflow:
+        hidden;
+}
+
+
+.progress-bar {
+    height:
+        100%;
+
+    width:
+        14%;
+
+    background:
+        #4edbd1;
+
+    transition:
+        width 0.3s ease;
+}
+
+
+/* =========================================================
+   QUESTION CARD
+   ========================================================= */
+
+
+.question-card {
+    background:
+        #0f3343;
+
+    border-radius:
+        20px;
+
+    padding:
+        35px;
+}
+
+
+.question-card h2 {
+    max-width:
+        800px;
+
+    line-height:
+        1.4;
+}
+
+
+.scale-instruction {
+    margin-bottom:
+        25px;
+}
+
+
+/* =========================================================
+   SCORE BUTTONS
+   ========================================================= */
+
+
+.score-buttons {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            5,
+            1fr
+        );
+
+    gap:
+        12px;
+}
+
+
+.score-btn {
+    min-height:
+        100px;
+
+    padding:
+        15px 8px;
+
+    background:
+        #092736;
+
+    border:
+        2px solid #31596a;
+
+    border-radius:
+        14px;
+
+    color:
+        #ffffff;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+.score-btn strong {
+    display:
+        block;
+
+    font-size:
+        28px;
+
+    margin-bottom:
+        8px;
+}
+
+
+.score-btn span {
+    color:
+        #a8c6d3;
+
+    font-size:
+        13px;
+}
+
+
+.score-btn:hover {
+    border-color:
+        #4edbd1;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.score-btn.selected {
+    background:
+        #4edbd1;
+
+    color:
+        #052431;
+
+    border-color:
+        #4edbd1;
+}
+
+
+.score-btn.selected span {
+    color:
+        #052431;
+}
+
+
+.question-navigation {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    margin-top:
+        28px;
+}
+
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+
+.result-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap:
+        20px;
+
+    margin:
+        30px 0;
+}
+
+
+.result-stat {
+    padding:
+        25px;
+
+    background:
+        #103747;
+
+    border-radius:
+        16px;
+}
+
+
+.result-stat span {
+    display:
+        block;
+
+    color:
+        #8fb4c5;
+
+    margin-bottom:
+        10px;
+}
+
+
+.result-stat strong {
+    font-size:
+        24px;
+}
+
+
+.result-block {
+    margin:
+        25px 0;
+
+    padding:
+        25px;
+
+    background:
+        #103747;
+
+    border-radius:
+        16px;
+}
+
+
+.result-block h3 {
+    margin-top:
+        0;
+}
+
+
+.result-block li {
+    color:
+        #b8d2df;
+
+    margin-bottom:
+        12px;
+
+    line-height:
+        1.6;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+
+.status-message {
+    padding:
+        18px 22px;
+
+    border-radius:
+        14px;
+
+    margin-bottom:
+        25px;
+}
+
+
+.status-message.error {
+    background:
+        #3b2028;
+
+    color:
+        #ffb3b3;
+}
+
+
+.status-message.info {
+    background:
+        #103747;
+
+    color:
+        #b8d2df;
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+
+.loader {
+    width:
+        45px;
+
+    height:
+        45px;
+
+    border:
+        4px solid #31596a;
+
+    border-top-color:
+        #4edbd1;
+
+    border-radius:
+        50%;
+
+    animation:
+        spin 0.8s linear infinite;
+
+    margin-bottom:
+        25px;
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+
+.hidden {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+
+@media (
+    max-width: 700px
+) {
+
+    .stress-page {
+
+        width:
+            min(
+                94%,
+                1100px
+            );
+
+        padding-top:
+            30px;
+
+    }
+
+
+    .stress-card {
+
+        padding:
+            24px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .score-buttons {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .score-btn {
+
+        min-height:
+            auto;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            15px;
+
+        text-align:
+            left;
+
+    }
+
+
+    .score-btn strong {
+
+        margin:
+            0;
+
+    }
+
+
+    .camera-stats,
+    .result-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .question-navigation {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .question-navigation button {
+
+        width:
+            100%;
+
+    }
+
+}

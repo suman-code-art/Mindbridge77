@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wellness Activities | MindBridge</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/wellness.css">
+</head>
+
+<body class="wellness-page">
+
+    <!-- Loading -->
+    <div id="authLoading" class="auth-loading">
+        <div class="loading-spinner"></div>
+        <p>Loading Wellness...</p>
+    </div>
+
+
+    <!-- App -->
+    <div id="wellnessApp" class="wellness-app hidden">
+
+        <!-- Mobile Overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+
+            <div class="sidebar-brand">
+
+                <a href="./dashboard.html" class="brand-link">
+
+                    <div class="brand-logo">
+                        M
+                    </div>
+
+                    <div class="brand-text">
+                        <strong>MindBridge</strong>
+                        <small>Career & Wellness</small>
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <nav class="sidebar-navigation">
+
+                <p class="sidebar-section-label">
+                    OVERVIEW
+                </p>
+
+                <a href="./dashboard.html" class="sidebar-link">
+                    <span>◎</span>
+                    Dashboard
+                </a>
+
+
+                <p class="sidebar-section-label section-space">
+                    MENTAL WELLNESS
+                </p>
+
+                <a href="./chat.html" class="sidebar-link">
+                    <span>✦</span>
+                    AI Support Chat
+                </a>
+
+                <a href="./checkin.html" class="sidebar-link">
+                    <span>♡</span>
+                    Emotional Check-In
+                </a>
+
+                <a href="./immediate-help.html" class="sidebar-link">
+                    <span>◎</span>
+                    Immediate Help
+                </a>
+
+                <a href="./wellness.html" class="sidebar-link active">
+                    <span>◇</span>
+                    Wellness Activities
+                </a>
+
+                <a href="./stress-check.html" class="sidebar-link">
+                    <span>◌</span>
+                    Stress Check
+                </a>
+
+
+                <p class="sidebar-section-label section-space">
+                    CAREER GUIDANCE
+                </p>
+
+                <a href="./career.html" class="sidebar-link">
+                    <span>↗</span>
+                    Career Guidance
+                </a>
+
+                <a href="./career-chat.html" class="sidebar-link">
+                    <span>✧</span>
+                    AI Career Counselor
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-user">
+
+                    <div id="userAvatar" class="sidebar-avatar">
+                        U
+                    </div>
+
+                    <div class="sidebar-user-info">
+
+                        <strong id="userName">
+                            MindBridge User
+                        </strong>
+
+                        <small id="userEmail">
+                            Loading...
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="logoutBtn"
+                    class="logout-button"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+
+                <div class="header-left">
+
+                    <button
+                        id="sidebarToggle"
+                        class="sidebar-toggle"
+                        type="button"
+                    >
+                        ☰
+                    </button>
+
+                    <div>
+                        <span class="header-label">
+                            MENTAL WELLNESS
+                        </span>
+
+                        <h1>Wellness Activities</h1>
+                    </div>
+
+                </div>
+
+                <a
+                    href="./immediate-help.html"
+                    class="help-button"
+                >
+                    Immediate Help
+                </a>
+
+            </header>
+
+
+            <!-- Content -->
+            <div class="wellness-content">
+
+                <!-- Hero -->
+                <section class="wellness-hero">
+
+                    <span class="eyebrow">
+                        YOUR WELLNESS SPACE
+                    </span>
+
+                    <h2>
+                        Take a few minutes for yourself.
+                    </h2>
+
+                    <p>
+                        Choose a guided activity to relax, move,
+                        focus, or simply take a short break.
+                    </p>
+
+                </section>
+
+
+                <!-- Stats -->
+                <section class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            ACTIVITIES COMPLETED
+                        </span>
+
+                        <strong id="activitiesCompleted">
+                            0
+                        </strong>
+
+                        <p>
+                            Your completed wellness activities.
+                        </p>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            WELLNESS MINUTES
+                        </span>
+
+                        <strong id="wellnessMinutes">
+                            0
+                        </strong>
+
+                        <p>
+                            Time you've spent on wellness.
+                        </p>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            RECENT ACTIVITY
+                        </span>
+
+                        <strong
+                            id="recentActivity"
+                            class="recent-activity"
+                        >
+                            None yet
+                        </strong>
+
+                        <p>
+                            Your latest completed activity.
+                        </p>
+
+                    </article>
+
+                </section>
+
+
+                <!-- Activity Tabs -->
+                <section class="activity-tabs">
+
+                    <button
+                        type="button"
+                        class="activity-tab active"
+                        data-activity="breathing"
+                    >
+                        Guided Breathing
+                    </button>
+
+                    <button
+                        type="button"
+                        class="activity-tab"
+                        data-activity="walking"
+                    >
+                        Mindful Walk
+                    </button>
+
+                    <button
+                        type="button"
+                        class="activity-tab"
+                        data-activity="stretch"
+                    >
+                        Stretch & Relax
+                    </button>
+
+                    <button
+                        type="button"
+                        class="activity-tab"
+                        data-activity="focus"
+                    >
+                        Focus Session
+                    </button>
+
+                    <button
+                        type="button"
+                        class="activity-tab"
+                        data-activity="sounds"
+                    >
+                        Relaxing Sounds
+                    </button>
+
+                </section>
+
+
+                <!-- ==============================
+                     BREATHING
+                =============================== -->
+
+                <section
+                    id="breathingActivity"
+                    class="activity-panel"
+                >
+
+                    <div class="activity-heading">
+
+                        <span class="eyebrow">
+                            GUIDED BREATHING
+                        </span>
+
+                        <h2>
+                            Follow the breathing circle
+                        </h2>
+
+                        <p>
+                            Breathe naturally and comfortably.
+                            Stop if you feel uncomfortable.
+                        </p>
+
+                    </div>
+
+
+                    <div class="breathing-area">
+
+                        <div
+                            id="breathingCircle"
+                            class="breathing-circle"
+                        >
+
+                            <strong id="breathingPhase">
+                                Ready
+                            </strong>
+
+                            <span id="breathingCountdown">
+                                Start when comfortable
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-time">
+
+                        <span>
+                            SESSION TIME
+                        </span>
+
+                        <strong id="breathingSessionTimer">
+                            00:00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="activity-controls">
+
+                        <button
+                            id="startBreathing"
+                            class="primary-button"
+                            type="button"
+                        >
+                            Start
+                        </button>
+
+                        <button
+                            id="stopBreathing"
+                            class="secondary-button"
+                            type="button"
+                            disabled
+                        >
+                            Stop
+                        </button>
+
+                        <button
+                            id="completeBreathing"
+                            class="complete-button"
+                            type="button"
+                            disabled
+                        >
+                            Complete Activity
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==============================
+                     WALKING
+                =============================== -->
+
+                <section
+                    id="walkingActivity"
+                    class="activity-panel hidden"
+                >
+
+                    <div class="activity-heading">
+
+                        <span class="eyebrow">
+                            MINDFUL WALK
+                        </span>
+
+                        <h2>
+                            Take a short mindful walk
+                        </h2>
+
+                        <p>
+                            If your surroundings are suitable,
+                            walk gently and notice what is around you.
+                        </p>
+
+                    </div>
+
+
+                    <div class="walking-scene">
+
+                        <span class="cloud cloud-one">
+                            ☁
+                        </span>
+
+                        <span class="cloud cloud-two">
+                            ☁
+                        </span>
+
+                        <span class="tree tree-one">
+                            ♧
+                        </span>
+
+                        <span class="tree tree-two">
+                            ♧
+                        </span>
+
+                        <div class="walking-path"></div>
+
+                        <div
+                            id="walker"
+                            class="walker"
+                        >
+                            🚶
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        id="walkPrompt"
+                        class="activity-message"
+                    >
+                        Ready for a short mindful walk?
+                    </p>
+
+
+                    <div class="progress-header">
+
+                        <span>
+                            WALK PROGRESS
+                        </span>
+
+                        <strong id="walkingTimer">
+                            05:00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="walkingProgress"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="activity-controls">
+
+                        <button
+                            id="startWalking"
+                            class="primary-button"
+                            type="button"
+                        >
+                            Start Walk
+                        </button>
+
+                        <button
+                            id="stopWalking"
+                            class="secondary-button"
+                            type="button"
+                            disabled
+                        >
+                            Stop
+                        </button>
+
+                        <button
+                            id="completeWalking"
+                            class="complete-button"
+                            type="button"
+                            disabled
+                        >
+                            Complete Activity
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==============================
+                     STRETCH
+                =============================== -->
+
+                <section
+                    id="stretchActivity"
+                    class="activity-panel hidden"
+                >
+
+                    <div class="activity-heading">
+
+                        <span class="eyebrow">
+                            STRETCH & RELAX
+                        </span>
+
+                        <h2>
+                            Gentle movement break
+                        </h2>
+
+                        <p>
+                            Move only within a comfortable range.
+                            Skip anything that causes discomfort.
+                        </p>
+
+                    </div>
+
+
+                    <div class="stretch-guide">
+
+                        <div
+                            id="stretchFigure"
+                            class="stretch-figure"
+                        >
+                            🙆
+                        </div>
+
+                        <span id="stretchStepLabel">
+                            STEP 1 OF 4
+                        </span>
+
+                        <h3 id="stretchTitle">
+                            Shoulder Roll
+                        </h3>
+
+                        <p id="stretchDescription">
+                            Gently roll your shoulders backward.
+                        </p>
+
+                        <strong id="stretchTimer">
+                            20
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="stretchProgress"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="activity-controls">
+
+                        <button
+                            id="startStretch"
+                            class="primary-button"
+                            type="button"
+                        >
+                            Start Stretch
+                        </button>
+
+                        <button
+                            id="nextStretch"
+                            class="secondary-button"
+                            type="button"
+                            disabled
+                        >
+                            Next Movement
+                        </button>
+
+                        <button
+                            id="completeStretch"
+                            class="complete-button"
+                            type="button"
+                            disabled
+                        >
+                            Complete Activity
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==============================
+                     FOCUS
+                =============================== -->
+
+                <section
+                    id="focusActivity"
+                    class="activity-panel hidden"
+                >
+
+                    <div class="activity-heading">
+
+                        <span class="eyebrow">
+                            FOCUS SESSION
+                        </span>
+
+                        <h2>
+                            Focus on one small task
+                        </h2>
+
+                        <p>
+                            Choose one task and give it your attention
+                            for a short five-minute session.
+                        </p>
+
+                    </div>
+
+
+                    <div class="focus-box">
+
+                        <span>
+                            FOCUS TIME
+                        </span>
+
+                        <strong id="focusTimer">
+                            05:00
+                        </strong>
+
+                        <p id="focusMessage">
+                            Remove distractions and start when ready.
+                        </p>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="focusProgress"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="activity-controls">
+
+                        <button
+                            id="startFocus"
+                            class="primary-button"
+                            type="button"
+                        >
+                            Start Focus
+                        </button>
+
+                        <button
+                            id="stopFocus"
+                            class="secondary-button"
+                            type="button"
+                            disabled
+                        >
+                            Stop
+                        </button>
+
+                        <button
+                            id="completeFocus"
+                            class="complete-button"
+                            type="button"
+                            disabled
+                        >
+                            Complete Activity
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==============================
+                     SOUNDS
+                =============================== -->
+
+                <section
+                    id="soundsActivity"
+                    class="activity-panel hidden"
+                >
+
+                    <div class="activity-heading">
+
+                        <span class="eyebrow">
+                            RELAXING SOUNDS
+                        </span>
+
+                        <h2>
+                            Choose a calming background sound
+                        </h2>
+
+                        <p>
+                            Select a sound below. You can pause,
+                            resume, or stop it at any time.
+                        </p>
+
+                    </div>
+
+
+                    <div class="sound-grid">
+
+                        <button
+                            type="button"
+                            class="sound-card"
+                            data-sound="rain"
+                        >
+                            <span>☂</span>
+                            <strong>Rain</strong>
+                            <small>Gentle rainfall</small>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="sound-card"
+                            data-sound="ocean"
+                        >
+                            <span>≋</span>
+                            <strong>Ocean</strong>
+                            <small>Soft ocean waves</small>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="sound-card"
+                            data-sound="forest"
+                        >
+                            <span>♧</span>
+                            <strong>Forest</strong>
+                            <small>Natural ambience</small>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="sound-card"
+                            data-sound="ambient"
+                        >
+                            <span>♫</span>
+                            <strong>Ambient</strong>
+                            <small>Calm background audio</small>
+                        </button>
+
+                    </div>
+
+
+                    <div class="audio-player">
+
+                        <span class="eyebrow">
+                            NOW PLAYING
+                        </span>
+
+                        <h3 id="currentSound">
+                            No sound selected
+                        </h3>
+
+
+                        <div class="volume-control">
+
+                            <label for="volumeSlider">
+                                Volume
+                            </label>
+
+                            <input
+                                id="volumeSlider"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.05"
+                                value="0.5"
+                            >
+
+                        </div>
+
+
+                        <div class="activity-controls">
+
+                            <button
+                                id="pauseSound"
+                                class="secondary-button"
+                                type="button"
+                                disabled
+                            >
+                                Pause
+                            </button>
+
+                            <button
+                                id="stopSound"
+                                class="secondary-button"
+                                type="button"
+                                disabled
+                            >
+                                Stop Sound
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <audio
+                        id="relaxAudio"
+                        loop
+                    ></audio>
+
+                </section>
+
+
+                <!-- Completion Message -->
+                <div
+                    id="completionToast"
+                    class="completion-toast hidden"
+                >
+
+                    <span>✓</span>
+
+                    <div>
+
+                        <strong>
+                            Activity completed
+                        </strong>
+
+                        <p id="completionText">
+                            Your activity has been saved.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="../js/wellness.js"
+    ></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Stream Selector | MindBridge
+    </title>
+
+    <!-- Global CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <!-- Career Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/career.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     AUTH LOADING SCREEN
+====================================================== -->
+
+<div
+    id="authLoading"
+    class="auth-loading"
+>
+
+    <div class="loading-spinner"></div>
+
+    <p>
+        Loading MindBridge...
+    </p>
+
+</div>
+
+
+
+<!-- ======================================================
+     MAIN APPLICATION
+====================================================== -->
+
+<div
+    id="careerApp"
+    class="app-layout hidden"
+>
+
+
+    <!-- ==================================================
+         SIDEBAR
+    =================================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                M
+            </div>
+
+            <div>
+
+                <h2>
+                    MindBridge
+                </h2>
+
+                <p>
+                    Career & Wellness
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <p class="nav-section-title">
+                OVERVIEW
+            </p>
+
+
+            <a
+                href="./dashboard.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <p class="nav-section-title">
+                MENTAL WELLNESS
+            </p>
+
+
+            <a
+                href="./chat.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    AI Support Chat
+                </span>
+
+            </a>
+
+
+            <a
+                href="./checkin.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ♡
+                </span>
+
+                <span>
+                    Emotional Check-In
+                </span>
+
+            </a>
+
+
+            <a
+                href="./immediate-help.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Immediate Help
+                </span>
+
+            </a>
+
+
+            <a
+                href="./wellness.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◇
+                </span>
+
+                <span>
+                    Wellness Activities
+                </span>
+
+            </a>
+
+
+            <a
+                href="./stress.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◌
+                </span>
+
+                <span>
+                    Stress Check
+                </span>
+
+            </a>
+
+
+
+            <p class="nav-section-title">
+                CAREER GUIDANCE
+            </p>
+
+
+            <a
+                href="./career.html"
+                class="sidebar-link active"
+            >
+
+                <span class="nav-icon">
+                    ↗
+                </span>
+
+                <span>
+                    Stream Selector
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- USER INFORMATION -->
+
+        <div class="sidebar-user">
+
+            <div
+                id="sidebarAvatar"
+                class="user-avatar"
+            >
+                U
+            </div>
+
+
+            <div class="user-details">
+
+                <strong
+                    id="sidebarUserName"
+                >
+                    MindBridge User
+                </strong>
+
+                <span
+                    id="sidebarUserEmail"
+                >
+                    Loading...
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ==================================================
+         MOBILE SIDEBAR OVERLAY
+    =================================================== -->
+
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+    ></div>
+
+
+
+    <!-- ==================================================
+         MAIN CONTENT
+    =================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==============================================
+             HEADER
+        =============================================== -->
+
+        <header class="top-header">
+
+
+            <div class="header-left">
+
+                <button
+                    id="sidebarToggle"
+                    class="sidebar-toggle"
+                    type="button"
+                    aria-label="Toggle navigation"
+                >
+                    ☰
+                </button>
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        CAREER GUIDANCE
+                    </p>
+
+                    <h1>
+                        AI Stream Selector
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="header-user">
+
+
+                <div
+                    id="headerAvatar"
+                    class="header-avatar"
+                >
+                    U
+                </div>
+
+
+                <div class="header-user-info">
+
+                    <strong
+                        id="headerFullName"
+                    >
+                        MindBridge User
+                    </strong>
+
+                    <span
+                        id="headerEmail"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="logoutBtn"
+                    class="logout-btn"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ==============================================
+             PAGE CONTENT
+        =============================================== -->
+
+        <div class="career-page">
+
+
+            <!-- ==========================================
+                 HERO
+            =========================================== -->
+
+            <section class="career-hero">
+
+
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        ✦ ML-POWERED ASSESSMENT
+                    </span>
+
+
+                    <h2>
+                        Discover the stream that
+                        <span>
+                            fits you best.
+                        </span>
+                    </h2>
+
+
+                    <p>
+                        Answer a short assessment about your
+                        academic performance, interests and
+                        aptitudes. MindBridge will analyse your
+                        responses and suggest streams that may
+                        suit your profile.
+                    </p>
+
+
+                    <div class="hero-meta">
+
+                        <span>
+                            ✓ 15 assessment inputs
+                        </span>
+
+                        <span>
+                            ✓ 4 stream possibilities
+                        </span>
+
+                        <span>
+                            ✓ Personalised result
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-orbit">
+
+                        <div class="orbit-center">
+                            AI
+                        </div>
+
+                        <span class="orbit-item orbit-pcm">
+                            PCM
+                        </span>
+
+                        <span class="orbit-item orbit-pcb">
+                            PCB
+                        </span>
+
+                        <span class="orbit-item orbit-commerce">
+                            COM
+                        </span>
+
+                        <span class="orbit-item orbit-arts">
+                            ARTS
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ==========================================
+                 ASSESSMENT INTRO
+            =========================================== -->
+
+            <section
+                id="assessmentIntro"
+                class="assessment-intro"
+            >
+
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        YOUR ASSESSMENT
+                    </p>
+
+                    <h2>
+                        Ready to explore your options?
+                    </h2>
+
+                    <p>
+                        There are no right or wrong answers.
+                        Answer based on your actual marks,
+                        interests and preferences.
+                    </p>
+
+                </div>
+
+
+
+                <div class="assessment-info-grid">
+
+
+                    <div class="info-card">
+
+                        <div class="info-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Academic Performance
+                        </h3>
+
+                        <p>
+                            Enter your Mathematics, Science,
+                            English and Social Science scores.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="info-card">
+
+                        <div class="info-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Your Interests
+                        </h3>
+
+                        <p>
+                            Tell us how interested you are in
+                            technology, biology, business,
+                            finance and humanities.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="info-card">
+
+                        <div class="info-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Your Aptitudes
+                        </h3>
+
+                        <p>
+                            Reflect on problem solving,
+                            reasoning, creativity,
+                            communication and research.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    id="startAssessmentBtn"
+                    class="primary-btn start-btn"
+                    type="button"
+                >
+                    Start Assessment
+                    <span>
+                        →
+                    </span>
+                </button>
+
+
+            </section>
+
+
+
+            <!-- ==========================================
+                 ASSESSMENT FORM
+            =========================================== -->
+
+            <section
+                id="assessmentSection"
+                class="assessment-section hidden"
+            >
+
+
+                <!-- PROGRESS -->
+
+                <div class="assessment-progress">
+
+
+                    <div class="progress-top">
+
+                        <div>
+
+                            <span class="progress-label">
+                                ASSESSMENT PROGRESS
+                            </span>
+
+                            <strong
+                                id="progressText"
+                            >
+                                Step 1 of 3
+                            </strong>
+
+                        </div>
+
+
+                        <span
+                            id="progressPercent"
+                            class="progress-percent"
+                        >
+                            33%
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="progressBar"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <form
+                    id="careerAssessmentForm"
+                    novalidate
+                >
+
+
+                    <!-- ==================================
+                         STEP 1 - ACADEMIC MARKS
+                    =================================== -->
+
+                    <div
+                        class="form-step active"
+                        data-step="1"
+                    >
+
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                STEP 01
+                            </span>
+
+                            <h2>
+                                Academic Performance
+                            </h2>
+
+                            <p>
+                                Enter your recent or Class 10
+                                subject scores out of 100.
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="marks-grid">
+
+
+                            <div class="form-group">
+
+                                <label for="math_score">
+                                    Mathematics
+                                </label>
+
+                                <div class="score-input">
+
+                                    <input
+                                        type="number"
+                                        id="math_score"
+                                        name="math_score"
+                                        min="0"
+                                        max="100"
+                                        placeholder="e.g. 85"
+                                        required
+                                    >
+
+                                    <span>
+                                        / 100
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="science_score">
+                                    Science
+                                </label>
+
+                                <div class="score-input">
+
+                                    <input
+                                        type="number"
+                                        id="science_score"
+                                        name="science_score"
+                                        min="0"
+                                        max="100"
+                                        placeholder="e.g. 80"
+                                        required
+                                    >
+
+                                    <span>
+                                        / 100
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="english_score">
+                                    English
+                                </label>
+
+                                <div class="score-input">
+
+                                    <input
+                                        type="number"
+                                        id="english_score"
+                                        name="english_score"
+                                        min="0"
+                                        max="100"
+                                        placeholder="e.g. 75"
+                                        required
+                                    >
+
+                                    <span>
+                                        / 100
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="social_science_score">
+                                    Social Science
+                                </label>
+
+                                <div class="score-input">
+
+                                    <input
+                                        type="number"
+                                        id="social_science_score"
+                                        name="social_science_score"
+                                        min="0"
+                                        max="100"
+                                        placeholder="e.g. 78"
+                                        required
+                                    >
+
+                                    <span>
+                                        / 100
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================
+                         STEP 2 - INTERESTS
+                    =================================== -->
+
+                    <div
+                        class="form-step"
+                        data-step="2"
+                    >
+
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                STEP 02
+                            </span>
+
+                            <h2>
+                                Tell us about your interests
+                            </h2>
+
+                            <p>
+                                Rate each area from 1 to 5.
+                                Choose the option that feels
+                                closest to you.
+                            </p>
+
+                        </div>
+
+
+                        <div class="rating-list">
+
+
+                            <!-- MATH INTEREST -->
+
+                            <div
+                                class="rating-question"
+                                data-field="math_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Mathematics
+                                    </h3>
+
+                                    <p>
+                                        How much do you enjoy
+                                        numbers and mathematical
+                                        problems?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="math_interest"
+                                    id="math_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- BIOLOGY -->
+
+                            <div
+                                class="rating-question"
+                                data-field="biology_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Biology & Life Sciences
+                                    </h3>
+
+                                    <p>
+                                        How interested are you
+                                        in living organisms,
+                                        health and biology?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="biology_interest"
+                                    id="biology_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- TECHNOLOGY -->
+
+                            <div
+                                class="rating-question"
+                                data-field="technology_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Technology
+                                    </h3>
+
+                                    <p>
+                                        How interested are you
+                                        in computers, software,
+                                        machines or technology?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="technology_interest"
+                                    id="technology_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- BUSINESS -->
+
+                            <div
+                                class="rating-question"
+                                data-field="business_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Business & Entrepreneurship
+                                    </h3>
+
+                                    <p>
+                                        How interested are you
+                                        in business, startups or
+                                        entrepreneurship?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="business_interest"
+                                    id="business_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- FINANCE -->
+
+                            <div
+                                class="rating-question"
+                                data-field="finance_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Finance & Economics
+                                    </h3>
+
+                                    <p>
+                                        How interested are you
+                                        in money, markets,
+                                        economics or finance?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="finance_interest"
+                                    id="finance_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- HUMANITIES -->
+
+                            <div
+                                class="rating-question"
+                                data-field="humanities_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Humanities & Society
+                                    </h3>
+
+                                    <p>
+                                        How interested are you
+                                        in history, society,
+                                        culture and human behaviour?
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="humanities_interest"
+                                    id="humanities_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================
+                         STEP 3 - APTITUDE
+                    =================================== -->
+
+                    <div
+                        class="form-step"
+                        data-step="3"
+                    >
+
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                STEP 03
+                            </span>
+
+                            <h2>
+                                Your strengths & aptitudes
+                            </h2>
+
+                            <p>
+                                Rate yourself from 1 to 5
+                                based on what feels most
+                                accurate to you.
+                            </p>
+
+                        </div>
+
+
+                        <div class="rating-list">
+
+
+                            <div
+                                class="rating-question"
+                                data-field="logical_reasoning"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Logical Reasoning
+                                    </h3>
+
+                                    <p>
+                                        I enjoy analysing
+                                        information and finding
+                                        logical patterns.
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="logical_reasoning"
+                                    id="logical_reasoning"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div
+                                class="rating-question"
+                                data-field="problem_solving"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Problem Solving
+                                    </h3>
+
+                                    <p>
+                                        I enjoy working through
+                                        difficult problems until
+                                        I find a solution.
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="problem_solving"
+                                    id="problem_solving"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div
+                                class="rating-question"
+                                data-field="creativity"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Creativity
+                                    </h3>
+
+                                    <p>
+                                        I enjoy expressing ideas
+                                        and thinking of original
+                                        approaches.
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="creativity"
+                                    id="creativity"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div
+                                class="rating-question"
+                                data-field="communication"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Communication
+                                    </h3>
+
+                                    <p>
+                                        I feel comfortable
+                                        communicating ideas and
+                                        interacting with others.
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="communication"
+                                    id="communication"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div
+                                class="rating-question"
+                                data-field="research_interest"
+                            >
+
+                                <div class="question-text">
+
+                                    <h3>
+                                        Research & Exploration
+                                    </h3>
+
+                                    <p>
+                                        I enjoy investigating
+                                        topics deeply and learning
+                                        how or why things work.
+                                    </p>
+
+                                </div>
+
+                                <div class="rating-options">
+
+                                    <button type="button" data-value="1">1</button>
+                                    <button type="button" data-value="2">2</button>
+                                    <button type="button" data-value="3">3</button>
+                                    <button type="button" data-value="4">4</button>
+                                    <button type="button" data-value="5">5</button>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="research_interest"
+                                    id="research_interest"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================
+                         ERROR MESSAGE
+                    =================================== -->
+
+                    <div
+                        id="formError"
+                        class="form-error hidden"
+                    ></div>
+
+
+
+                    <!-- ==================================
+                         FORM NAVIGATION
+                    =================================== -->
+
+                    <div class="form-navigation">
+
+
+                        <button
+                            id="previousBtn"
+                            class="secondary-btn hidden"
+                            type="button"
+                        >
+                            ← Previous
+                        </button>
+
+
+                        <button
+                            id="nextBtn"
+                            class="primary-btn"
+                            type="button"
+                        >
+                            Continue →
+                        </button>
+
+
+                        <button
+                            id="submitAssessmentBtn"
+                            class="primary-btn hidden"
+                            type="submit"
+                        >
+                            Get My Recommendation
+                            <span>
+                                ✦
+                            </span>
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+
+            <!-- ==========================================
+                 ANALYSING STATE
+            =========================================== -->
+
+            <section
+                id="analysingSection"
+                class="analysing-section hidden"
+            >
+
+                <div class="ai-loader">
+
+                    <div class="loader-ring"></div>
+
+                    <span>
+                        AI
+                    </span>
+
+                </div>
+
+                <p class="eyebrow">
+                    MINDBRIDGE ML MODEL
+                </p>
+
+                <h2>
+                    Analysing your profile...
+                </h2>
+
+                <p>
+                    Comparing your academic performance,
+                    interests and aptitudes.
+                </p>
+
+            </section>
+
+
+
+            <!-- ==========================================
+                 RESULT SECTION
+            =========================================== -->
+
+            <section
+                id="resultSection"
+                class="result-section hidden"
+            >
+
+
+                <div class="result-header">
+
+                    <p class="eyebrow">
+                        YOUR MINDBRIDGE RESULT
+                    </p>
+
+                    <h2>
+                        Your recommended stream
+                    </h2>
+
+                </div>
+
+
+
+                <!-- MAIN RESULT -->
+
+                <div class="primary-result-card">
+
+
+                    <div class="result-icon">
+                        ✦
+                    </div>
+
+
+                    <div class="result-main-content">
+
+                        <span>
+                            BEST MATCH
+                        </span>
+
+                        <h3
+                            id="recommendedStream"
+                        >
+                            Science PCM
+                        </h3>
+
+                        <p
+                            id="streamDescription"
+                        >
+                            Your recommendation will
+                            appear here.
+                        </p>
+
+                    </div>
+
+
+                    <div class="confidence-box">
+
+                        <strong
+                            id="confidenceValue"
+                        >
+                            0%
+                        </strong>
+
+                        <span>
+                            Match Score
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PROBABILITY BREAKDOWN -->
+
+                <div class="result-breakdown-card">
+
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                STREAM SUITABILITY
+                            </p>
+
+                            <h3>
+                                How your profile compares
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        id="probabilityList"
+                        class="probability-list"
+                    >
+
+                        <!-- Added by career.js -->
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- RECOMMENDATION EXPLANATION -->
+
+                <div class="result-details-grid">
+
+
+                    <div class="result-detail-card">
+
+                        <span class="detail-icon">
+                            ◎
+                        </span>
+
+                        <h3>
+                            Why this stream?
+                        </h3>
+
+                        <p
+                            id="recommendationReason"
+                        >
+                            MindBridge will explain the
+                            factors behind your result.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="result-detail-card">
+
+                        <span class="detail-icon">
+                            ↗
+                        </span>
+
+                        <h3>
+                            Possible directions
+                        </h3>
+
+                        <div
+                            id="careerDirections"
+                            class="career-tags"
+                        >
+
+                            <!-- Added by career.js -->
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- DISCLAIMER -->
+
+                <div class="result-disclaimer">
+
+                    <strong>
+                        Remember
+                    </strong>
+
+                    <p>
+                        This assessment is a prototype
+                        recommendation tool. Your result should
+                        be used as guidance, not as the sole
+                        basis for choosing an academic stream.
+                        Consider your goals, circumstances,
+                        teachers, counsellors and family
+                        discussions before making a decision.
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESULT ACTIONS -->
+
+                <div class="result-actions">
+
+                    <button
+                        id="retakeAssessmentBtn"
+                        class="secondary-btn"
+                        type="button"
+                    >
+                        Retake Assessment
+                    </button>
+
+                    <a
+                        href="./dashboard.html"
+                        class="primary-btn result-link"
+                    >
+                        Back to Dashboard
+                    </a>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="../JS/career.js"
+></script>
+
+
+</body>
+
+</html>

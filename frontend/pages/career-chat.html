@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Career Counselor | MindBridge
+    </title>
+
+
+    <!-- GLOBAL CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+
+    <!-- CAREER CHAT CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/career-chat.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+AUTH LOADING SCREEN
+======================================================= -->
+
+<div
+    id="authLoading"
+    class="auth-loading"
+>
+
+    <div class="loader"></div>
+
+    <p>
+        Loading MindBridge...
+    </p>
+
+</div>
+
+
+
+<!-- ======================================================
+MAIN APPLICATION
+======================================================= -->
+
+<div
+    id="careerChatApp"
+    class="app-layout hidden"
+>
+
+
+    <!-- ==================================================
+    SIDEBAR
+    =================================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                M
+            </div>
+
+
+            <div>
+
+                <h2>
+                    MindBridge
+                </h2>
+
+                <p>
+                    Career & Wellness
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <!-- OVERVIEW -->
+
+            <p class="nav-heading">
+                OVERVIEW
+            </p>
+
+
+            <a
+                href="./dashboard.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- MENTAL WELLNESS -->
+
+            <p class="nav-heading">
+                MENTAL WELLNESS
+            </p>
+
+
+            <a
+                href="./chat.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    AI Support Chat
+                </span>
+
+            </a>
+
+
+            <a
+                href="./checkin.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ♡
+                </span>
+
+                <span>
+                    Emotional Check-In
+                </span>
+
+            </a>
+
+
+            <a
+                href="./help.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Immediate Help
+                </span>
+
+            </a>
+
+
+            <a
+                href="./wellness.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◇
+                </span>
+
+                <span>
+                    Wellness Activities
+                </span>
+
+            </a>
+
+
+            <a
+                href="./stress.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◌
+                </span>
+
+                <span>
+                    Stress Check
+                </span>
+
+            </a>
+
+
+
+            <!-- CAREER GUIDANCE -->
+
+            <p class="nav-heading">
+                CAREER GUIDANCE
+            </p>
+
+
+            <a
+                href="./career.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ↗
+                </span>
+
+                <span>
+                    Career Guidance
+                </span>
+
+            </a>
+
+
+            <a
+                href="./career-chat.html"
+                class="sidebar-link active"
+            >
+
+                <span class="nav-icon">
+                    ✧
+                </span>
+
+                <span>
+                    AI Career Counselor
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- SIDEBAR USER -->
+
+        <div class="sidebar-user">
+
+            <div
+                id="sidebarAvatar"
+                class="user-avatar"
+            >
+                U
+            </div>
+
+
+            <div class="sidebar-user-info">
+
+                <strong
+                    id="sidebarUserName"
+                >
+                    User
+                </strong>
+
+
+                <span
+                    id="sidebarUserEmail"
+                >
+                    user@email.com
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ==================================================
+    MOBILE SIDEBAR OVERLAY
+    =================================================== -->
+
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+    ></div>
+
+
+
+    <!-- ==================================================
+    MAIN CONTENT
+    =================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==============================================
+        TOP HEADER
+        =============================================== -->
+
+        <header class="top-header">
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                id="sidebarToggle"
+                class="sidebar-toggle"
+                type="button"
+                aria-label="Open navigation"
+            >
+                ☰
+            </button>
+
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="header-title">
+
+                <p class="header-label">
+                    CAREER GUIDANCE
+                </p>
+
+                <h1>
+                    AI Career Counselor
+                </h1>
+
+            </div>
+
+
+
+            <!-- USER -->
+
+            <div class="header-user">
+
+
+                <div
+                    id="headerAvatar"
+                    class="user-avatar"
+                >
+                    U
+                </div>
+
+
+                <div class="header-user-info">
+
+                    <strong
+                        id="headerFullName"
+                    >
+                        User
+                    </strong>
+
+                    <span
+                        id="headerEmail"
+                    >
+                        user@email.com
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="logoutBtn"
+                    class="logout-btn"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ==================================================
+        PAGE CONTENT
+        =================================================== -->
+
+        <div class="career-page">
+
+
+            <!-- ==============================================
+            STAGE SELECTION
+            =============================================== -->
+
+            <section
+                id="stageSelection"
+                class="stage-section"
+            >
+
+
+                <!-- INTRO -->
+
+                <div class="stage-intro">
+
+                    <span class="section-badge">
+                        MINDBRIDGE CAREER AI
+                    </span>
+
+
+                    <h2>
+                        Where are you in your
+                        career journey?
+                    </h2>
+
+
+                    <p>
+                        Select your current stage. Your AI Career
+                        Counselor will use this information to ask
+                        relevant questions about your education,
+                        interests, skills and goals before providing
+                        career guidance.
+                    </p>
+
+                </div>
+
+
+
+                <!-- STAGE CARDS -->
+
+                <div class="stage-grid">
+
+
+                    <!-- SCHOOL -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="school"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            📚
+                        </span>
+
+
+                        <strong>
+                            School Student
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Class 8–10
+                        </span>
+
+
+                        <p>
+                            Understand your interests, strengths
+                            and possible stream choices.
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- SENIOR SECONDARY -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="senior-secondary"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            🎓
+                        </span>
+
+
+                        <strong>
+                            Senior Secondary
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Class 11–12
+                        </span>
+
+
+                        <p>
+                            Explore courses, degrees and possible
+                            career directions after school.
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- COLLEGE -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="college"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            💻
+                        </span>
+
+
+                        <strong>
+                            College Student
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Undergraduate
+                        </span>
+
+
+                        <p>
+                            Discover career paths, internships,
+                            skills and learning opportunities.
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- GRADUATE -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="graduate"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            🧭
+                        </span>
+
+
+                        <strong>
+                            Graduate
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Planning your next step
+                        </span>
+
+
+                        <p>
+                            Explore jobs, higher studies and
+                            professional development options.
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- PROFESSIONAL -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="professional"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            💼
+                        </span>
+
+
+                        <strong>
+                            Working Professional
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Career growth or transition
+                        </span>
+
+
+                        <p>
+                            Explore career growth and realistic
+                            transition opportunities.
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- UNSURE -->
+
+                    <button
+                        class="stage-card"
+                        data-stage="unsure"
+                        type="button"
+                    >
+
+                        <span class="stage-icon">
+                            ✨
+                        </span>
+
+
+                        <strong>
+                            I'm Not Sure
+                        </strong>
+
+
+                        <span class="stage-subtitle">
+                            Start with career discovery
+                        </span>
+
+
+                        <p>
+                            Start a guided conversation to better
+                            understand your possible directions.
+                        </p>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- START BUTTON -->
+
+                <div class="stage-action">
+
+
+                    <p
+                        id="stageError"
+                        class="stage-error hidden"
+                    >
+                        Please select your current stage.
+                    </p>
+
+
+                    <button
+                        id="startCounselingBtn"
+                        class="primary-btn"
+                        type="button"
+                        disabled
+                    >
+
+                        Start Career Counseling
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ==============================================
+            AI CHAT SECTION
+            =============================================== -->
+
+            <section
+                id="chatSection"
+                class="chat-section hidden"
+            >
+
+
+                <!-- CHAT HEADER -->
+
+                <div class="chat-panel-header">
+
+
+                    <div class="ai-identity">
+
+
+                        <div class="ai-avatar">
+                            ✦
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                MindBridge AI Career Counselor
+                            </h2>
+
+                            <p>
+                                Analysis-based career guidance
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="chat-actions">
+
+
+                        <span
+                            id="currentStageBadge"
+                            class="current-stage-badge"
+                        >
+                            Career Discovery
+                        </span>
+
+
+                        <button
+                            id="changeStageBtn"
+                            class="secondary-btn"
+                            type="button"
+                        >
+                            Change Stage
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ANALYSIS NOTICE -->
+
+                <div class="analysis-notice">
+
+                    <span>
+                        ◎
+                    </span>
+
+
+                    <p>
+                        Your counselor will first understand your
+                        education, interests, skills and goals before
+                        suggesting career directions.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CHAT MESSAGES -->
+
+                <div
+                    id="chatMessages"
+                    class="chat-messages"
+                    aria-live="polite"
+                ></div>
+
+
+
+                <!-- TYPING INDICATOR -->
+
+                <div
+                    id="typingIndicator"
+                    class="typing-indicator hidden"
+                >
+
+
+                    <div class="message-avatar ai">
+                        ✦
+                    </div>
+
+
+                    <div class="typing-bubble">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CHAT ERROR -->
+
+                <div
+                    id="chatError"
+                    class="chat-error hidden"
+                ></div>
+
+
+
+                <!-- CHAT INPUT -->
+
+                <form
+                    id="chatForm"
+                    class="chat-input-area"
+                >
+
+
+                    <textarea
+                        id="messageInput"
+                        rows="1"
+                        maxlength="5000"
+                        placeholder="Tell your career counselor about yourself..."
+                        aria-label="Message your AI Career Counselor"
+                        required
+                    ></textarea>
+
+
+                    <button
+                        id="sendMessageBtn"
+                        type="submit"
+                        class="send-btn"
+                    >
+
+                        Send
+
+                        <span>
+                            ↑
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- DISCLAIMER -->
+
+                <p class="ai-disclaimer">
+
+                    AI career guidance is intended to help you
+                    explore options. Important education and career
+                    decisions should also consider your personal
+                    circumstances and verified information.
+
+                </p>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ======================================================
+JAVASCRIPT
+======================================================= -->
+
+<script
+    type="module"
+    src="../JS/career-chat.js"
+></script>
+
+
+</body>
+
+</html>

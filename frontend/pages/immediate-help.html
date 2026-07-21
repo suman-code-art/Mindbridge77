@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="MindBridge Immediate Help Mode"
+    >
+
+    <title>
+        Immediate Help | MindBridge
+    </title>
+
+
+    <!-- GLOBAL CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+
+    <!-- IMMEDIATE HELP CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/immediate-help.css"
+    >
+
+</head>
+
+
+<body class="help-page">
+
+
+    <!-- =====================================================
+         AUTHENTICATION LOADING
+    ====================================================== -->
+
+    <div
+        id="authLoading"
+        class="auth-loading"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Loading MindBridge...
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <div
+        id="helpApp"
+        class="help-app hidden"
+    >
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+
+            <!-- BRAND -->
+
+            <div class="sidebar-brand">
+
+                <a href="dashboard.html">
+
+                    <div class="brand-logo">
+                        M
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            MindBridge
+                        </strong>
+
+                        <small>
+                            Career & Mental Health Support
+                        </small>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-navigation">
+
+
+                <a
+                    href="dashboard.html"
+                    class="sidebar-link"
+                >
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="chat.html"
+                    class="sidebar-link"
+                >
+                    <span>✦</span>
+                    AI Support Chat
+                </a>
+
+
+                <a
+                    href="checkin.html"
+                    class="sidebar-link"
+                >
+                    <span>♡</span>
+                    Emotional Check-In
+                </a>
+
+
+                <a
+                    href="immediate-help.html"
+                    class="sidebar-link active"
+                >
+                    <span>◎</span>
+                    Immediate Help
+                </a>
+
+
+                <a
+                    href="wellness.html"
+                    class="sidebar-link"
+                >
+                    <span>◇</span>
+                    Wellness Activities
+                </a>
+
+
+                <a
+                    href="stress-check.html"
+                    class="sidebar-link"
+                >
+                    <span>◌</span>
+                    Stress Check
+                </a>
+
+
+                <div class="sidebar-divider"></div>
+
+
+                <p class="sidebar-section-label">
+                    CAREER GUIDANCE
+                </p>
+
+
+                <a
+                    href="career.html"
+                    class="sidebar-link"
+                >
+                    <span>↗</span>
+                    Career Guidance
+                </a>
+
+
+                <a
+                    href="career-chat.html"
+                    class="sidebar-link"
+                >
+                    <span>✧</span>
+                    AI Career Counselor
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- USER -->
+
+            <div class="sidebar-footer">
+
+
+                <div class="sidebar-user">
+
+
+                    <div
+                        id="userAvatar"
+                        class="sidebar-avatar"
+                    >
+                        U
+                    </div>
+
+
+                    <div class="sidebar-user-info">
+
+                        <strong id="userName">
+                            MindBridge User
+                        </strong>
+
+                        <small id="userEmail">
+                            Loading...
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    id="logoutBtn"
+                    class="logout-button"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- HEADER -->
+
+            <header class="top-header">
+
+
+                <div class="header-left">
+
+
+                    <button
+                        id="sidebarToggle"
+                        class="sidebar-toggle"
+                        type="button"
+                        aria-label="Toggle navigation"
+                    >
+                        ☰
+                    </button>
+
+
+                    <div>
+
+                        <h1>
+                            Immediate Help
+                        </h1>
+
+                        <p>
+                            Simple tools to help you pause, ground yourself,
+                            and regain focus.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <a
+                    href="chat.html"
+                    class="chat-button"
+                >
+                    Talk to MindBridge AI
+                </a>
+
+
+            </header>
+
+
+
+            <!-- =================================================
+                 PAGE CONTENT
+            ================================================== -->
+
+            <section class="help-content">
+
+
+                <!-- INTRO -->
+
+                <div class="intro-section">
+
+                    <span class="section-label">
+                        IMMEDIATE HELP MODE
+                    </span>
+
+                    <h2>
+                        Choose what feels helpful right now.
+                    </h2>
+
+                    <p>
+                        These exercises are designed as general wellness tools.
+                        You can stop at any time and choose another activity.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TOOL SELECTOR
+                ================================================== -->
+
+                <div class="tool-grid">
+
+
+                    <!-- BREATHING -->
+
+                    <button
+                        type="button"
+                        class="tool-card active"
+                        data-tool="breathing"
+                    >
+
+                        <div class="tool-icon">
+                            ◯
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Guided Breathing
+                            </strong>
+
+                            <p>
+                                Follow a gentle breathing rhythm.
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- GROUNDING -->
+
+                    <button
+                        type="button"
+                        class="tool-card"
+                        data-tool="grounding"
+                    >
+
+                        <div class="tool-icon">
+                            ◇
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                5-4-3-2-1 Grounding
+                            </strong>
+
+                            <p>
+                                Reconnect with your surroundings.
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- QUICK RESET -->
+
+                    <button
+                        type="button"
+                        class="tool-card"
+                        data-tool="reset"
+                    >
+
+                        <div class="tool-icon">
+                            ✦
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Quick Reset
+                            </strong>
+
+                            <p>
+                                Try one small action right now.
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     BREATHING EXERCISE
+                ================================================== -->
+
+                <section
+                    id="breathingSection"
+                    class="exercise-panel"
+                >
+
+
+                    <div class="panel-header">
+
+                        <span class="panel-label">
+                            GUIDED BREATHING
+                        </span>
+
+                        <h2>
+                            Follow the circle
+                        </h2>
+
+                        <p>
+                            Breathe at a comfortable pace. Stop if you feel
+                            uncomfortable or light-headed.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="breathing-area">
+
+
+                        <div
+                            id="breathingCircle"
+                            class="breathing-circle"
+                        >
+
+                            <div>
+
+                                <span id="breathingText">
+                                    Ready
+                                </span>
+
+                                <small id="breathingTimer">
+                                    Start when you're comfortable
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="breathing-status">
+
+                        <p id="cycleStatus">
+                            A short guided breathing session.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="exercise-actions">
+
+
+                        <button
+                            id="startBreathingBtn"
+                            type="button"
+                            class="primary-button"
+                        >
+                            Start Breathing
+                        </button>
+
+
+                        <button
+                            id="stopBreathingBtn"
+                            type="button"
+                            class="secondary-button"
+                            disabled
+                        >
+                            Stop
+                        </button>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                     GROUNDING EXERCISE
+                ================================================== -->
+
+                <section
+                    id="groundingSection"
+                    class="exercise-panel hidden"
+                >
+
+
+                    <div class="panel-header">
+
+                        <span class="panel-label">
+                            5-4-3-2-1 GROUNDING
+                        </span>
+
+                        <h2>
+                            Bring your attention to the present.
+                        </h2>
+
+                        <p>
+                            Move through each step at your own pace.
+                            You don't need to type anything.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="grounding-progress">
+
+                        <div class="progress-track">
+
+                            <div
+                                id="groundingProgressBar"
+                                class="progress-bar"
+                            ></div>
+
+                        </div>
+
+                        <span id="groundingProgressText">
+                            Step 1 of 5
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="grounding-card">
+
+
+                        <div
+                            id="groundingNumber"
+                            class="grounding-number"
+                        >
+                            5
+                        </div>
+
+
+                        <div class="grounding-content">
+
+                            <span id="groundingSense">
+                                SEE
+                            </span>
+
+                            <h3 id="groundingTitle">
+                                Notice 5 things you can see.
+                            </h3>
+
+                            <p id="groundingDescription">
+                                Slowly look around you. Notice colors,
+                                shapes, objects, light, or movement.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="exercise-actions">
+
+
+                        <button
+                            id="previousGroundingBtn"
+                            type="button"
+                            class="secondary-button"
+                            disabled
+                        >
+                            Previous
+                        </button>
+
+
+                        <button
+                            id="nextGroundingBtn"
+                            type="button"
+                            class="primary-button"
+                        >
+                            Next Step
+                        </button>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                     QUICK RESET
+                ================================================== -->
+
+                <section
+                    id="resetSection"
+                    class="exercise-panel hidden"
+                >
+
+
+                    <div class="panel-header">
+
+                        <span class="panel-label">
+                            QUICK RESET
+                        </span>
+
+                        <h2>
+                            Try one small action.
+                        </h2>
+
+                        <p>
+                            You don't need to do everything. Choose one
+                            simple action that feels manageable.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="reset-grid">
+
+
+                        <article class="reset-card">
+
+                            <span class="reset-icon">
+                                ◌
+                            </span>
+
+                            <h3>
+                                Relax your shoulders
+                            </h3>
+
+                            <p>
+                                Notice if you're holding tension.
+                                Gently lower your shoulders and unclench
+                                your jaw.
+                            </p>
+
+                        </article>
+
+
+
+                        <article class="reset-card">
+
+                            <span class="reset-icon">
+                                ◇
+                            </span>
+
+                            <h3>
+                                Drink some water
+                            </h3>
+
+                            <p>
+                                Take a few slow sips of water and give
+                                yourself a brief pause.
+                            </p>
+
+                        </article>
+
+
+
+                        <article class="reset-card">
+
+                            <span class="reset-icon">
+                                ◎
+                            </span>
+
+                            <h3>
+                                Step away briefly
+                            </h3>
+
+                            <p>
+                                If possible, move away from your screen
+                                for a few minutes and notice your surroundings.
+                            </p>
+
+                        </article>
+
+
+
+                        <article class="reset-card">
+
+                            <span class="reset-icon">
+                                ♡
+                            </span>
+
+                            <h3>
+                                Connect with someone
+                            </h3>
+
+                            <p>
+                                Consider sending a message or speaking
+                                with someone you trust.
+                            </p>
+
+                        </article>
+
+
+                    </div>
+
+
+                    <div class="random-reset-box">
+
+                        <span>
+                            NEED A SIMPLE SUGGESTION?
+                        </span>
+
+                        <p id="randomResetText">
+                            Click below and MindBridge will choose one
+                            small wellness activity for you.
+                        </p>
+
+                        <button
+                            id="randomResetBtn"
+                            type="button"
+                            class="primary-button"
+                        >
+                            Give Me One Activity
+                        </button>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                     URGENT SUPPORT
+                ================================================== -->
+
+                <section class="urgent-support">
+
+
+                    <div class="urgent-icon">
+                        !
+                    </div>
+
+
+                    <div class="urgent-content">
+
+                        <span>
+                            URGENT SUPPORT
+                        </span>
+
+                        <h2>
+                            Need immediate help?
+                        </h2>
+
+                        <p>
+                            MindBridge provides general wellness support and
+                            is not an emergency service. If you believe you
+                            are in immediate danger or may act in a way that
+                            could seriously harm yourself or someone else,
+                            contact local emergency services now or seek
+                            immediate help from a trusted person nearby.
+                        </p>
+
+
+                        <div class="urgent-actions">
+
+                            <a
+                                href="emergency.html"
+                                class="urgent-primary"
+                            >
+                                View Emergency Support
+                            </a>
+
+                            <a
+                                href="chat.html"
+                                class="urgent-secondary"
+                            >
+                                Open AI Support Chat
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script
+        type="module"
+        src="../js/immediate-help.js"
+    ></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+# ==========================================================
+# MINDBRIDGE - GITIGNORE
+# ==========================================================
+
+# Secrets and environment variables
+.env
+backend/.env
+*.env
+
+# Python virtual environments
+venv/
+backend/venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

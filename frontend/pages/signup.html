@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Create your MindBridge account for mental wellness support and AI-powered career guidance."
+    >
+
+    <title>Create Account | MindBridge</title>
+
+
+    <!-- Global CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+
+    <!-- Authentication CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/auth.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- =====================================================
+         AUTHENTICATION LAYOUT
+    ====================================================== -->
+
+    <main class="auth-layout">
+
+
+        <!-- =================================================
+             LEFT BRAND SECTION
+        ================================================== -->
+
+        <section class="auth-brand-section">
+
+
+            <!-- Brand -->
+
+            <a
+                href="../index.html"
+                class="auth-brand"
+            >
+                MindBridge
+            </a>
+
+
+            <!-- Brand Content -->
+
+            <div class="auth-brand-content">
+
+
+                <span class="auth-label">
+                    CAREER & MENTAL HEALTH SUPPORT
+                </span>
+
+
+                <h1>
+                    Your journey starts
+                    <span>here.</span>
+                </h1>
+
+
+                <p>
+                    Create your MindBridge account and access
+                    personalized mental wellness support,
+                    AI-powered guidance and career exploration
+                    tools in one place.
+                </p>
+
+
+
+                <!-- Features -->
+
+                <div class="auth-feature-list">
+
+
+                    <!-- Mental Wellness -->
+
+                    <div class="auth-feature">
+
+                        <span>
+                            ♡
+                        </span>
+
+
+                        <div>
+
+                            <strong>
+                                Mental Wellness
+                            </strong>
+
+
+                            <p>
+                                Check in with your emotions,
+                                track your mood and access
+                                supportive wellness activities.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AI Support -->
+
+                    <div class="auth-feature">
+
+                        <span>
+                            ✦
+                        </span>
+
+
+                        <div>
+
+                            <strong>
+                                AI Support
+                            </strong>
+
+
+                            <p>
+                                Talk with the MindBridge AI
+                                assistant for general wellness
+                                and supportive guidance.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Career Guidance -->
+
+                    <div class="auth-feature">
+
+                        <span>
+                            ↗
+                        </span>
+
+
+                        <div>
+
+                            <strong>
+                                Career Guidance
+                            </strong>
+
+
+                            <p>
+                                Discover career possibilities,
+                                explore job roles and build
+                                personalized learning roadmaps.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RIGHT SIGNUP SECTION
+        ================================================== -->
+
+        <section class="auth-form-section">
+
+
+            <div class="auth-card">
+
+
+                <!-- Header -->
+
+                <div class="auth-card-header">
+
+
+                    <a
+                        href="../index.html"
+                        class="back-link"
+                    >
+                        ← Back to Home
+                    </a>
+
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+
+                    <p>
+                        Join MindBridge and start your journey.
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SIGNUP FORM
+                ================================================== -->
+
+                <form
+                    id="signupForm"
+                    class="auth-form"
+                >
+
+
+                    <!-- Full Name -->
+
+                    <div class="form-group">
+
+
+                        <label for="signupName">
+                            Full Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="signupName"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+
+                    </div>
+
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+
+                        <label for="signupEmail">
+                            Email Address
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+
+                    </div>
+
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+
+                        <label for="signupPassword">
+                            Password
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+
+                            <input
+                                type="password"
+                                id="signupPassword"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="signupPassword"
+                                aria-label="Show or hide password"
+                            >
+                                Show
+                            </button>
+
+
+                        </div>
+
+
+                        <small>
+                            Use at least 6 characters.
+                        </small>
+
+
+                    </div>
+
+
+
+                    <!-- Confirm Password -->
+
+                    <div class="form-group">
+
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Enter your password again"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="confirmPassword"
+                                aria-label="Show or hide password"
+                            >
+                                Show
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- Terms -->
+
+                    <label class="remember-option">
+
+
+                        <input
+                            type="checkbox"
+                            id="acceptTerms"
+                            required
+                        >
+
+
+                        <span>
+                            I agree to use MindBridge as a
+                            wellness and career guidance tool.
+                        </span>
+
+
+                    </label>
+
+
+
+                    <!-- Firebase/Error Message -->
+
+                    <div
+                        id="signupMessage"
+                        class="form-message"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        id="signupSubmitBtn"
+                        class="btn btn-primary auth-submit"
+                    >
+                        Create Account
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- Login Link -->
+
+                <div class="auth-switch">
+
+
+                    <p>
+
+                        Already have an account?
+
+                        <a href="login.html">
+                            Login
+                        </a>
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <!--
+        auth.js is loaded as a JavaScript module because
+        it will import Firebase Authentication functions.
+
+        Firebase configuration will be imported inside auth.js.
+    -->
+
+    <script
+        type="module"
+        src="../js/auth.js"
+    ></script>
+
+
+</body>
+
+</html>

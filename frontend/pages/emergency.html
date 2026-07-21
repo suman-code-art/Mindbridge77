@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="MindBridge Emergency Support - Access immediate support resources, grounding guidance, and trusted contacts."
+    >
+
+    <title>
+        Emergency Support | MindBridge
+    </title>
+
+
+    <!-- ==================================================
+         EMERGENCY PAGE CSS
+    =================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/emergency.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     AUTHENTICATION LOADING SCREEN
+====================================================== -->
+
+<div
+    id="authLoading"
+    class="auth-loading"
+>
+
+    <div class="loading-content">
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Loading MindBridge Emergency Support...
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ======================================================
+     MAIN APPLICATION
+====================================================== -->
+
+<div
+    id="emergencyApp"
+    class="emergency-app hidden"
+>
+
+
+    <!-- ==================================================
+         SIDEBAR OVERLAY
+    =================================================== -->
+
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+    ></div>
+
+
+
+    <!-- ==================================================
+         SIDEBAR
+    =================================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+
+        <!-- LOGO -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-icon">
+                M
+            </div>
+
+            <div>
+
+                <h2>
+                    MindBridge
+                </h2>
+
+                <p>
+                    Student Wellness
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <a
+                href="./dashboard.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◇
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="./stress-check.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Stress Check
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="./wellness.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ♡
+                </span>
+
+                <span>
+                    Wellness Activities
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="./chat.html"
+                class="sidebar-link"
+            >
+
+                <span class="nav-icon">
+                    ◌
+                </span>
+
+                <span>
+                    Support Chat
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="./emergency.html"
+                class="sidebar-link active"
+            >
+
+                <span class="nav-icon">
+                    !
+                </span>
+
+                <span>
+                    Emergency Support
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- SIDEBAR USER -->
+
+        <div class="sidebar-user">
+
+
+            <div
+                id="userAvatar"
+                class="user-avatar"
+            >
+                U
+            </div>
+
+
+            <div class="user-details">
+
+                <strong id="userName">
+                    MindBridge User
+                </strong>
+
+                <span id="userEmail">
+                    Loading...
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            id="logoutBtn"
+            class="logout-button"
+            type="button"
+        >
+
+            Logout
+
+        </button>
+
+
+    </aside>
+
+
+
+    <!-- ==================================================
+         MAIN CONTENT
+    =================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==================================================
+             TOP HEADER
+        =================================================== -->
+
+        <header class="top-header">
+
+
+            <button
+                id="sidebarToggle"
+                class="sidebar-toggle"
+                type="button"
+                aria-label="Toggle navigation"
+            >
+
+                ☰
+
+            </button>
+
+
+            <div>
+
+                <span class="page-label">
+                    IMMEDIATE SUPPORT
+                </span>
+
+                <h1>
+                    Emergency Support
+                </h1>
+
+            </div>
+
+
+            <a
+                href="./dashboard.html"
+                class="back-dashboard"
+            >
+
+                ← Dashboard
+
+            </a>
+
+
+        </header>
+
+
+
+        <!-- ==================================================
+             IMPORTANT NOTICE
+        =================================================== -->
+
+        <section class="emergency-hero">
+
+
+            <div class="emergency-badge">
+
+                Immediate Help
+
+            </div>
+
+
+            <h2>
+
+                If you feel you may be in immediate danger,
+                get help now.
+
+            </h2>
+
+
+            <p>
+
+                MindBridge can provide supportive resources,
+                but it is not an emergency service.
+
+                If you or someone else is in immediate danger,
+                contact local emergency services or go to the
+                nearest emergency department.
+
+            </p>
+
+
+            <div class="emergency-actions">
+
+
+                <a
+                    href="tel:112"
+                    class="primary-emergency-button"
+                >
+
+                    Call Emergency Services — 112
+
+                </a>
+
+
+                <button
+                    id="groundingButton"
+                    class="secondary-button"
+                    type="button"
+                >
+
+                    Help Me Ground Myself
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             SUPPORT OPTIONS
+        =================================================== -->
+
+        <section class="support-section">
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    SUPPORT OPTIONS
+                </span>
+
+                <h2>
+                    Choose what feels most helpful right now
+                </h2>
+
+                <p>
+
+                    You can contact emergency services,
+                    reach someone you trust, or use a short
+                    grounding exercise while seeking support.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="support-grid">
+
+
+                <!-- EMERGENCY SERVICES -->
+
+                <article class="support-card urgent-card">
+
+
+                    <div class="card-icon">
+                        !
+                    </div>
+
+
+                    <h3>
+                        Emergency Services
+                    </h3>
+
+
+                    <p>
+
+                        If there is immediate danger or a
+                        medical emergency, contact emergency
+                        services.
+
+                    </p>
+
+
+                    <a
+                        href="tel:112"
+                        class="card-action emergency-action"
+                    >
+
+                        Call 112
+
+                    </a>
+
+
+                </article>
+
+
+
+                <!-- TRUSTED PERSON -->
+
+                <article class="support-card">
+
+
+                    <div class="card-icon">
+                        ♡
+                    </div>
+
+
+                    <h3>
+                        Contact Someone You Trust
+                    </h3>
+
+
+                    <p>
+
+                        Reaching out to a friend, family member,
+                        mentor, or another trusted person can
+                        help you avoid being alone during a
+                        difficult moment.
+
+                    </p>
+
+
+                    <button
+                        id="showTrustedContactsBtn"
+                        class="card-action"
+                        type="button"
+                    >
+
+                        View Trusted Contacts
+
+                    </button>
+
+
+                </article>
+
+
+
+                <!-- GROUNDING -->
+
+                <article class="support-card">
+
+
+                    <div class="card-icon">
+                        ◌
+                    </div>
+
+
+                    <h3>
+                        Ground Yourself
+                    </h3>
+
+
+                    <p>
+
+                        Follow a short grounding exercise to
+                        reconnect with your surroundings while
+                        you decide what support you need.
+
+                    </p>
+
+
+                    <button
+                        id="startGroundingBtn"
+                        class="card-action"
+                        type="button"
+                    >
+
+                        Start Grounding
+
+                    </button>
+
+
+                </article>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             GROUNDING EXERCISE
+        =================================================== -->
+
+        <section
+            id="groundingSection"
+            class="grounding-section hidden"
+        >
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    GROUNDING EXERCISE
+                </span>
+
+                <h2>
+                    5–4–3–2–1 Grounding
+                </h2>
+
+                <p>
+
+                    Move through these prompts slowly.
+                    There is no need to rush.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="grounding-container">
+
+
+                <div class="grounding-step">
+
+                    <span class="step-number">
+                        5
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Notice 5 things you can see
+                        </h3>
+
+                        <p>
+                            Look around and quietly identify
+                            five things in your surroundings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grounding-step">
+
+                    <span class="step-number">
+                        4
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Notice 4 things you can feel
+                        </h3>
+
+                        <p>
+                            Notice physical sensations such as
+                            your feet on the floor or clothing
+                            against your skin.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grounding-step">
+
+                    <span class="step-number">
+                        3
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Notice 3 things you can hear
+                        </h3>
+
+                        <p>
+                            Pay attention to sounds near you
+                            and farther away.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grounding-step">
+
+                    <span class="step-number">
+                        2
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Notice 2 things you can smell
+                        </h3>
+
+                        <p>
+                            Notice any scents around you.
+                            If you cannot smell anything,
+                            think of two familiar scents.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grounding-step">
+
+                    <span class="step-number">
+                        1
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Notice 1 thing you can taste
+                        </h3>
+
+                        <p>
+                            Notice a taste in your mouth or
+                            take a sip of water if available.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                id="closeGroundingBtn"
+                class="secondary-button"
+                type="button"
+            >
+
+                Close Grounding Exercise
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             TRUSTED CONTACTS
+        =================================================== -->
+
+        <section
+            id="trustedContactsSection"
+            class="trusted-contacts-section"
+        >
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    YOUR SUPPORT NETWORK
+                </span>
+
+                <h2>
+                    Trusted Contacts
+                </h2>
+
+                <p>
+
+                    Save people you feel comfortable contacting
+                    when you need support.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ADD CONTACT FORM -->
+
+            <form
+                id="trustedContactForm"
+                class="contact-form"
+            >
+
+
+                <div class="form-group">
+
+                    <label for="contactName">
+
+                        Name
+
+                    </label>
+
+
+                    <input
+                        id="contactName"
+                        type="text"
+                        placeholder="e.g. Parent, Friend, Mentor"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="contactPhone">
+
+                        Phone Number
+
+                    </label>
+
+
+                    <input
+                        id="contactPhone"
+                        type="tel"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+
+
+                <button
+                    type="submit"
+                    class="save-contact-button"
+                >
+
+                    Save Trusted Contact
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- CONTACT LIST -->
+
+            <div
+                id="trustedContactsList"
+                class="contacts-list"
+            >
+
+
+                <p class="empty-contacts">
+
+                    Your saved trusted contacts will appear here.
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             ADDITIONAL SUPPORT
+        =================================================== -->
+
+        <section class="additional-support">
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    CONTINUE SUPPORT
+                </span>
+
+                <h2>
+                    Other MindBridge resources
+                </h2>
+
+            </div>
+
+
+            <div class="resource-grid">
+
+
+                <a
+                    href="./wellness.html"
+                    class="resource-card"
+                >
+
+                    <strong>
+                        Wellness Activities
+                    </strong>
+
+                    <span>
+                        Try breathing and grounding activities →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="./chat.html"
+                    class="resource-card"
+                >
+
+                    <strong>
+                        Support Chat
+                    </strong>
+
+                    <span>
+                        Continue with supportive conversation →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="./dashboard.html"
+                    class="resource-card"
+                >
+
+                    <strong>
+                        Return to Dashboard
+                    </strong>
+
+                    <span>
+                        Go back to your MindBridge dashboard →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==================================================
+             SAFETY DISCLAIMER
+        =================================================== -->
+
+        <section class="safety-disclaimer">
+
+
+            <strong>
+                Important
+            </strong>
+
+
+            <p>
+
+                MindBridge is a student wellness support tool
+                and does not provide emergency, medical, or
+                professional mental health services.
+
+                In an immediate emergency, contact local
+                emergency services.
+
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ======================================================
+     EMERGENCY PAGE JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="../js/emergency.js"
+></script>
+
+
+</body>
+
+</html>

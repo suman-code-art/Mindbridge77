@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,21 +10,37 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dashboard | MindBridge</title>
+    <meta
+        name="description"
+        content="Take a moment to check in with your emotions and wellbeing."
+    >
+
+    <title>Emotional Check-In | MindBridge</title>
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+    ====================================================== -->
 
     <link
         rel="stylesheet"
         href="../css/global.css"
     >
 
+
+    <!-- =====================================================
+         CHECK-IN CSS
+    ====================================================== -->
+
     <link
         rel="stylesheet"
-        href="../css/dashboard.css"
+        href="../css/checkin.css"
     >
+
 </head>
 
 
-<body class="dashboard-page">
+<body class="checkin-page">
 
 
     <!-- =====================================================
@@ -46,22 +63,13 @@
 
 
     <!-- =====================================================
-         DASHBOARD APPLICATION
+         CHECK-IN APPLICATION
     ====================================================== -->
 
     <div
-        id="dashboardApp"
-        class="dashboard-app hidden"
+        id="checkinApp"
+        class="checkin-app hidden"
     >
-
-
-        <!-- MOBILE OVERLAY -->
-
-        <div
-            id="sidebarOverlay"
-            class="sidebar-overlay"
-        ></div>
-
 
 
         <!-- =================================================
@@ -118,7 +126,7 @@
 
                 <a
                     href="./dashboard.html"
-                    class="sidebar-link active"
+                    class="sidebar-link"
                 >
 
                     <span>
@@ -132,6 +140,7 @@
 
 
                 <!-- WELLNESS -->
+
 
                 <p class="sidebar-section-label section-space">
                     MENTAL WELLNESS
@@ -154,7 +163,7 @@
 
                 <a
                     href="./checkin.html"
-                    class="sidebar-link"
+                    class="sidebar-link active"
                 >
 
                     <span>
@@ -180,12 +189,9 @@
                 </a>
 
 
-                <!-- IMPORTANT WELLNESS LINK -->
-
                 <a
                     href="./wellness.html"
                     class="sidebar-link"
-                    id="wellnessNavigationLink"
                 >
 
                     <span>
@@ -213,6 +219,7 @@
 
 
                 <!-- CAREER -->
+
 
                 <p class="sidebar-section-label section-space">
                     CAREER GUIDANCE
@@ -251,7 +258,7 @@
 
 
 
-            <!-- SIDEBAR USER -->
+            <!-- USER INFORMATION -->
 
             <div class="sidebar-footer">
 
@@ -260,7 +267,7 @@
 
 
                     <div
-                        id="sidebarAvatar"
+                        id="userAvatar"
                         class="sidebar-avatar"
                     >
                         U
@@ -269,11 +276,11 @@
 
                     <div class="sidebar-user-info">
 
-                        <strong id="sidebarUserName">
+                        <strong id="userName">
                             MindBridge User
                         </strong>
 
-                        <small id="sidebarUserEmail">
+                        <small id="userEmail">
                             Loading...
                         </small>
 
@@ -281,6 +288,7 @@
 
 
                 </div>
+
 
 
                 <button
@@ -303,16 +311,20 @@
              MAIN CONTENT
         ================================================== -->
 
-        <main class="main-content">
+        <main class="checkin-main">
 
 
-            <!-- HEADER -->
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
 
-            <header class="top-header">
+            <header class="checkin-header">
 
 
                 <div class="header-left">
 
+
+                    <!-- MOBILE SIDEBAR BUTTON -->
 
                     <button
                         id="sidebarToggle"
@@ -324,22 +336,17 @@
                     </button>
 
 
-                    <div class="welcome-header">
+
+                    <div>
 
 
-                        <span class="welcome-label">
-                            WELCOME BACK
+                        <span class="eyebrow">
+                            EMOTIONAL WELLNESS
                         </span>
 
 
                         <h1>
-
-                            Hello,
-
-                            <span id="headerUserName">
-                                there
-                            </span>
-
+                            Emotional Check-In
                         </h1>
 
 
@@ -350,34 +357,12 @@
 
 
 
-                <div class="header-profile">
-
-
-                    <div
-                        id="headerAvatar"
-                        class="header-avatar"
-                    >
-                        U
-                    </div>
-
-
-                    <div class="header-user-details">
-
-
-                        <strong id="headerFullName">
-                            MindBridge User
-                        </strong>
-
-
-                        <span id="headerEmail">
-                            Loading...
-                        </span>
-
-
-                    </div>
-
-
-                </div>
+                <a
+                    href="./dashboard.html"
+                    class="back-dashboard"
+                >
+                    ← Back to Dashboard
+                </a>
 
 
             </header>
@@ -385,155 +370,36 @@
 
 
             <!-- =================================================
-                 DASHBOARD CONTENT
+                 CHECK-IN CONTENT
             ================================================== -->
 
-            <div class="dashboard-content">
+            <div class="checkin-content">
 
 
 
-                <!-- =================================================
-                     HERO
-                ================================================== -->
+                <!-- INTRODUCTION -->
 
-                <section class="hero-section">
+                <section class="checkin-intro">
 
 
-                    <div class="hero-content">
+                    <span class="checkin-label">
+                        A MOMENT FOR YOU
+                    </span>
 
 
-                        <span class="eyebrow">
-                            YOUR MINDBRIDGE
-                        </span>
+                    <h2>
+                        How are you feeling right now?
+                    </h2>
 
 
-                        <h2>
-                            How can we support you today?
-                        </h2>
+                    <p>
 
+                        Take a moment to notice how you're
+                        feeling. There is no right or wrong
+                        answer — simply choose what feels
+                        closest to your experience today.
 
-                        <p>
-
-                            Take care of your wellbeing,
-                            explore your career possibilities,
-                            or simply talk when you need support.
-
-                        </p>
-
-
-
-                        <div class="hero-actions">
-
-
-                            <a
-                                href="./chat.html"
-                                class="primary-action"
-                            >
-
-                                <span>
-                                    ✦
-                                </span>
-
-                                Talk to MindBridge AI
-
-                            </a>
-
-
-
-                            <a
-                                href="./career.html"
-                                class="secondary-action"
-                            >
-
-                                Explore Careers
-
-                                <span>
-                                    →
-                                </span>
-
-                            </a>
-
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <!-- HERO VISUAL -->
-
-                    <div class="hero-visual">
-
-
-                        <div class="hero-orbit orbit-one">
-                        </div>
-
-
-                        <div class="hero-orbit orbit-two">
-                        </div>
-
-
-                        <div class="hero-icon">
-
-                            <span>
-                                ✦
-                            </span>
-
-                        </div>
-
-
-
-                        <div class="floating-card floating-card-one">
-
-
-                            <span>
-                                ♡
-                            </span>
-
-
-                            <div>
-
-                                <strong>
-                                    Wellness
-                                </strong>
-
-                                <small>
-                                    Take care of yourself
-                                </small>
-
-                            </div>
-
-
-                        </div>
-
-
-
-                        <div class="floating-card floating-card-two">
-
-
-                            <span>
-                                ↗
-                            </span>
-
-
-                            <div>
-
-                                <strong>
-                                    Career
-                                </strong>
-
-                                <small>
-                                    Discover your direction
-                                </small>
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
+                    </p>
 
 
                 </section>
@@ -541,495 +407,40 @@
 
 
                 <!-- =================================================
-                     QUICK ACTIONS
+                     CHECK-IN FORM
                 ================================================== -->
 
-                <section class="dashboard-section">
+                <form
+                    id="checkinForm"
+                    class="checkin-form"
+                >
 
 
-                    <div class="section-heading">
+                    <!-- =============================================
+                         MOOD SELECTION
+                    ============================================== -->
 
+                    <section class="checkin-card">
 
-                        <div>
 
+                        <div class="question-header">
 
-                            <span class="eyebrow">
-                                QUICK ACTIONS
-                            </span>
 
-
-                            <h2>
-                                What would you like to do?
-                            </h2>
-
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <div class="quick-actions-grid">
-
-
-
-                        <!-- CHECK IN -->
-
-                        <a
-                            href="./checkin.html"
-                            class="action-card"
-                        >
-
-
-                            <div class="action-icon">
-                                ♡
-                            </div>
-
-
-                            <div class="action-card-content">
-
-
-                                <span class="card-category">
-                                    WELLNESS
-                                </span>
-
-
-                                <h3>
-                                    Emotional Check-In
-                                </h3>
-
-
-                                <p>
-
-                                    Take a moment to reflect
-                                    on how you're feeling today.
-
-                                </p>
-
-
-                            </div>
-
-
-                            <span class="card-arrow">
-                                →
-                            </span>
-
-
-                        </a>
-
-
-
-                        <!-- AI CHAT -->
-
-                        <a
-                            href="./chat.html"
-                            class="action-card"
-                        >
-
-
-                            <div class="action-icon">
-                                ✦
-                            </div>
-
-
-                            <div class="action-card-content">
-
-
-                                <span class="card-category">
-                                    AI SUPPORT
-                                </span>
-
-
-                                <h3>
-                                    Talk to MindBridge
-                                </h3>
-
-
-                                <p>
-
-                                    Have a supportive conversation
-                                    with your AI wellness assistant.
-
-                                </p>
-
-
-                            </div>
-
-
-                            <span class="card-arrow">
-                                →
-                            </span>
-
-
-                        </a>
-
-
-
-                        <!-- WELLNESS -->
-
-                        <a
-                            href="./wellness.html"
-                            class="action-card"
-                            id="wellnessActionCard"
-                        >
-
-
-                            <div class="action-icon">
-                                ◇
-                            </div>
-
-
-                            <div class="action-card-content">
-
-
-                                <span class="card-category">
-                                    ACTIVITIES
-                                </span>
-
-
-                                <h3>
-                                    Wellness Activities
-                                </h3>
-
-
-                                <p>
-
-                                    Try breathing, mindful walking,
-                                    stretching, focus sessions and
-                                    relaxing sounds.
-
-                                </p>
-
-
-                            </div>
-
-
-                            <span class="card-arrow">
-                                →
-                            </span>
-
-
-                        </a>
-
-
-
-                        <!-- IMMEDIATE HELP -->
-
-                        <a
-                            href="./immediate-help.html"
-                            class="action-card"
-                        >
-
-
-                            <div class="action-icon">
-                                ◎
-                            </div>
-
-
-                            <div class="action-card-content">
-
-
-                                <span class="card-category">
-                                    QUICK SUPPORT
-                                </span>
-
-
-                                <h3>
-                                    Immediate Help
-                                </h3>
-
-
-                                <p>
-
-                                    Access grounding and calming
-                                    exercises when you need support
-                                    right away.
-
-                                </p>
-
-
-                            </div>
-
-
-                            <span class="card-arrow">
-                                →
-                            </span>
-
-
-                        </a>
-
-
-                    </div>
-
-
-                </section>
-
-
-
-                <!-- =================================================
-                     WELLNESS OVERVIEW
-                ================================================== -->
-
-                <section class="dashboard-section">
-
-
-                    <div class="section-heading">
-
-
-                        <div>
-
-
-                            <span class="eyebrow">
-                                YOUR WELLNESS
-                            </span>
-
-
-                            <h2>
-                                Your activity overview
-                            </h2>
-
-
-                        </div>
-
-
-
-                        <a
-                            href="./wellness.html"
-                            class="section-link"
-                        >
-                            View activities →
-                        </a>
-
-
-                    </div>
-
-
-
-                    <div class="stats-grid">
-
-
-
-                        <!-- MOOD -->
-
-                        <article class="stat-card">
-
-
-                            <div class="stat-top">
-
-
-                                <div class="stat-icon">
-                                    ♡
-                                </div>
-
-
-                                <span>
-                                    TODAY'S MOOD
-                                </span>
-
-
-                            </div>
-
-
-                            <strong id="latestMood">
-                                Not checked in
-                            </strong>
-
-
-                            <p>
-
-                                Complete an emotional check-in
-                                to update this.
-
-                            </p>
-
-
-                            <a href="./checkin.html">
-                                Check in now →
-                            </a>
-
-
-                        </article>
-
-
-
-                        <!-- ACTIVITIES -->
-
-                        <article class="stat-card">
-
-
-                            <div class="stat-top">
-
-
-                                <div class="stat-icon">
-                                    ◇
-                                </div>
-
-
-                                <span>
-                                    ACTIVITIES COMPLETED
-                                </span>
-
-
-                            </div>
-
-
-                            <strong id="activitiesCompleted">
-                                0
-                            </strong>
-
-
-                            <p>
-
-                                Wellness activities you've completed.
-
-                            </p>
-
-
-                            <a href="./wellness.html">
-                                Start an activity →
-                            </a>
-
-
-                        </article>
-
-
-
-                        <!-- MINUTES -->
-
-                        <article class="stat-card">
-
-
-                            <div class="stat-top">
-
-
-                                <div class="stat-icon">
-                                    ◷
-                                </div>
-
-
-                                <span>
-                                    WELLNESS MINUTES
-                                </span>
-
-
-                            </div>
-
-
-                            <strong id="wellnessMinutes">
-                                0
-                            </strong>
-
-
-                            <p>
-
-                                Minutes you've spent on
-                                wellness activities.
-
-                            </p>
-
-
-                            <a href="./wellness.html">
-                                Continue wellness →
-                            </a>
-
-
-                        </article>
-
-
-                    </div>
-
-
-                </section>
-
-
-
-                <!-- =================================================
-                     CAREER
-                ================================================== -->
-
-                <section class="career-section">
-
-
-                    <div class="career-content">
-
-
-                        <span class="eyebrow">
-                            CAREER GUIDANCE
-                        </span>
-
-
-                        <h2>
-                            Discover a path that fits you.
-                        </h2>
-
-
-                        <p>
-
-                            Explore career possibilities based
-                            on your interests, skills and academic
-                            preferences.
-
-                            MindBridge will help you understand
-                            your options and plan your next steps.
-
-                        </p>
-
-
-
-                        <div class="career-actions">
-
-
-                            <a
-                                href="./career.html"
-                                class="primary-action"
-                            >
-                                Start Career Guidance
-                            </a>
-
-
-                            <a
-                                href="./career-chat.html"
-                                class="text-action"
-                            >
-                                Talk to AI Career Counselor →
-                            </a>
-
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <div class="career-feature-grid">
-
-
-
-                        <div class="career-feature">
-
-
-                            <span>
+                            <span class="question-number">
                                 01
                             </span>
 
 
                             <div>
 
-
-                                <strong>
-                                    Understand Yourself
-                                </strong>
-
+                                <h3>
+                                    How are you feeling?
+                                </h3>
 
                                 <p>
-
-                                    Explore interests,
-                                    skills and strengths.
-
+                                    Select the option that best
+                                    describes your mood right now.
                                 </p>
-
 
                             </div>
 
@@ -1038,29 +449,161 @@
 
 
 
-                        <div class="career-feature">
+                        <div class="mood-grid">
 
 
-                            <span>
+                            <!-- GREAT -->
+
+                            <button
+                                type="button"
+                                class="mood-option"
+                                data-mood="great"
+                            >
+
+                                <span class="mood-icon">
+                                    ☀
+                                </span>
+
+                                <strong>
+                                    Great
+                                </strong>
+
+                                <small>
+                                    Feeling positive
+                                </small>
+
+                            </button>
+
+
+
+                            <!-- GOOD -->
+
+                            <button
+                                type="button"
+                                class="mood-option"
+                                data-mood="good"
+                            >
+
+                                <span class="mood-icon">
+                                    ♡
+                                </span>
+
+                                <strong>
+                                    Good
+                                </strong>
+
+                                <small>
+                                    Doing well
+                                </small>
+
+                            </button>
+
+
+
+                            <!-- OKAY -->
+
+                            <button
+                                type="button"
+                                class="mood-option"
+                                data-mood="okay"
+                            >
+
+                                <span class="mood-icon">
+                                    ◇
+                                </span>
+
+                                <strong>
+                                    Okay
+                                </strong>
+
+                                <small>
+                                    Somewhere in between
+                                </small>
+
+                            </button>
+
+
+
+                            <!-- LOW -->
+
+                            <button
+                                type="button"
+                                class="mood-option"
+                                data-mood="low"
+                            >
+
+                                <span class="mood-icon">
+                                    ◌
+                                </span>
+
+                                <strong>
+                                    Low
+                                </strong>
+
+                                <small>
+                                    Having a difficult day
+                                </small>
+
+                            </button>
+
+
+
+                            <!-- VERY LOW -->
+
+                            <button
+                                type="button"
+                                class="mood-option"
+                                data-mood="very-low"
+                            >
+
+                                <span class="mood-icon">
+                                    ◎
+                                </span>
+
+                                <strong>
+                                    Very Low
+                                </strong>
+
+                                <small>
+                                    Really struggling
+                                </small>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </section>
+
+
+
+                    <!-- =============================================
+                         OPTIONAL NOTE
+                    ============================================== -->
+
+                    <section class="checkin-card">
+
+
+                        <div class="question-header">
+
+
+                            <span class="question-number">
                                 02
                             </span>
 
 
                             <div>
 
-
-                                <strong>
-                                    Discover Paths
-                                </strong>
-
+                                <h3>
+                                    What's on your mind?
+                                </h3>
 
                                 <p>
-
-                                    Find streams and
-                                    career directions.
-
+                                    You can write a short reflection
+                                    about how you're feeling.
+                                    This is completely optional.
                                 </p>
-
 
                             </div>
 
@@ -1069,31 +612,166 @@
 
 
 
-                        <div class="career-feature">
+                        <div class="note-wrapper">
+
+
+                            <textarea
+                                id="moodNote"
+                                name="moodNote"
+                                maxlength="500"
+                                placeholder="Write anything you'd like to reflect on..."
+                            ></textarea>
+
+
+                            <div class="character-counter">
+
+                                <span id="characterCount">
+                                    0
+                                </span>
+
+                                <span>
+                                    / 500
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </section>
+
+
+
+                    <!-- =============================================
+                         ERROR MESSAGE
+                    ============================================== -->
+
+                    <div
+                        id="formError"
+                        class="form-error"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+
+
+                    <!-- =============================================
+                         SUBMIT BUTTON
+                    ============================================== -->
+
+                    <div class="checkin-submit-wrapper">
+
+
+                        <button
+                            type="submit"
+                            class="checkin-submit-button"
+                        >
+
+                            Complete My Check-In
+
+                            <span>
+                                →
+                            </span>
+
+                        </button>
+
+
+                        <p class="privacy-note">
+
+                            ♡ Your check-in is here to help you
+                            reflect on your wellbeing.
+
+                        </p>
+
+
+                    </div>
+
+
+                </form>
+
+
+
+                <!-- =================================================
+                     RESULT / RECOMMENDATION
+                ================================================== -->
+
+                <section
+                    id="resultCard"
+                    class="result-card hidden"
+                >
+
+
+                    <div
+                        id="resultIcon"
+                        class="result-icon"
+                    >
+                        ♡
+                    </div>
+
+
+
+                    <div class="result-content">
+
+
+                        <span class="result-label">
+                            YOUR CHECK-IN
+                        </span>
+
+
+                        <h2 id="resultTitle">
+                            Thank you for checking in.
+                        </h2>
+
+
+                        <p id="resultMessage">
+
+                            Taking a moment to notice how
+                            you're feeling is an important
+                            part of caring for yourself.
+
+                        </p>
+
+
+
+                        <div class="recommendation-box">
 
 
                             <span>
-                                03
+                                MINDBRIDGE SUGGESTION
                             </span>
 
 
-                            <div>
+                            <p id="recommendationText">
+
+                                Choose a small wellness activity
+                                that feels manageable right now.
+
+                            </p>
 
 
-                                <strong>
-                                    Build Your Roadmap
-                                </strong>
+                        </div>
 
 
-                                <p>
 
-                                    Understand skills
-                                    and next steps.
-
-                                </p>
+                        <div class="result-actions">
 
 
-                            </div>
+                            <a
+                                id="primaryAction"
+                                href="./wellness.html"
+                                class="primary-action"
+                            >
+                                Explore Wellness Activities
+                            </a>
+
+
+                            <a
+                                href="./dashboard.html"
+                                class="secondary-action"
+                            >
+                                Return to Dashboard
+                            </a>
 
 
                         </div>
@@ -1110,7 +788,7 @@
                      DISCLAIMER
                 ================================================== -->
 
-                <div class="dashboard-note">
+                <div class="checkin-disclaimer">
 
 
                     <span>
@@ -1120,10 +798,14 @@
 
                     <p>
 
-                        MindBridge provides general wellness and
-                        career guidance. It is not a replacement
-                        for professional medical, mental health,
-                        or emergency services.
+                        MindBridge provides general wellness
+                        support and self-reflection tools.
+                        It is not a replacement for professional
+                        medical or mental health care.
+
+                        If you feel unsafe or are in immediate
+                        danger, contact local emergency services
+                        or seek help from someone you trust nearby.
 
                     </p>
 
@@ -1142,12 +824,12 @@
 
 
     <!-- =====================================================
-         DASHBOARD JAVASCRIPT
+         JAVASCRIPT
     ====================================================== -->
 
     <script
         type="module"
-        src="../js/dashboard.js"
+        src="../js/checkin.js"
     ></script>
 
 

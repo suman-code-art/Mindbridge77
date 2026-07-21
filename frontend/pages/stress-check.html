@@ -1,11 +1,633 @@
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
+<!DOCTYPE html>
+<html lang="en">
 
-<script
-    type="module"
-    src="../js/stress.js"
-></script>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="MindBridge AI-powered stress self-reflection check."
+    >
+
+    <title>
+        Stress Check | MindBridge
+    </title>
+
+
+    <!-- GLOBAL CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+
+    <!-- STRESS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/stress.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         STRESS CHECK PAGE
+    ====================================================== -->
+
+    <main class="stress-page">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <section class="page-header">
+
+
+            <a
+                href="./dashboard.html"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+            <p class="eyebrow">
+                MINDBRIDGE WELLNESS
+            </p>
+
+
+            <h1>
+                Stress Check
+            </h1>
+
+
+            <p class="page-description">
+
+                Take a short AI-powered self-reflection check.
+                Answer a few questions about how you have been
+                feeling recently and receive general wellness
+                suggestions based on your responses.
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATUS MESSAGE
+        ================================================== -->
+
+        <div
+            id="statusMessage"
+            class="status-message hidden"
+            role="alert"
+            aria-live="polite"
+        ></div>
+
+
+
+        <!-- =================================================
+             START SECTION
+        ================================================== -->
+
+        <section
+            id="startSection"
+            class="stress-card"
+        >
+
+
+            <p class="section-label">
+                STRESS SELF-REFLECTION
+            </p>
+
+
+            <h2>
+                Check in with yourself
+            </h2>
+
+
+            <p>
+
+                MindBridge will prepare a short set of
+                self-reflection questions.
+
+                Your answers will be used to provide general
+                wellness insights and suggestions.
+
+            </p>
+
+
+
+            <div class="info-box">
+
+
+                <strong>
+                    Important
+                </strong>
+
+
+                <p>
+
+                    This Stress Check is designed for general
+                    wellness and self-reflection purposes only.
+
+                    It does not diagnose stress, anxiety,
+                    depression, or any medical or mental-health
+                    condition.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="button-row">
+
+
+                <button
+                    id="startCheckBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Start Stress Check
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION LOADING SECTION
+        ================================================== -->
+
+        <section
+            id="questionLoadingSection"
+            class="stress-card hidden"
+        >
+
+
+            <div class="loader"></div>
+
+
+            <h2>
+                Preparing your questions
+            </h2>
+
+
+            <p>
+
+                MindBridge is preparing your
+                self-reflection questionnaire.
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTIONNAIRE
+        ================================================== -->
+
+        <section
+            id="questionnaireSection"
+            class="stress-card hidden"
+        >
+
+
+            <p class="section-label">
+                STRESS SELF-REFLECTION
+            </p>
+
+
+
+            <!-- QUESTION PROGRESS -->
+
+            <div class="question-header">
+
+
+                <span id="questionProgress">
+                    Question 1
+                </span>
+
+
+            </div>
+
+
+
+            <!-- PROGRESS BAR -->
+
+            <div class="progress-track">
+
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+
+
+            </div>
+
+
+
+            <!-- QUESTION -->
+
+            <div class="question-card">
+
+
+                <h2 id="questionText">
+
+                    Loading question...
+
+                </h2>
+
+
+                <p class="scale-instruction">
+
+                    Select the option that best reflects
+                    your recent experience.
+
+                </p>
+
+
+
+                <!-- SCORE BUTTONS -->
+
+                <div
+                    id="scoreButtons"
+                    class="score-buttons"
+                >
+
+
+                    <button
+                        type="button"
+                        class="score-btn"
+                        data-score="1"
+                    >
+
+                        <strong>
+                            1
+                        </strong>
+
+                        <span>
+                            Not at all
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="score-btn"
+                        data-score="2"
+                    >
+
+                        <strong>
+                            2
+                        </strong>
+
+                        <span>
+                            A little
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="score-btn"
+                        data-score="3"
+                    >
+
+                        <strong>
+                            3
+                        </strong>
+
+                        <span>
+                            Sometimes
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="score-btn"
+                        data-score="4"
+                    >
+
+                        <strong>
+                            4
+                        </strong>
+
+                        <span>
+                            Often
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="score-btn"
+                        data-score="5"
+                    >
+
+                        <strong>
+                            5
+                        </strong>
+
+                        <span>
+                            Very much
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- QUESTION NAVIGATION -->
+
+            <div class="question-navigation">
+
+
+                <button
+                    id="previousQuestionBtn"
+                    class="secondary-btn"
+                    type="button"
+                    disabled
+                >
+                    Previous
+                </button>
+
+
+                <button
+                    id="nextQuestionBtn"
+                    class="primary-btn"
+                    type="button"
+                    disabled
+                >
+                    Next Question
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULT LOADING
+        ================================================== -->
+
+        <section
+            id="resultLoadingSection"
+            class="stress-card hidden"
+        >
+
+
+            <div class="loader"></div>
+
+
+            <h2>
+                Preparing your reflection
+            </h2>
+
+
+            <p>
+
+                MindBridge is reviewing your responses
+                and preparing general wellness suggestions.
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULT SECTION
+        ================================================== -->
+
+        <section
+            id="resultSection"
+            class="stress-card hidden"
+        >
+
+
+            <p class="section-label">
+                YOUR REFLECTION
+            </p>
+
+
+            <h2>
+                Stress Check Result
+            </h2>
+
+
+
+            <!-- RESULT GRID -->
+
+            <div class="result-grid">
+
+
+                <div class="result-stat">
+
+
+                    <span>
+                        Questionnaire Score
+                    </span>
+
+
+                    <strong id="resultScore">
+                        --
+                    </strong>
+
+
+                </div>
+
+
+
+                <div class="result-stat">
+
+
+                    <span>
+                        Reflection Level
+                    </span>
+
+
+                    <strong id="resultLevel">
+                        --
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- AI REFLECTION -->
+
+            <div class="result-block">
+
+
+                <h3>
+                    AI Reflection
+                </h3>
+
+
+                <p id="resultReflection">
+
+                    Your reflection will appear here.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- WELLNESS SUGGESTIONS -->
+
+            <div class="result-block">
+
+
+                <h3>
+                    Wellness Suggestions
+                </h3>
+
+
+                <ul id="suggestionsList">
+                </ul>
+
+
+            </div>
+
+
+
+            <!-- DISCLAIMER -->
+
+            <div class="disclaimer-box">
+
+
+                <p id="resultDisclaimer">
+
+                    This is a general wellness self-reflection
+                    and is not a medical or mental-health diagnosis.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- RESULT ACTIONS -->
+
+            <div class="button-row">
+
+
+                <button
+                    id="restartCheckBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Start New Stress Check
+                </button>
+
+
+                <a
+                    href="./dashboard.html"
+                    class="secondary-btn"
+                >
+                    Return to Dashboard
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             GENERAL DISCLAIMER
+        ================================================== -->
+
+        <section class="disclaimer-box">
+
+
+            <p>
+
+                MindBridge provides general wellness and
+                self-reflection tools.
+
+                The Stress Check does not diagnose stress,
+                anxiety, depression, or any other medical or
+                mental-health condition.
+
+                If you feel unsafe or are in immediate danger,
+                contact local emergency services or seek help
+                from a trusted person nearby.
+
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+
+         IMPORTANT:
+         Keep type="module" because stress.js imports config.js
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="../js/stress.js"
+    ></script>
+
 
 </body>
+
 </html>

@@ -9,8 +9,7 @@
 // http://127.0.0.1:5000
 //
 // DEPLOYMENT:
-// Replace DEPLOYED_API_URL with your real backend URL
-// after we deploy Flask.
+// https://mindbridge77-3.onrender.com
 //
 // IMPORTANT:
 // Never place Gemini API keys in this file.
@@ -20,15 +19,9 @@
 // ==========================================================
 // DEPLOYED BACKEND URL
 // ==========================================================
-//
-// We will replace this after deploying the backend.
-//
-// Example:
-// https://mindbridge-backend.onrender.com
-//
-// ==========================================================
 
-const DEPLOYED_API_URL = "https://mindbridge77-3.onrender.com";
+const DEPLOYED_API_URL =
+    "https://mindbridge77-3.onrender.com";
 
 
 // ==========================================================
@@ -80,16 +73,10 @@ export const API_ENDPOINTS = {
         `${API_BASE_URL}/api/generate-stress-questions`,
 
 
-    // Stress analysis
+    // Stress questionnaire analysis
 
     analyzeStress:
-        `${API_BASE_URL}/api/analyze-stress`,
-
-
-    // Camera expression analysis
-
-    analyzeExpression:
-        `${API_BASE_URL}/api/analyze-expression`
+        `${API_BASE_URL}/api/analyze-stress`
 
 
 };

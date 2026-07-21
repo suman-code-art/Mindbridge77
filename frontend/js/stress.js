@@ -4,108 +4,90 @@
 // ==========================================================
 
 
+// ==========================================================
+// IMPORT API CONFIGURATION
+// ==========================================================
+
 import {
-    API_BASE_URL
+    API_ENDPOINTS
 } from "./config.js";
 
+
 // ==========================================================
-// DOM ELEMENTS
+// ELEMENTS
 // ==========================================================
 
 const statusMessage =
     document.getElementById("statusMessage");
 
 
-const cameraChoiceSection =
-    document.getElementById("cameraChoiceSection");
+const startSection =
+    document.getElementById("startSection");
 
-const cameraSection =
-    document.getElementById("cameraSection");
+
+const startCheckBtn =
+    document.getElementById("startCheckBtn");
+
 
 const questionLoadingSection =
     document.getElementById("questionLoadingSection");
 
+
 const questionnaireSection =
     document.getElementById("questionnaireSection");
-
-const resultLoadingSection =
-    document.getElementById("resultLoadingSection");
-
-const resultSection =
-    document.getElementById("resultSection");
-
-
-const startCameraBtn =
-    document.getElementById("startCameraBtn");
-
-const skipCameraBtn =
-    document.getElementById("skipCameraBtn");
-
-const finishCameraBtn =
-    document.getElementById("finishCameraBtn");
-
-const stopCameraBtn =
-    document.getElementById("stopCameraBtn");
-
-const restartCameraBtn =
-    document.getElementById("restartCameraBtn");
-
-
-const cameraVideo =
-    document.getElementById("cameraVideo");
-
-const cameraCanvas =
-    document.getElementById("cameraCanvas");
-
-const cameraAnalysisStatus =
-    document.getElementById("cameraAnalysisStatus");
-
-const observationCount =
-    document.getElementById("observationCount");
-
-const latestEmotion =
-    document.getElementById("latestEmotion");
 
 
 const questionProgress =
     document.getElementById("questionProgress");
 
+
 const progressBar =
     document.getElementById("progressBar");
+
 
 const questionText =
     document.getElementById("questionText");
 
+
 const scoreButtons =
     document.querySelectorAll(".score-btn");
 
+
 const previousQuestionBtn =
     document.getElementById("previousQuestionBtn");
+
 
 const nextQuestionBtn =
     document.getElementById("nextQuestionBtn");
 
 
+const resultLoadingSection =
+    document.getElementById("resultLoadingSection");
+
+
+const resultSection =
+    document.getElementById("resultSection");
+
+
 const resultScore =
     document.getElementById("resultScore");
+
 
 const resultLevel =
     document.getElementById("resultLevel");
 
+
 const resultReflection =
     document.getElementById("resultReflection");
+
 
 const suggestionsList =
     document.getElementById("suggestionsList");
 
+
 const resultDisclaimer =
     document.getElementById("resultDisclaimer");
 
-const cameraSummaryBlock =
-    document.getElementById("cameraSummaryBlock");
-
-const cameraSummaryText =
-    document.getElementById("cameraSummaryText");
 
 const restartCheckBtn =
     document.getElementById("restartCheckBtn");
@@ -115,20 +97,6 @@ const restartCheckBtn =
 // APPLICATION STATE
 // ==========================================================
 
-let mediaStream = null;
-
-let cameraUsed = false;
-
-let cameraRunning = false;
-
-let analysisInterval = null;
-
-let analysisInProgress = false;
-
-
-let expressionObservations = [];
-
-
 let questions = [];
 
 let answers = [];
@@ -136,44 +104,38 @@ let answers = [];
 let currentQuestionIndex = 0;
 
 
-// Analyze one camera frame every 5 seconds.
-
-const ANALYSIS_INTERVAL = 5000;
-
-
 // ==========================================================
-// UTILITY FUNCTIONS
+// HELPER FUNCTIONS
 // ==========================================================
-
-function hideElement(element) {
-
-    if (element) {
-
-        element.classList.add(
-            "hidden"
-        );
-
-    }
-
-}
-
 
 function showElement(element) {
 
     if (element) {
 
-        element.classList.remove(
-            "hidden"
-        );
+        element.classList.remove("hidden");
 
     }
 
 }
 
 
-function showStatus(
-    message,
-    type = "info"
+function hideElement(element) {
+
+    if (element) {
+
+        element.classList.add("hidden");
+
+    }
+
+}
+
+
+// ==========================================================
+// STATUS MESSAGE
+// ==========================================================
+
+function showStatusMessage(
+    message
 ) {
 
     if (!statusMessage) {
@@ -187,10 +149,6 @@ function showStatus(
         message;
 
 
-    statusMessage.className =
-        `status-message ${type}`;
-
-
     showElement(
         statusMessage
     );
@@ -198,7 +156,18 @@ function showStatus(
 }
 
 
-function hideStatus() {
+function hideStatusMessage() {
+
+    if (!statusMessage) {
+
+        return;
+
+    }
+
+
+    statusMessage.textContent =
+        "";
+
 
     hideElement(
         statusMessage
@@ -208,563 +177,39 @@ function hideStatus() {
 
 
 // ==========================================================
-// START CAMERA
+// START STRESS CHECK
 // ==========================================================
 
-async function startCamera() {
+if (startCheckBtn) {
 
-    hideStatus();
+    startCheckBtn.addEventListener(
 
+        "click",
 
-    try {
+        () => {
 
-        if (
-            !navigator.mediaDevices
-            ||
-            !navigator.mediaDevices.getUserMedia
-        ) {
-
-            throw new Error(
-                "Camera access is not supported by this browser."
-            );
+            generateQuestions();
 
         }
 
-
-        stopCameraStream();
-
-
-        cameraAnalysisStatus.textContent =
-            "Requesting camera access...";
-
-
-        mediaStream =
-            await navigator.mediaDevices.getUserMedia({
-
-                video: {
-
-                    width: {
-                        ideal: 640
-                    },
-
-                    height: {
-                        ideal: 480
-                    },
-
-                    facingMode:
-                        "user"
-
-                },
-
-                audio:
-                    false
-
-            });
-
-
-        cameraVideo.srcObject =
-            mediaStream;
-
-
-        await cameraVideo.play();
-
-
-        cameraUsed =
-            true;
-
-
-        cameraRunning =
-            true;
-
-
-        hideElement(
-            cameraChoiceSection
-        );
-
-
-        showElement(
-            cameraSection
-        );
-
-
-        hideElement(
-            restartCameraBtn
-        );
-
-
-        showElement(
-            stopCameraBtn
-        );
-
-
-        cameraAnalysisStatus.textContent =
-            "Camera active. Automatic observation will begin shortly.";
-
-
-        // First analysis after 2 seconds.
-
-        setTimeout(
-            () => {
-
-                if (cameraRunning) {
-
-                    analyzeCurrentFrame();
-
-                }
-
-            },
-            2000
-        );
-
-
-        // Continue automatically.
-
-        startAutomaticAnalysis();
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "Camera Error:",
-            error
-        );
-
-
-        showStatus(
-
-            "Unable to start the camera: "
-            +
-            error.message,
-
-            "error"
-
-        );
-
-    }
-
-}
-
-
-// ==========================================================
-// AUTOMATIC CAMERA ANALYSIS
-// ==========================================================
-
-function startAutomaticAnalysis() {
-
-    stopAutomaticAnalysis();
-
-
-    analysisInterval =
-        setInterval(
-
-            async () => {
-
-                if (
-                    cameraRunning
-                    &&
-                    !analysisInProgress
-                ) {
-
-                    await analyzeCurrentFrame();
-
-                }
-
-            },
-
-            ANALYSIS_INTERVAL
-
-        );
-
-}
-
-
-// ==========================================================
-// STOP AUTOMATIC ANALYSIS
-// ==========================================================
-
-function stopAutomaticAnalysis() {
-
-    if (analysisInterval) {
-
-        clearInterval(
-            analysisInterval
-        );
-
-
-        analysisInterval =
-            null;
-
-    }
-
-}
-
-
-// ==========================================================
-// CAPTURE AND ANALYZE CAMERA FRAME
-// ==========================================================
-
-async function analyzeCurrentFrame() {
-
-    if (
-        !cameraRunning
-        ||
-        !mediaStream
-        ||
-        analysisInProgress
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        cameraVideo.readyState
-        <
-        HTMLMediaElement.HAVE_CURRENT_DATA
-    ) {
-
-        return;
-
-    }
-
-
-    analysisInProgress =
-        true;
-
-
-    cameraAnalysisStatus.textContent =
-        "Analyzing current frame...";
-
-
-    try {
-
-        const width =
-            cameraVideo.videoWidth;
-
-
-        const height =
-            cameraVideo.videoHeight;
-
-
-        if (
-            !width
-            ||
-            !height
-        ) {
-
-            throw new Error(
-                "Camera frame is not ready."
-            );
-
-        }
-
-
-        cameraCanvas.width =
-            width;
-
-
-        cameraCanvas.height =
-            height;
-
-
-        const context =
-            cameraCanvas.getContext(
-                "2d"
-            );
-
-
-        context.drawImage(
-
-            cameraVideo,
-
-            0,
-
-            0,
-
-            width,
-
-            height
-
-        );
-
-
-        const imageData =
-            cameraCanvas.toDataURL(
-                "image/jpeg",
-                0.8
-            );
-
-
-        const response =
-            await fetch(
-
-                `${API_BASE_URL}/api/analyze-expression`,
-
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            image:
-                                imageData
-
-                        })
-
-                }
-
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-
-                data.error
-                ||
-                "Expression analysis failed."
-
-            );
-
-        }
-
-
-        if (!data.success) {
-
-            throw new Error(
-
-                data.error
-                ||
-                "Expression analysis was not completed."
-
-            );
-
-        }
-
-
-        // Support common backend response names.
-
-        const emotion =
-
-            data.dominant_emotion
-
-            ||
-
-            data.emotion
-
-            ||
-
-            data.expression
-
-            ||
-
-            data.result?.dominant_emotion;
-
-
-        if (emotion) {
-
-            expressionObservations.push(
-
-                String(
-                    emotion
-                ).toLowerCase()
-
-            );
-
-
-            observationCount.textContent =
-                expressionObservations.length;
-
-
-            latestEmotion.textContent =
-                emotion;
-
-
-            cameraAnalysisStatus.textContent =
-                "Observation completed. Camera monitoring continues.";
-
-        }
-        else {
-
-            cameraAnalysisStatus.textContent =
-                "Frame analyzed, but no expression observation was returned.";
-
-        }
-
-    }
-    catch (error) {
-
-        console.error(
-
-            "Expression Analysis Error:",
-
-            error
-
-        );
-
-
-        cameraAnalysisStatus.textContent =
-
-            "Could not analyze this frame. "
-            +
-            "The system will try again automatically.";
-
-    }
-    finally {
-
-        analysisInProgress =
-            false;
-
-    }
-
-}
-
-
-// ==========================================================
-// STOP CAMERA STREAM
-// ==========================================================
-
-function stopCameraStream() {
-
-    stopAutomaticAnalysis();
-
-
-    if (mediaStream) {
-
-        mediaStream
-            .getTracks()
-            .forEach(
-
-                track => {
-
-                    track.stop();
-
-                }
-
-            );
-
-
-        mediaStream =
-            null;
-
-    }
-
-
-    if (cameraVideo) {
-
-        cameraVideo.srcObject =
-            null;
-
-    }
-
-
-    cameraRunning =
-        false;
-
-}
-
-
-// ==========================================================
-// STOP CAMERA BUTTON
-// ==========================================================
-
-function handleStopCamera() {
-
-    stopCameraStream();
-
-
-    cameraAnalysisStatus.textContent =
-        "Camera stopped. You can restart it or continue to the questionnaire.";
-
-
-    hideElement(
-        stopCameraBtn
-    );
-
-
-    showElement(
-        restartCameraBtn
     );
 
 }
 
 
 // ==========================================================
-// RESTART CAMERA
-// ==========================================================
-
-async function handleRestartCamera() {
-
-    await startCamera();
-
-}
-
-
-// ==========================================================
-// FINISH CAMERA CHECK
-// ==========================================================
-
-async function finishCameraCheck() {
-
-    stopCameraStream();
-
-
-    hideElement(
-        cameraSection
-    );
-
-
-    await generateQuestions();
-
-}
-
-
-// ==========================================================
-// SKIP CAMERA
-// ==========================================================
-
-async function skipCamera() {
-
-    cameraUsed =
-        false;
-
-
-    expressionObservations =
-        [];
-
-
-    hideElement(
-        cameraChoiceSection
-    );
-
-
-    await generateQuestions();
-
-}
-
-
-// ==========================================================
-// GENERATE GEMINI QUESTIONS
+// GENERATE QUESTIONS
 // ==========================================================
 
 async function generateQuestions() {
 
-    hideStatus();
+
+    hideStatusMessage();
+
+
+    hideElement(
+        startSection
+    );
 
 
     hideElement(
@@ -784,15 +229,17 @@ async function generateQuestions() {
 
     try {
 
+
         const response =
             await fetch(
 
-                `${API_BASE_URL}/api/generate-stress-questions`,
+                API_ENDPOINTS.generateStressQuestions,
 
                 {
 
                     method:
                         "POST",
+
 
                     headers: {
 
@@ -801,11 +248,11 @@ async function generateQuestions() {
 
                     },
 
+
                     body:
                         JSON.stringify({
 
-                            context:
-                                "General student wellness self-reflection"
+                            question_count: 7
 
                         })
 
@@ -822,53 +269,105 @@ async function generateQuestions() {
 
             throw new Error(
 
-                data.error
-                ||
-                "Unable to generate questions."
+                data.error ||
+                data.message ||
+                "Could not generate stress questions."
 
             );
 
         }
 
 
+        // ==================================================
+        // SUPPORT MULTIPLE BACKEND RESPONSE FORMATS
+        // ==================================================
+
         if (
-            !data.success
-            ||
-            !Array.isArray(
+            Array.isArray(
                 data.questions
             )
         ) {
 
+            questions =
+                data.questions;
+
+        }
+
+        else if (
+            Array.isArray(
+                data.data
+            )
+        ) {
+
+            questions =
+                data.data;
+
+        }
+
+        else {
+
             throw new Error(
-                "Invalid questionnaire response."
+                "No questions were returned by the server."
             );
 
         }
+
+
+        // ==================================================
+        // NORMALIZE QUESTIONS
+        // ==================================================
+
+        questions =
+            questions.map(
+
+                (question) => {
+
+                    if (
+                        typeof question ===
+                        "string"
+                    ) {
+
+                        return question;
+
+                    }
+
+
+                    return (
+
+                        question.question ||
+
+                        question.text ||
+
+                        question.prompt ||
+
+                        "How have you been feeling recently?"
+
+                    );
+
+                }
+
+            );
 
 
         if (
-            data.questions.length
-            !==
-            7
+            questions.length === 0
         ) {
 
             throw new Error(
-                "Expected exactly 7 questions."
+                "The server returned an empty questionnaire."
             );
 
         }
 
 
-        questions =
-            data.questions;
-
+        // ==================================================
+        // INITIALIZE ANSWERS
+        // ==================================================
 
         answers =
             new Array(
                 questions.length
-            ).fill(
-                null
-            );
+            ).fill(null);
 
 
         currentQuestionIndex =
@@ -885,17 +384,17 @@ async function generateQuestions() {
         );
 
 
-        renderQuestion();
+        displayQuestion();
+
 
     }
+
     catch (error) {
 
+
         console.error(
-
-            "Question Generation Error:",
-
+            "Stress Question Generation Error:",
             error
-
         );
 
 
@@ -905,19 +404,18 @@ async function generateQuestions() {
 
 
         showElement(
-            cameraChoiceSection
+            startSection
         );
 
 
-        showStatus(
+        showStatusMessage(
 
-            "Unable to generate the questionnaire: "
-            +
-            error.message,
+            error.message ||
 
-            "error"
+            "Unable to prepare the stress check. Please try again."
 
         );
+
 
     }
 
@@ -925,10 +423,11 @@ async function generateQuestions() {
 
 
 // ==========================================================
-// RENDER CURRENT QUESTION
+// DISPLAY CURRENT QUESTION
 // ==========================================================
 
-function renderQuestion() {
+function displayQuestion() {
+
 
     if (
         !questions.length
@@ -939,112 +438,129 @@ function renderQuestion() {
     }
 
 
-    const question =
+    const totalQuestions =
+        questions.length;
+
+
+    const questionNumber =
+        currentQuestionIndex + 1;
+
+
+    // ======================================================
+    // QUESTION TEXT
+    // ======================================================
+
+    questionText.textContent =
         questions[
             currentQuestionIndex
         ];
 
 
+
+    // ======================================================
+    // PROGRESS TEXT
+    // ======================================================
+
     questionProgress.textContent =
 
-        `Question ${
-            currentQuestionIndex + 1
-        } of ${
-            questions.length
-        }`;
+        `Question ${questionNumber} of ${totalQuestions}`;
 
 
-    questionText.textContent =
-        question.question;
 
+    // ======================================================
+    // PROGRESS BAR
+    // ======================================================
 
-    const progress =
+    const progressPercentage =
+
         (
-            (
-                currentQuestionIndex + 1
-            )
-            /
-            questions.length
-        )
-        *
-        100;
+            questionNumber /
+            totalQuestions
+        ) * 100;
 
 
     progressBar.style.width =
-        `${progress}%`;
+
+        `${progressPercentage}%`;
 
 
-    // Remove previous selection.
+
+    // ======================================================
+    // PREVIOUS BUTTON
+    // ======================================================
+
+    previousQuestionBtn.disabled =
+
+        currentQuestionIndex === 0;
+
+
+
+    // ======================================================
+    // RESET SCORE BUTTONS
+    // ======================================================
 
     scoreButtons.forEach(
 
-        button => {
+        (button) => {
+
 
             button.classList.remove(
                 "selected"
             );
+
+
+            const score =
+                Number(
+                    button.dataset.score
+                );
+
+
+            if (
+                answers[
+                    currentQuestionIndex
+                ] === score
+            ) {
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
 
         }
 
     );
 
 
-    // Restore answer if user goes back.
 
-    const existingAnswer =
+    // ======================================================
+    // NEXT BUTTON
+    // ======================================================
+
+    const currentAnswer =
+
         answers[
             currentQuestionIndex
         ];
 
 
-    if (existingAnswer) {
+    nextQuestionBtn.disabled =
 
-        const selectedButton =
-            document.querySelector(
+        currentAnswer === null;
 
-                `.score-btn[data-score="${existingAnswer.score}"]`
-
-            );
-
-
-        if (selectedButton) {
-
-            selectedButton.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        nextQuestionBtn.disabled =
-            false;
-
-    }
-    else {
-
-        nextQuestionBtn.disabled =
-            true;
-
-    }
-
-
-    previousQuestionBtn.disabled =
-
-        currentQuestionIndex
-        ===
-        0;
 
 
     if (
-        currentQuestionIndex
-        ===
-        questions.length - 1
+        currentQuestionIndex ===
+        totalQuestions - 1
     ) {
 
         nextQuestionBtn.textContent =
             "View My Reflection";
 
     }
+
     else {
 
         nextQuestionBtn.textContent =
@@ -1056,56 +572,102 @@ function renderQuestion() {
 
 
 // ==========================================================
-// SELECT SCORE
+// SCORE SELECTION
 // ==========================================================
 
-function selectScore(event) {
+scoreButtons.forEach(
 
-    const button =
-        event.currentTarget;
+    (button) => {
 
 
-    const score =
-        Number(
-            button.dataset.score
+        button.addEventListener(
+
+            "click",
+
+            () => {
+
+
+                const selectedScore =
+
+                    Number(
+                        button.dataset.score
+                    );
+
+
+                answers[
+                    currentQuestionIndex
+                ] = selectedScore;
+
+
+
+                // Remove previous selection
+
+                scoreButtons.forEach(
+
+                    (item) => {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+
+                );
+
+
+
+                // Highlight current selection
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+
+                // Enable next button
+
+                nextQuestionBtn.disabled =
+                    false;
+
+
+            }
+
         );
 
 
-    scoreButtons.forEach(
+    }
 
-        item => {
+);
 
-            item.classList.remove(
-                "selected"
-            );
+
+// ==========================================================
+// PREVIOUS QUESTION
+// ==========================================================
+
+if (previousQuestionBtn) {
+
+    previousQuestionBtn.addEventListener(
+
+        "click",
+
+        () => {
+
+
+            if (
+                currentQuestionIndex > 0
+            ) {
+
+                currentQuestionIndex--;
+
+
+                displayQuestion();
+
+            }
+
 
         }
 
     );
-
-
-    button.classList.add(
-        "selected"
-    );
-
-
-    answers[
-        currentQuestionIndex
-    ] = {
-
-        question:
-            questions[
-                currentQuestionIndex
-            ].question,
-
-        score:
-            score
-
-    };
-
-
-    nextQuestionBtn.disabled =
-        false;
 
 }
 
@@ -1114,82 +676,74 @@ function selectScore(event) {
 // NEXT QUESTION
 // ==========================================================
 
-async function goToNextQuestion() {
+if (nextQuestionBtn) {
 
-    if (
-        !answers[
-            currentQuestionIndex
-        ]
-    ) {
+    nextQuestionBtn.addEventListener(
 
-        showStatus(
+        "click",
 
-            "Please select an answer from 1 to 5.",
-
-            "error"
-
-        );
+        () => {
 
 
-        return;
+            if (
 
-    }
+                answers[
+                    currentQuestionIndex
+                ] === null
 
+            ) {
 
-    hideStatus();
+                return;
 
-
-    if (
-        currentQuestionIndex
-        <
-        questions.length - 1
-    ) {
-
-        currentQuestionIndex++;
+            }
 
 
-        renderQuestion();
+            // ==================================================
+            // MOVE TO NEXT QUESTION
+            // ==================================================
+
+            if (
+
+                currentQuestionIndex <
+
+                questions.length - 1
+
+            ) {
 
 
-        return;
-
-    }
+                currentQuestionIndex++;
 
 
-    await submitStressReflection();
-
-}
+                displayQuestion();
 
 
-// ==========================================================
-// PREVIOUS QUESTION
-// ==========================================================
+                return;
 
-function goToPreviousQuestion() {
-
-    if (
-        currentQuestionIndex
-        >
-        0
-    ) {
-
-        currentQuestionIndex--;
+            }
 
 
-        renderQuestion();
 
-    }
+            // ==================================================
+            // ALL QUESTIONS COMPLETED
+            // ==================================================
+
+            analyzeStress();
+
+        }
+
+    );
 
 }
 
 
 // ==========================================================
-// SUBMIT FINAL STRESS REFLECTION
+// ANALYZE STRESS
 // ==========================================================
 
-async function submitStressReflection() {
+async function analyzeStress() {
 
-    hideStatus();
+
+    hideStatusMessage();
 
 
     hideElement(
@@ -1204,15 +758,51 @@ async function submitStressReflection() {
 
     try {
 
+
+        // ==================================================
+        // CREATE QUESTION + ANSWER STRUCTURE
+        // ==================================================
+
+        const responseData =
+
+            questions.map(
+
+                (
+                    question,
+                    index
+                ) => {
+
+                    return {
+
+                        question:
+                            question,
+
+                        score:
+                            answers[index]
+
+                    };
+
+                }
+
+            );
+
+
+
+        // ==================================================
+        // CALL BACKEND
+        // ==================================================
+
         const response =
+
             await fetch(
 
-                `${API_BASE_URL}/api/stress-reflection`,
+                API_ENDPOINTS.analyzeStress,
 
                 {
 
                     method:
                         "POST",
+
 
                     headers: {
 
@@ -1221,17 +811,15 @@ async function submitStressReflection() {
 
                     },
 
+
                     body:
                         JSON.stringify({
 
                             answers:
                                 answers,
 
-                            camera_used:
-                                cameraUsed,
-
-                            expression_observations:
-                                expressionObservations
+                            responses:
+                                responseData
 
                         })
 
@@ -1240,46 +828,46 @@ async function submitStressReflection() {
             );
 
 
+
         const data =
+
             await response.json();
+
 
 
         if (!response.ok) {
 
             throw new Error(
 
-                data.error
-                ||
-                "Unable to generate reflection."
+                data.error ||
+
+                data.message ||
+
+                "Unable to analyze your responses."
 
             );
 
         }
 
 
-        if (!data.success) {
 
-            throw new Error(
-
-                data.error
-                ||
-                "Reflection generation failed."
-
-            );
-
-        }
-
+        // ==================================================
+        // DISPLAY RESULT
+        // ==================================================
 
         displayResult(
             data
         );
 
+
     }
+
     catch (error) {
+
 
         console.error(
 
-            "Stress Reflection Error:",
+            "Stress Analysis Error:",
 
             error
 
@@ -1296,15 +884,14 @@ async function submitStressReflection() {
         );
 
 
-        showStatus(
+        showStatusMessage(
 
-            "Unable to generate your reflection: "
-            +
-            error.message,
+            error.message ||
 
-            "error"
+            "Unable to prepare your reflection. Please try again."
 
         );
+
 
     }
 
@@ -1315,7 +902,10 @@ async function submitStressReflection() {
 // DISPLAY RESULT
 // ==========================================================
 
-function displayResult(data) {
+function displayResult(
+    data
+) {
+
 
     hideElement(
         resultLoadingSection
@@ -1327,129 +917,205 @@ function displayResult(data) {
     );
 
 
-    const questionnaire =
-        data.questionnaire
-        ||
-        {};
+
+    // ======================================================
+    // SCORE
+    // ======================================================
+
+    const calculatedScore =
+
+        answers.reduce(
+
+            (
+                total,
+                score
+            ) =>
+
+                total +
+                Number(
+                    score || 0
+                ),
+
+            0
+
+        );
+
 
 
     resultScore.textContent =
 
-        `${questionnaire.score ?? "--"} / ${
-            questionnaire.maximum_score ?? 35
-        }`;
+        data.score ??
 
+        data.total_score ??
+
+        data.stress_score ??
+
+        calculatedScore;
+
+
+
+    // ======================================================
+    // LEVEL
+    // ======================================================
 
     resultLevel.textContent =
 
-        questionnaire.reflection_level
+        data.level ??
 
-        ||
+        data.stress_level ??
 
-        "Reflection completed";
+        data.category ??
 
+        "Reflection Complete";
+
+
+
+    // ======================================================
+    // REFLECTION
+    // ======================================================
 
     resultReflection.textContent =
 
-        data.reflection
+        data.reflection ??
 
-        ||
+        data.message ??
 
-        "Your reflection has been completed.";
+        data.analysis ??
 
+        data.summary ??
+
+        "Thank you for taking a moment to check in with yourself.";
+
+
+
+    // ======================================================
+    // SUGGESTIONS
+    // ======================================================
 
     suggestionsList.innerHTML =
         "";
 
 
     const suggestions =
-        Array.isArray(
-            data.suggestions
-        )
 
-        ?
+        data.suggestions ??
 
-        data.suggestions
+        data.recommendations ??
 
-        :
+        data.wellness_suggestions ??
 
         [];
 
 
-    suggestions.forEach(
+    if (
+        Array.isArray(
+            suggestions
+        ) &&
+        suggestions.length > 0
+    ) {
 
-        suggestion => {
 
-            const item =
-                document.createElement(
-                    "li"
+        suggestions.forEach(
+
+            (suggestion) => {
+
+
+                const listItem =
+
+                    document.createElement(
+                        "li"
+                    );
+
+
+                listItem.textContent =
+
+                    typeof suggestion ===
+                    "string"
+
+                        ? suggestion
+
+                        : suggestion.text ||
+                          suggestion.message ||
+                          JSON.stringify(
+                              suggestion
+                          );
+
+
+                suggestionsList.appendChild(
+                    listItem
                 );
 
 
-            item.textContent =
-                suggestion;
+            }
 
-
-            suggestionsList.appendChild(
-                item
-            );
-
-        }
-
-    );
-
-
-    resultDisclaimer.textContent =
-
-        data.disclaimer
-
-        ||
-
-        (
-            "This is a general wellness self-reflection "
-            +
-            "and is not a medical or mental-health diagnosis."
         );
 
-
-    if (
-        data.camera_summary
-    ) {
-
-        const summary =
-            data.camera_summary;
-
-
-        cameraSummaryText.textContent =
-
-            `The optional camera check collected ${
-                summary.total_observations
-                ??
-                expressionObservations.length
-            } experimental expression observations. `
-            +
-            `The most frequently observed expression was "${
-                summary.most_observed_expression
-                ??
-                "not available"
-            }". `
-            +
-            "These observations are contextual only and were not used as a direct measurement of stress.";
-
-
-        showElement(
-            cameraSummaryBlock
-        );
 
     }
+
     else {
 
-        hideElement(
-            cameraSummaryBlock
+
+        const defaultSuggestions = [
+
+            "Take a short break and give yourself time to reset.",
+
+            "Try slow breathing or a brief grounding exercise.",
+
+            "Consider talking with someone you trust if something is weighing on you."
+
+        ];
+
+
+        defaultSuggestions.forEach(
+
+            (suggestion) => {
+
+
+                const listItem =
+
+                    document.createElement(
+                        "li"
+                    );
+
+
+                listItem.textContent =
+                    suggestion;
+
+
+                suggestionsList.appendChild(
+                    listItem
+                );
+
+
+            }
+
         );
+
 
     }
 
+
+
+    // ======================================================
+    // DISCLAIMER
+    // ======================================================
+
+    if (resultDisclaimer) {
+
+        resultDisclaimer.textContent =
+
+            data.disclaimer ??
+
+            "This result is intended for general wellness and self-reflection only and is not a medical or mental-health diagnosis.";
+
+    }
+
+
+
+    // ======================================================
+    // SCROLL TO RESULT
+    // ======================================================
 
     resultSection.scrollIntoView({
 
@@ -1465,207 +1131,115 @@ function displayResult(data) {
 
 
 // ==========================================================
-// RESTART COMPLETE CHECK
+// RESTART STRESS CHECK
 // ==========================================================
 
-function restartStressCheck() {
+if (restartCheckBtn) {
 
-    stopCameraStream();
+    restartCheckBtn.addEventListener(
 
+        "click",
 
-    cameraUsed =
-        false;
-
-
-    expressionObservations =
-        [];
+        () => {
 
 
-    questions =
-        [];
+            // Reset application state
+
+            questions =
+                [];
 
 
-    answers =
-        [];
+            answers =
+                [];
 
 
-    currentQuestionIndex =
-        0;
+            currentQuestionIndex =
+                0;
 
 
-    observationCount.textContent =
-        "0";
+
+            // Hide result
+
+            hideElement(
+                resultSection
+            );
 
 
-    latestEmotion.textContent =
-        "Waiting...";
+            hideElement(
+                resultLoadingSection
+            );
 
 
-    cameraAnalysisStatus.textContent =
-        "Starting camera...";
+            hideElement(
+                questionnaireSection
+            );
 
 
-    hideElement(
-        cameraSection
+            hideElement(
+                questionLoadingSection
+            );
+
+
+            // Show start screen
+
+            showElement(
+                startSection
+            );
+
+
+            hideStatusMessage();
+
+
+
+            // Reset button selections
+
+            scoreButtons.forEach(
+
+                (button) => {
+
+                    button.classList.remove(
+                        "selected"
+                    );
+
+                }
+
+            );
+
+
+            // Scroll to top
+
+            window.scrollTo({
+
+                top:
+                    0,
+
+                behavior:
+                    "smooth"
+
+            });
+
+
+        }
+
     );
-
-
-    hideElement(
-        questionLoadingSection
-    );
-
-
-    hideElement(
-        questionnaireSection
-    );
-
-
-    hideElement(
-        resultLoadingSection
-    );
-
-
-    hideElement(
-        resultSection
-    );
-
-
-    hideElement(
-        restartCameraBtn
-    );
-
-
-    showElement(
-        stopCameraBtn
-    );
-
-
-    showElement(
-        cameraChoiceSection
-    );
-
-
-    hideStatus();
-
-
-    window.scrollTo({
-
-        top:
-            0,
-
-        behavior:
-            "smooth"
-
-    });
 
 }
 
 
 // ==========================================================
-// EVENT LISTENERS
+// DEBUG
 // ==========================================================
 
-startCameraBtn.addEventListener(
-
-    "click",
-
-    startCamera
-
+console.log(
+    "MindBridge Stress Check initialized."
 );
 
-
-skipCameraBtn.addEventListener(
-
-    "click",
-
-    skipCamera
-
+console.log(
+    "Generate Questions API:",
+    API_ENDPOINTS.generateStressQuestions
 );
 
-
-finishCameraBtn.addEventListener(
-
-    "click",
-
-    finishCameraCheck
-
-);
-
-
-stopCameraBtn.addEventListener(
-
-    "click",
-
-    handleStopCamera
-
-);
-
-
-restartCameraBtn.addEventListener(
-
-    "click",
-
-    handleRestartCamera
-
-);
-
-
-scoreButtons.forEach(
-
-    button => {
-
-        button.addEventListener(
-
-            "click",
-
-            selectScore
-
-        );
-
-    }
-
-);
-
-
-nextQuestionBtn.addEventListener(
-
-    "click",
-
-    goToNextQuestion
-
-);
-
-
-previousQuestionBtn.addEventListener(
-
-    "click",
-
-    goToPreviousQuestion
-
-);
-
-
-restartCheckBtn.addEventListener(
-
-    "click",
-
-    restartStressCheck
-
-);
-
-
-// ==========================================================
-// CLEAN UP CAMERA WHEN PAGE CLOSES
-// ==========================================================
-
-window.addEventListener(
-
-    "beforeunload",
-
-    () => {
-
-        stopCameraStream();
-
-    }
-
+console.log(
+    "Analyze Stress API:",
+    API_ENDPOINTS.analyzeStress
 );
